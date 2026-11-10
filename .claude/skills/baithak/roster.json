@@ -1,10 +1,11 @@
 {
   "board": "ask",
-  "default": ["nithin", "kunal", "girish", "vembu"],
+  "default": ["nithin", "kunal", "girish", "vembu", "deepinder"],
   "seats": [
     { "key": "nithin", "name": "Nithin Kamath", "short": "Nithin", "initials": "NK", "slug": "nithin-kamath", "pillar": "Trust, regulation, and capital discipline", "question": "Will Indians trust you with their money or data without you burning cash to buy them?", "dimension": "Trust and capital efficiency", "color": "#22b8a0", "depth": "seed", "sources": 9 },
     { "key": "kunal", "name": "Kunal Shah", "short": "Kunal", "initials": "KS", "slug": "kunal-shah", "pillar": "Consumer behaviour and India 1 vs Bharat", "question": "Is this a big enough leap over today's jugaad that nobody goes back?", "dimension": "Behaviour change and segment fit", "color": "#e05d9b", "depth": "seed", "sources": 10 },
     { "key": "girish", "name": "Girish Mathrubootham", "short": "Girish", "initials": "GM", "slug": "girish-mathrubootham", "pillar": "B2B SaaS and India-to-global", "question": "Why sell this for ₹999 in India when the world will pay $500?", "dimension": "Market choice and SaaS go-to-market", "color": "#c9a227", "depth": "seed", "sources": 11 },
-    { "key": "vembu", "name": "Sridhar Vembu", "short": "Vembu", "initials": "SV", "slug": "sridhar-vembu", "pillar": "Frugal R&D, Bharat, and bootstrapping", "question": "Can you build real depth cheaply, outside the metro bubble, without VC money?", "dimension": "Frugality and depth", "color": "#5b7cfa", "depth": "seed", "sources": 11 }
+    { "key": "vembu", "name": "Sridhar Vembu", "short": "Vembu", "initials": "SV", "slug": "sridhar-vembu", "pillar": "Frugal R&D, Bharat, and bootstrapping", "question": "Can you build real depth cheaply, outside the metro bubble, without VC money?", "dimension": "Frugality and depth", "color": "#5b7cfa", "depth": "seed", "sources": 11 },
+    { "key": "deepinder", "name": "Deepinder Goyal", "short": "Deepinder", "initials": "DG", "slug": "deepinder-goyal", "pillar": "Consumer habit and operations at scale", "question": "Is this a daily habit, and what breaks at 10,000 orders a day?", "dimension": "Frequency and operational scale", "color": "#ef7d32", "depth": "seed", "sources": 13 }
   ]
 }
