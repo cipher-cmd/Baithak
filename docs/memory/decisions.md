@@ -81,3 +81,13 @@ Newest at the bottom. If you change a decision, do not delete the old one. Add a
 - **Date:** 2026-11-10.
 - **Decision:** Extraction agents run on Haiku (quote checker catches every error; quality matched Sonnet). Brain writers prefer Sonnet; Haiku is acceptable when tokens are tight, but it names more frameworks itself ("inferred") instead of using the person's names. Seats speaking in consults and councils stay on Sonnet (agent files already say `model: sonnet`).
 - **Why:** In two Haiku consults the seat put paraphrases or framework names inside quotation marks (2 of 5 quotes failed the checker in the Nithin GST consult, even after the "never quote a paraphrase" rule was added), and made one arithmetic slip. Sonnet consults had 0 failed quotes across three runs.
+
+## D17. Idea-type router and wave-2 laws
+- **Date:** 2026-11-10.
+- **Decision:** The Chair classifies every idea into 8 types (`references/idea-types.md`) with per-type checks; the 5 MSME friction filters apply only where the type lists them. 11 new law files cover food, labels, ads, BIS, environment, export, cosmetics and devices, labour, insurance, RERA, education.
+- **Why:** The user wants Baithak to serve every kind of Indian founder, not only software sold to MSMEs.
+
+## D18. No faces in any Baithak asset, including banners
+- **Date:** 2026-11-10.
+- **Decision:** The user's banner with AI-generated faces of the five founders was not committed. `Baithak_*.png` is gitignored. Banners and social images use names, initials or abstract art only.
+- **Why:** Likeness is the core of Indian personality-rights orders (D2, D3, D4), and the README promises no portraits.

@@ -15,6 +15,11 @@ Last updated: 2026-11-10. Keep this file current. Read it at the start of every 
 - **Vendored:** `vendor/ai-job-search/` (full copy of ai-job-search, 2026-11-05). Personal-data paths are gitignored.
 - **Current phase:** Phase C (seats) next. Requires Sonnet. See `WORKPLAN.md` Part 4.
 
+## v1 status (2026-11-10)
+
+- `main` (origin) holds v1: five seats, idea-type router, 24 law files, seatkit, choose-seats picker, new README, example council `sessions/2026-11-10-example-fantasy-cricket/` (BLACK veto test passed).
+- Repo is still PRIVATE. Before going public, see the pre-public blockers in `docs/memory/session-log.md` (2026-11-10 entry).
+
 ## Next step
 
 **Waiting on user review of Nithin** (`build/nithin-kamath/review-consult.md`). If approved: build Kunal, Girish, Vembu, Deepinder at `--quick`, one branch per seat batch.
