@@ -30,3 +30,21 @@ Every file lives in `.claude/skills/baithak/laws/`. The Chair may cite only thes
 1. Open and read the official RBI, SEBI and CBIC texts for every BLACK file.
 2. Check the Aadhaar file against the Act and the 2021 Regulations.
 3. Ask an Indian lawyer to review the BLACK-zone files (also in the pre-launch checklist in `WORKPLAN.md` E3).
+
+## Wave 2 (added 2026-11-10, researched by Haiku agents, linted and spot-checked by the main session)
+
+Most government sites returned 403 or unreadable PDFs to the fetch tool, so most of these rest on law-firm and legal-news summaries. Each file's "Watch for" names what was not verified. Treat all of wave 2 as needing a manual official-text check before public launch.
+
+| File | Zone trigger | Official text opened | Confidence | Biggest open point |
+|---|---|---|---|---|
+| `food-safety-fssai.md` | BLACK | Yes (FSSAI order 13 Mar 2026) | Medium-high | E-commerce and home-kitchen tiers; labelling rules not covered |
+| `legal-metrology-packaged-commodities.md` | GRAY | No | Medium-low | Rule 6 declaration list not verified |
+| `advertising-and-endorsements.md` | GRAY | No | Medium-low | Penalty figures; ASCI not covered |
+| `bis-quality-control-orders.md` | BLACK | No (bare-act copies agree) | Medium | Gazette check of s.17 and s.29(3) |
+| `environment-consents-and-epr.md` | BLACK | No | Low | Whether importers register for battery and e-waste EPR |
+| `export-import-and-fema.md` | GRAY | No | Medium-low | Export realisation period: 15 vs 9 months (Sept 2026 amendment), confirm with RBI text |
+| `drugs-cosmetics-and-medical-devices.md` | BLACK | No | Medium | Class A device registration; supplement line with FSSAI |
+| `labour-codes.md` | GRAY | No | Medium | Central rules status; ESI and gratuity thresholds |
+| `insurance-irdai.md` | BLACK | Partly (policyholder.gov.in) | Medium | Embedded insurance not covered; 2025 amendment text |
+| `rera-real-estate.md` | BLACK | No | Low (one source) | Needs a second source; co-living applicability |
+| `coaching-and-education.md` | BLACK | No | Medium-low | Penalties; UGC counts from one article |
