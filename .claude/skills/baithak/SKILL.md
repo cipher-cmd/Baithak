@@ -12,6 +12,7 @@ Read once before the first run:
 - `roster.json`: every seat and the default board.
 - `references/seats.md`: picking the board, weights, tensions.
 - `references/india-filters.md`: India tiers, the 5 friction filters, the 4 scalability bottlenecks.
+- `references/idea-types.md`: the 8 idea types (software, consumer app, marketplace, physical product and D2C, manufacturing and hardware, service business, local business, regulated sector), with each type's checks, law files and seat weights.
 - `references/evidence-ladder.md`: what counts as validation.
 - `references/legal-gate.md` and the `laws/` folder: the WHITE/GRAY/BLACK legal zone.
 - `references/round-prompts.md`: what each seat gets.
@@ -55,6 +56,7 @@ Build the brief from what the user gave you. The council is only as good as the 
    - **B** is a sharper, narrower, or legally cleaner version. If the founder did not give one, the Chair proposes the obvious one and marks it `(Chair's reframe)`.
    - **C** is "don't build it / keep doing what you do now".
 2. **Who pays** (required): India 1, India 2, India 3, or India-to-Global, per `india-filters.md`. If the founder is unsure, propose the tier and mark it `(assumed)`.
+2a. **Idea type** (required): the primary type and at most one secondary type from `references/idea-types.md` (software, consumer app, marketplace, physical product and D2C, manufacturing and hardware, service business, local business, regulated sector). Classify it yourself; ask only if it is truly ambiguous. Then add the type's "Brief needs" facts to this list.
 3. **Today's workaround** (required): what the customer does now (an employee, a CA, Excel, WhatsApp, a notebook, nothing).
 4. **Money flow and first 20 customers** (required): price, payment rail (UPI AutoPay, annual upfront, per transaction, COD, invoice), who signs off, and the channel for the first 20 paying customers.
 5. **Resources**: cash or runway, founder hours, deadline.
@@ -71,7 +73,7 @@ Keep the brief under 350 words.
 Run these yourself, as Chair, and write them into `india-checks.md` in the session folder. Seats read it in every round.
 
 1. **Legal zone** per `references/legal-gate.md`. Classify Option A and Option B as WHITE, GRAY, or BLACK. Cite only files in `laws/` by their file name, like `[laws/online-gaming-act-2025.md]`. If no law file covers the idea's domain, write `zone: UNMAPPED` and say which regulator to check; never cite a law from memory.
-2. **The 5 friction filters** from `india-filters.md`: grade each PASS, AT RISK, or FAIL with one line of reasoning.
+2. **Type checks and friction filters.** Read `references/idea-types.md` for the idea's type. Run its checks, read the law files it lists for the legal zone, and use its seat weights as the starting point. Then grade the 5 friction filters from `india-filters.md` that the type lists, PASS, AT RISK, or FAIL with one line of reasoning; mark the others `n/a for this type`. If no seat specialises in the type, say so in one line.
 3. **The 4 scalability bottlenecks** from `india-filters.md`: grade the idea HIGH, CAPPED, or BROKEN with the bottleneck named.
 4. **Evidence level** (0 to 5) from `evidence-ladder.md`.
 

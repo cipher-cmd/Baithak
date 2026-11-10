@@ -20,7 +20,7 @@ BAITHAK COUNCIL, ROUND 1 OF 3: OPENING POSITION
 Repo root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most three more brain files that fit this decision (frameworks.md and positions.md are usually the right ones).
 
 Read the brief: [session folder]/brief.md
-Read the Chair's India checks: [session folder]/india-checks.md (who pays, the legal zone, the 5 filters, scalability). Argue with them where your pillar disagrees.
+Read the Chair's India checks: [session folder]/india-checks.md (who pays, the idea type and its checks, the legal zone, the graded filters, scalability). Argue with them where your pillar disagrees.
 
 Your weight on this decision: [w]/3 ([one-line reason]).
 

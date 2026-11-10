@@ -25,10 +25,13 @@ Math: [one line per option]
 
 ## India checks
 
+Type: [primary] (+ [secondary]) per `idea-types.md`
+
 | Check | Grade | Why |
 |---|---|---|
 | Legal zone | [zone] | [one line, citing [laws/<file>.md], or "UNMAPPED: check with <regulator>"] |
-| 1. ₹12k employee and WhatsApp test | PASS / AT RISK / FAIL | ... |
+| [Each type check, e.g. "Gross margin after cost of goods"] | PASS / AT RISK / FAIL | ... |
+| 1. ₹12k employee and WhatsApp test | PASS / AT RISK / FAIL / n/a for this type | ... |
 | 2. Hard-money anchor | ... | ... |
 | 3. Gatekeeper (CA, munim, manager) | ... | ... |
 | 4. Collection and payment friction | ... | ... |
