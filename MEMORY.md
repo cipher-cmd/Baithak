@@ -8,7 +8,7 @@ Last updated: 2026-11-10. Keep this file current. Read it at the start of every 
 - **Repo:** `C:\Users\Furqan\Desktop\IndianRoastRoom\baithak`, branch `main`.
   - Git (2026-11-10): Claude MAY commit and push. One branch per feature. All Phase A+B work is committed on `feat/india-layer-and-laws` (pushed to `origin`, repo is private). Remote `main` holds only a README (unrelated history); merge needs `--allow-unrelated-histories` once the user approves.
   - Remotes: `upstream` = nateherkai/roast-room (never push there). `origin` = cipher-cmd/Baithak (private).
-- **Seats:** none built yet. `.claude/skills/baithak/roster.json` has an empty roster. Planned v1 seats: Nithin Kamath, Kunal Shah, Sridhar Vembu, Girish Mathrubootham, Deepinder Goyal (Aman Gupta excluded: Delhi HC order, May 2026).
+- **Seats:** Nithin built 2026-11-10 (seed depth, 9 usable of 12 sources, 209 quotes verified, branch `feat/seat-nithin`, awaiting user review). Other four not built. `.claude/skills/baithak/roster.json` has an empty roster. Planned v1 seats: Nithin Kamath, Kunal Shah, Sridhar Vembu, Girish Mathrubootham, Deepinder Goyal (Aman Gupta excluded: Delhi HC order, May 2026).
 - **Laws:** 14 files in `.claude/skills/baithak/laws/`. Phase B complete (2026-11-05). `check_laws.py --lint` passes. Several files are marked as secondary-source only; see `docs/memory/laws-status.md`.
 - **Scripts:** `check_quotes.py` (Baithak, brain quotes, has `--selftest`), `check_laws.py` (has `--selftest`, `--lint`), `check_quotes.mjs` and `fetch.mjs` and `add_seat.mjs` (newseat). All self-tests pass.
 - **Tools installed:** yt-dlp 2026.10.26 via `python -m yt_dlp` (not on PATH). `fetch.mjs` finds it automatically. Node 26, Python 3.13.
@@ -16,6 +16,9 @@ Last updated: 2026-11-10. Keep this file current. Read it at the start of every 
 - **Current phase:** Phase C (seats) next. Requires Sonnet. See `WORKPLAN.md` Part 4.
 
 ## Next step
+
+**Waiting on user review of Nithin** (`build/nithin-kamath/review-consult.md`). If approved: build Kunal, Girish, Vembu, Deepinder at `--quick`, one branch per seat batch.
+
 
 0. Decision D15: all five seats at `--quick` depth, Nithin first, short review, then the rest. Branch per seat batch: `feat/seat-nithin`, then `feat/seats-v1-rest`.
 1. Session model is Sonnet (set 2026-11-10).

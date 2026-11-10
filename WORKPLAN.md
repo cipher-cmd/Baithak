@@ -248,7 +248,7 @@ The `zone_trigger` given in each task is the expected value. If the sources clea
    ```
    Never `git add build/`. It is gitignored on purpose.
 
-- [ ] **C1. Nithin Kamath** (`nithin`, `nithin-kamath`)
+- [x] **C1. Nithin Kamath** (built 2026-11-10 at seed depth: 12 sources fetched, 9 usable, 93k words; branch `feat/seat-nithin`) (`nithin`, `nithin-kamath`)
   - Source hints:
     - Zerodha's blog and Z-Connect posts written by Nithin;
     - his long posts on X (`@Nithin0dha`);

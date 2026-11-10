@@ -30,3 +30,4 @@ Each entry: date, model, what was done, what changed, what is next. Keep entries
 - Gave the user a token estimate for 5 quick seats and an open-source growth plan.
 
 **Next:** user confirms; build Nithin at `--quick` on `feat/seat-nithin`.
+- Built Nithin Kamath seat at seed depth on `feat/seat-nithin`. Court-order check clean. 12 sources, S005 and S006 garbled (Devanagari phonetics / spam captions), S009 has no Nithin words. 9 usable. Consult test passed after one source-id fix (S003). Added `--depth` and `--sources` to add_seat.mjs. YouTube search trick: `python -m yt_dlp "ytsearch6:query" --flat-playlist --print "%(duration)s|%(id)s|%(channel)s|%(title)s"` finds long videos without inventing URLs. YourStory returns HTTP 403 to fetch.mjs.
