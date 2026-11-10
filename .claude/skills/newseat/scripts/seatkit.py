@@ -236,12 +236,12 @@ def cmd_plan(s, args):
             p += "Excluded sources (do not cite): " + ", ".join(sorted(excluded)) + ".\n"
         p += note
         open(os.path.join(pdir, f"write-{tag}.md"), "w", encoding="utf-8").write(p)
-    c = consult_template().replace("[absolute path]", root).replace("[SEAT]", s["key"].capitalize())
+    c = consult_template().replace("[absolute path of the Baithak skill folder]", root + "/.claude/skills/baithak").replace("[SEAT]", s["key"].capitalize())
     c = c.replace("[question, plus any context]",
                   "I want to build a WhatsApp GST billing assistant for hardware and electrical shops in Tier-2 cities "
                   "at Rs 999 per month. Today their munim uses a notebook and Tally. I'd sell through local CAs who get "
                   "20% commission. I have Rs 3 lakh and 6 months. Leaning yes because 5 CAs liked it.")
-    c = (f"Read .claude/agents/council-{s['key']}.md and follow it as your instructions for this whole task. "
+    c = (f"Read {root}/.claude/skills/baithak/seats/council-{s['key']}.md and follow it as your instructions for this whole task. "
          f"Only read files; do not write anything.\n\n" + c)
     open(os.path.join(pdir, "consult.md"), "w", encoding="utf-8").write(c)
     runbook = f"""# Runbook: {s['name']} ({s['key']})
@@ -254,7 +254,7 @@ Usable sources: {len(usable)} ({sum(x['words'] for x in usable):,} words). Exclu
 2. `python .claude/skills/newseat/scripts/seatkit.py check {s['key']} notes` must end `not found: 0`.
 3. `node .claude/skills/newseat/scripts/fetch.mjs {rel(b)} --sources-md {brain}/sources.md --name "{s['name']}"`
 4. Writers (3 agents, Sonnet): prompts/write-A.md, write-B.md, write-C.md.
-5. Write `{brain}/_hot.md` and `.claude/agents/council-{s['key']}.md` yourself (spec: newseat SKILL.md steps 5 and 6).
+5. Write `{brain}/_hot.md` and `.claude/skills/baithak/seats/council-{s['key']}.md` yourself (spec: newseat SKILL.md steps 5 and 6).
 6. Consult test (Sonnet): prompts/consult.md. Save the answer to {rel(b)}/review-consult.md, then `check {s['key']} {rel(b)}/review-consult.md`.
 7. `python .claude/skills/newseat/scripts/seatkit.py finish {s['key']}` must print `ALL CHECKS PASS`.
 """
@@ -276,7 +276,7 @@ def cmd_check(s, args):
 def cmd_finish(s, args):
     b = build_dir(s)
     brain = os.path.join(BAITHAK, "brains", s["slug"])
-    agent = os.path.join(ROOT, ".claude", "agents", f"council-{s['key']}.md")
+    agent = os.path.join(BAITHAK, "seats", f"council-{s['key']}.md")
     problems = []
     if not os.path.exists(os.path.join(b, "rights-check.md")):
         problems.append("no rights-check.md (personality-rights check not recorded)")

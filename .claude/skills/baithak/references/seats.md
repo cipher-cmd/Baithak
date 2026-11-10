@@ -1,6 +1,6 @@
 # Seats
 
-`roster.json` (one folder up) is the source of truth: every seat that is actually built, its key, pillar, question, and scorecard dimension, plus the default board. A seat exists only when it has an agent file (`.claude/agents/council-<key>.md`) and a brain (`brains/<slug>/`).
+`roster.json` (one folder up) is the source of truth: every seat that is actually built, its key, pillar, question, and scorecard dimension, plus the default board. A seat exists only when it has a seat file (`seats/council-<key>.md`) and a brain (`brains/<slug>/`).
 
 ## Planned v1 seats
 

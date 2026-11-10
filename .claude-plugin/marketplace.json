@@ -1,0 +1,12 @@
+{
+  "name": "baithak",
+  "owner": { "name": "cipher-cmd" },
+  "description": "Baithak: an Indian-market idea council for Claude Code.",
+  "plugins": [
+    {
+      "name": "baithak",
+      "source": "./",
+      "description": "Bring an idea for India; a council of advisors argues it out and the Chair returns a scored verdict, a 7-day test and kill criteria."
+    }
+  ]
+}

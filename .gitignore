@@ -28,3 +28,11 @@ vendor/ai-job-search/salary_data/
 
 # Local images with real people's likenesses must never be committed
 Baithak_*.png
+
+# Maintainer-only files: kept on the maintainer's machine, never published.
+# (CLAUDE.md here would auto-load into every user's Claude session.)
+/CLAUDE.md
+/MEMORY.md
+/WORKPLAN.md
+/docs/memory/
+/vendor/

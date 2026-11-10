@@ -47,13 +47,26 @@ All five are seed depth (about 65,000 to 125,000 words each). They will get deep
 
 ## Install
 
+**Option 1: as a Claude Code plugin (recommended).** Inside Claude Code:
+
+```
+/plugin marketplace add cipher-cmd/Baithak
+/plugin install baithak@baithak
+```
+
+On recent Claude Code versions this also works in one step: `/plugin install baithak --marketplace cipher-cmd/Baithak`. Plugin skills are namespaced, so the command is `/baithak:baithak`; asking "run a baithak on my idea" also triggers it.
+
+**Option 2: clone the repo.** Use this if you want to build new advisors or edit the law files.
+
 ```bash
 git clone https://github.com/cipher-cmd/Baithak.git
 cd Baithak
 claude
 ```
 
-Start Claude Code inside the folder so the skill and the advisors load. You need Python 3 for the quote and law checkers. Node.js 20+ and `yt-dlp` are only needed to build new advisors.
+Then type `/baithak`. You need Python 3 for the quote and law checkers. Node.js 20+ and `yt-dlp` are only needed to build new advisors.
+
+Everything the council needs lives in one folder, `.claude/skills/baithak/`: the seats (`seats/`), their brains (`brains/`), the law files (`laws/`), the Chair's references and the checker scripts. Councils are saved to `sessions/` in whatever project you run it from.
 
 ## Use it
 

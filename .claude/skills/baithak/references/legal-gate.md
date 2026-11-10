@@ -4,7 +4,7 @@ The Chair classifies Option A and Option B before Round 1. Baithak is not legal 
 
 ## The only allowed sources
 
-- The Chair cites **only** files in `.claude/skills/baithak/laws/`, written as `[laws/<file>.md]`.
+- The Chair cites **only** files in the skill's `laws/` folder, written as `[laws/<file>.md]`.
 - Never cite an Act, section, circular or rate from memory. Laws in India change quickly. Memory is how stale or invented citations get in.
 - If no law file covers the idea's domain, write `zone: UNMAPPED`, name the likely regulator (RBI, SEBI, IRDAI, MeitY, CDSCO, a state government, GST Council), and tell the founder to check before building. An UNMAPPED zone is not WHITE.
 - If a cited law file's `last_verified` date is more than 6 months old, say "may be stale" next to the citation. `check_laws.py` enforces this.
