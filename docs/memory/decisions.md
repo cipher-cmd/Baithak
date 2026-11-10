@@ -76,3 +76,8 @@ Newest at the bottom. If you change a decision, do not delete the old one. Add a
 - **Date:** 2026-11-10.
 - **Decision:** Build the five v1 seats at `--quick` (12 to 20 sources each). Roster gets a `depth` field. Chair names thin seats in the verdict. Deepen later. Partly supersedes the "standard depth" line in WORKPLAN Phase C. The stop-after-Nithin review stays, but shorter.
 - **Why:** Land a working council today; contributors can deepen seats later.
+
+## D16. Model split for seats (from the Girish and Vembu runs)
+- **Date:** 2026-11-10.
+- **Decision:** Extraction agents run on Haiku (quote checker catches every error; quality matched Sonnet). Brain writers prefer Sonnet; Haiku is acceptable when tokens are tight, but it names more frameworks itself ("inferred") instead of using the person's names. Seats speaking in consults and councils stay on Sonnet (agent files already say `model: sonnet`).
+- **Why:** In two Haiku consults the seat put paraphrases or framework names inside quotation marks (2 of 5 quotes failed the checker in the Nithin GST consult, even after the "never quote a paraphrase" rule was added), and made one arithmetic slip. Sonnet consults had 0 failed quotes across three runs.
