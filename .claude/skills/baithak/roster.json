@@ -1,7 +1,8 @@
 {
   "board": "ask",
-  "default": ["nithin"],
+  "default": ["nithin", "kunal"],
   "seats": [
-    { "key": "nithin", "name": "Nithin Kamath", "short": "Nithin", "initials": "NK", "slug": "nithin-kamath", "pillar": "Trust, regulation, and capital discipline", "question": "Will Indians trust you with their money or data without you burning cash to buy them?", "dimension": "Trust and capital efficiency", "color": "#22b8a0", "depth": "seed", "sources": 9 }
+    { "key": "nithin", "name": "Nithin Kamath", "short": "Nithin", "initials": "NK", "slug": "nithin-kamath", "pillar": "Trust, regulation, and capital discipline", "question": "Will Indians trust you with their money or data without you burning cash to buy them?", "dimension": "Trust and capital efficiency", "color": "#22b8a0", "depth": "seed", "sources": 9 },
+    { "key": "kunal", "name": "Kunal Shah", "short": "Kunal", "initials": "KS", "slug": "kunal-shah", "pillar": "Consumer behaviour and India 1 vs Bharat", "question": "Is this a big enough leap over today's jugaad that nobody goes back?", "dimension": "Behaviour change and segment fit", "color": "#e05d9b", "depth": "seed", "sources": 10 }
   ]
 }
