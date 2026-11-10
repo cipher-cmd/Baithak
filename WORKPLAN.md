@@ -280,7 +280,7 @@ The `zone_trigger` given in each task is the expected value. If the sources clea
     - his posts on X (`@mrgirish`);
     - Together Fund interviews.
 
-- [ ] **C4. Sridhar Vembu** (`vembu`, `sridhar-vembu`)
+- [x] **C4. Sridhar Vembu** (built 2026-11-10 with seatkit, all agents on Haiku, seed depth, 11 sources; branch `feat/seat-vembu`) (`vembu`, `sridhar-vembu`)
   - Source hints:
     - his long posts on X (`@svembu`) on rural development, frugality, R&D, and not raising VC;
     - long interviews about Zoho, Tenkasi, and rural offices;
