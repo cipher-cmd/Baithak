@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/sessions/**)",
+      "Bash(python .claude/skills/baithak/scripts/check_quotes.py:*)",
+      "Bash(python3 .claude/skills/baithak/scripts/check_quotes.py:*)",
+      "Bash(python .claude/skills/baithak/scripts/check_laws.py:*)",
+      "Bash(python3 .claude/skills/baithak/scripts/check_laws.py:*)",
+      "Bash(node .claude/skills/newseat/scripts/fetch.mjs:*)",
+      "Bash(node .claude/skills/newseat/scripts/check_quotes.mjs:*)"
+    ]
+  }
+}
