@@ -3,7 +3,7 @@
 //
 //   node .claude/skills/newseat/scripts/add_seat.mjs --key nithin --name "Nithin Kamath" --short Nithin \
 //     --slug nithin-kamath --pillar "Trust, regulation, and capital discipline" --question "Will Indians trust you with money or data without you burning cash?" \
-//     --dimension "Trust and capital efficiency" [--color "#22b8a0"] [--default] [--swap <key>]
+//     --dimension "Trust and capital efficiency" [--color "#22b8a0"] [--default] [--swap <key>] [--depth seed] [--sources 9]
 //
 // Checks the agent file and the brain exist first, so a half-built seat never reaches the table.
 // --default puts the seat on the default board; --swap <key> takes that seat off the board in
@@ -28,6 +28,9 @@ const seat = {
   name: opt("name"), short: opt("short"), initials: opt("initials"), slug: opt("slug"),
   pillar: opt("pillar"), question: opt("question"), dimension: opt("dimension"), color: opt("color"),
 };
+// optional honesty fields: depth (seed|standard|deep) and usable source count, shown by the Chair
+if (opt("depth")) seat.depth = opt("depth");
+if (opt("sources")) seat.sources = Number(opt("sources"));
 for (const f of ["key", "name", "short", "slug", "pillar", "question", "dimension"]) if (!seat[f]) fail(`--${f} is required`);
 if (!/^[a-z][a-z0-9]{1,15}$/.test(seat.key)) fail("--key must be 2 to 16 lowercase letters or digits, starting with a letter");
 if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(seat.slug)) fail("--slug must look like first-last");

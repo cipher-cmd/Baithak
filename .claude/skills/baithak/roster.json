@@ -1,6 +1,7 @@
 {
   "board": "ask",
-  "default": [],
+  "default": ["nithin"],
   "seats": [
+    { "key": "nithin", "name": "Nithin Kamath", "short": "Nithin", "initials": "NK", "slug": "nithin-kamath", "pillar": "Trust, regulation, and capital discipline", "question": "Will Indians trust you with their money or data without you burning cash to buy them?", "dimension": "Trust and capital efficiency", "color": "#22b8a0", "depth": "seed", "sources": 9 }
   ]
 }
