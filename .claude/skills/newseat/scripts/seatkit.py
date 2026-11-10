@@ -46,7 +46,7 @@ def die(msg):
 
 
 def run(cmd, check=True):
-    print("$ " + " ".join(cmd))
+    print("$ " + " ".join(cmd), flush=True)
     r = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace")
     if check and r.returncode:
         die(f"command failed ({r.returncode})")
@@ -224,6 +224,7 @@ def cmd_plan(s, args):
               f"line to your one-line reply.\n")
         open(os.path.join(pdir, f"extract-{nn}.md"), "w", encoding="utf-8").write(p)
     brain = f".claude/skills/baithak/brains/{s['slug']}"
+    os.makedirs(os.path.join(ROOT, brain), exist_ok=True)  # fetch.mjs --sources-md needs it
     wr = template("writer-prompt.md")
     for tag, files in [("A", "frameworks.md, principles.md, books.md"),
                        ("B", "positions.md, stories.md"), ("C", "voice.md")]:
@@ -337,6 +338,7 @@ COMMANDS = {"discover": cmd_discover, "fetch": cmd_fetch, "plan": cmd_plan,
             "check": cmd_check, "finish": cmd_finish, "cost": cmd_cost}
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # Windows console is cp1252; seat text has ₹
     a = sys.argv[1:]
     if a[:1] == ["--selftest"]:
         selftest()
