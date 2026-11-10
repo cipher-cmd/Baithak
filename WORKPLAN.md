@@ -287,14 +287,14 @@ The `zone_trigger` given in each task is the expected value. If the sources clea
     - podcasts and keynotes.
   - Note: some of his posts are about politics or religion. Extract only business, technology, hiring, R&D, rural development and economics views. Skip political and religious opinions entirely; they do not belong in a business seat.
 
-- [ ] **C5. Deepinder Goyal** (`deepinder`, `deepinder-goyal`)
+- [x] **C5. Deepinder Goyal** (built 2026-11-10, seed depth, 13 sources incl. shareholder letters, about 65k words; branch `feat/seat-deepinder`) (`deepinder`, `deepinder-goyal`)
   - Source hints:
     - Zomato and Eternal shareholder letters (he writes these himself; they are text-rich);
     - his long posts on X (`@deepigoyal`);
     - long podcasts where he is the main guest (Figuring Out with Raj Shamani, WTF with Nikhil Kamath, The Ranveer Show);
     - interviews about Blinkit and quick commerce.
 
-- [ ] **C6. Default board check.**
+- [x] **C6. Default board check.** (2026-11-10: default board is all five, board setting "ask")
   - Run `/baithak board` and confirm the default board lists all built seats and the setting is "ask".
   - Commit if `roster.json` changed: `git add .claude/skills/baithak/roster.json WORKPLAN.md && git commit -m "board: v1 default board"`.
 
