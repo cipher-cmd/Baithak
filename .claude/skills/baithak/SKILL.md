@@ -27,7 +27,7 @@ If `roster.json` has no seats, say so in one line: "No seats built yet. Run `/ne
 
 - **Full council** (default): a board recommended for this decision and confirmed by the user, three rounds.
 - **Quick** (`--quick`): four seats, Rounds 1 and 2, Round 3 only if the scores did not converge. For reversible calls. Recommend this mode to first-time users; it costs far less.
-- **Named seats** (`--seats a,b,c`): only those seats, three rounds.
+- **Named seats** (`--seats a,b,c`): only those seats, three rounds. Any number from one (a consult) to nine. Keys are the seat keys in `roster.json`: `nithin`, `kunal`, `girish`, `vembu`, `deepinder`.
 - **Everyone** (`--all`): every seat in `roster.json`, up to nine.
 - **Consult** (`ask <seat> ...`): one seat, one answer, single-seat prompt. No scoring, no India checks, no session folder.
 - **Board settings** (`board`): show and change who sits at the table by default. No council runs.
@@ -45,7 +45,12 @@ If `roster.json` has no seats, say so in one line: "No seats built yet. Run `/ne
 - The seat most likely to disagree with the rest, so the council argues instead of agreeing.
 - Five to seven seats for a full council (or all seats, if fewer exist), four for `--quick`.
 
-Show the recommendation as a short list (seat, one line on why), then one AskUserQuestion (header "Board"): **Recommended board (Recommended)**, **Default board**, **Everyone** (only when nine or fewer). If Step 1 also needs questions, put the board question in the same call. If the user said "just run it", seat the recommended board.
+Show the recommendation as a short list (seat, one line on why), then one AskUserQuestion (header "Board"): **Recommended board (Recommended)**, **Default board**, **Choose seats**, **Everyone** (only when nine or fewer). If Step 1 also needs questions, put the board question in the same call. If the user said "just run it", seat the recommended board.
+
+If the user picks **Choose seats**, ask one more AskUserQuestion with `multiSelect: true`, one option per seat (label: the seat's `short` name; description: its pillar). A question holds at most four options, so with more than four seats split them across two questions in the same call. Seat exactly what they tick:
+- one seat: run a consult (`ask <seat>`) instead of a council, and say so;
+- two or three seats: a council with those seats only; if Nithin is not among them, name the downside risk he would have raised as a crux yourself;
+- with `--quick`, at most four of the chosen seats.
 
 ## Step 1: The brief
 
