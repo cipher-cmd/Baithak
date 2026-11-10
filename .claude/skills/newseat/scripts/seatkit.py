@@ -195,15 +195,13 @@ def cmd_plan(s, args):
     depth = "quick"
     if "--depth" in args:
         depth = args[args.index("--depth") + 1]
-    # greedy batching by word count, largest first, keeps batches near BATCH_WORDS
-    batches = []
+    # --note "..." adds a seat-specific rule to every extract and writer prompt
+    note = "\nSeat-specific rule: " + args[args.index("--note") + 1] + "\n" if "--note" in args else ""
+    # balanced batching: as few agents as the word count needs, largest source into the lightest batch
+    n = -(-sum(x["words"] for x in usable) // BATCH_WORDS)
+    batches = [[] for _ in range(n)]
     for src in sorted(usable, key=lambda x: -x["words"]):
-        for bt in batches:
-            if sum(x["words"] for x in bt) + src["words"] <= BATCH_WORDS:
-                bt.append(src)
-                break
-        else:
-            batches.append([src])
+        min(batches, key=lambda bt: sum(x["words"] for x in bt)).append(src)
     pdir = os.path.join(b, "prompts")
     os.makedirs(pdir, exist_ok=True)
     os.makedirs(os.path.join(b, "notes"), exist_ok=True)
@@ -221,7 +219,7 @@ def cmd_plan(s, args):
         p += (f"\nBefore you finish, run `node .claude/skills/newseat/scripts/check_quotes.mjs {rel(b)} "
               f"{rel(b)}/notes/batch-{nn}.md` and fix every problem it reports. YouTube sources are auto-captions "
               f"with no speaker labels: use context to tell which lines are {s['name']}'s. Add the checker's final "
-              f"line to your one-line reply.\n")
+              f"line to your one-line reply.\n") + note
         open(os.path.join(pdir, f"extract-{nn}.md"), "w", encoding="utf-8").write(p)
     brain = f".claude/skills/baithak/brains/{s['slug']}"
     os.makedirs(os.path.join(ROOT, brain), exist_ok=True)  # fetch.mjs --sources-md needs it
@@ -236,8 +234,9 @@ def cmd_plan(s, args):
               "write \"no recorded position\"; never guess.\n")
         if excluded:
             p += "Excluded sources (do not cite): " + ", ".join(sorted(excluded)) + ".\n"
+        p += note
         open(os.path.join(pdir, f"write-{tag}.md"), "w", encoding="utf-8").write(p)
-    c = consult_template().replace("[absolute path]", root).replace("[SEAT]", s["name"].split()[0])
+    c = consult_template().replace("[absolute path]", root).replace("[SEAT]", s["key"].capitalize())
     c = c.replace("[question, plus any context]",
                   "I want to build a WhatsApp GST billing assistant for hardware and electrical shops in Tier-2 cities "
                   "at Rs 999 per month. Today their munim uses a notebook and Tally. I'd sell through local CAs who get "
@@ -302,7 +301,7 @@ def cmd_finish(s, args):
         usable = len(load_sources(b)) - len(excluded)
         depth = "seed" if usable < 30 else ("standard" if usable < 80 else "deep")
         run(["node", os.path.join(NEWSEAT, "scripts", "add_seat.mjs"), "--key", s["key"], "--name", s["name"],
-             "--short", s["name"].split()[0], "--slug", s["slug"], "--pillar", s["pillar"],
+             "--short", s["key"].capitalize(), "--slug", s["slug"], "--pillar", s["pillar"],
              "--question", s["question"], "--dimension", s["dimension"], "--default",
              "--depth", depth, "--sources", str(usable)])
     print("\n" + ("ALL CHECKS PASS" if not problems else "PROBLEMS:\n  " + "\n  ".join(problems)))
