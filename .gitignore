@@ -2,10 +2,26 @@
 node_modules/
 .DS_Store
 
-# /newroaster's raw sources (transcripts, essays, notes) stay on your machine; only the brain ships
+# /newseat's raw sources (transcripts, essays, notes) stay on your machine; only the brain ships
 build/
 
 # your councils stay on your machine; the examples ship with the repo
 sessions/*
 !sessions/.gitkeep
 !sessions/*example*/
+
+# ai-job-search (vendored in vendor/ai-job-search): personal job-search data stays on your machine
+vendor/ai-job-search/documents/*
+!vendor/ai-job-search/documents/README.md
+!vendor/ai-job-search/documents/*/.gitkeep
+vendor/ai-job-search/company_research/*
+!vendor/ai-job-search/company_research/.gitkeep
+vendor/ai-job-search/job_scraper/*
+!vendor/ai-job-search/job_scraper/.gitkeep
+vendor/ai-job-search/cv/*.tex
+!vendor/ai-job-search/cv/main_example.tex
+vendor/ai-job-search/cover_letters/*.tex
+!vendor/ai-job-search/cover_letters/cover_example.tex
+!vendor/ai-job-search/cover_letters/cover.cls
+vendor/ai-job-search/.claude/settings.local.json
+vendor/ai-job-search/salary_data/
