@@ -266,13 +266,13 @@ The `zone_trigger` given in each task is the expected value. If the sources clea
      - "Please read them and tell me: continue to the other four seats, or fix something first?"
   4. **Wait.** Continue only when the user says to continue.
 
-- [ ] **C2. Kunal Shah** (`kunal`, `kunal-shah`)
+- [x] **C2. Kunal Shah** (built 2026-11-10, seed depth, 10 sources; branch `feat/seat-kunal`) (`kunal`, `kunal-shah`)
   - Source hints:
     - his long X threads (`@kunalb11`) on Delta 4, India 1/2/3, trust, and consumer behaviour;
     - long podcasts where he is the main guest (Kunal Shah on The Knowledge Project, The Seen and the Unseen, WTF with Nikhil Kamath, Figuring Out, Think School);
     - his talks on Delta 4 and on building CRED and FreeCharge.
 
-- [ ] **C3. Girish Mathrubootham** (`girish`, `girish-mathrubootham`)
+- [x] **C3. Girish Mathrubootham** (built 2026-11-10 with seatkit.py, Haiku extraction, seed depth, 11 sources; branch `feat/seat-girish`) (`girish`, `girish-mathrubootham`)
   - Source hints:
     - SaaSBOOMi talks and keynotes;
     - long interviews about building Freshworks from Chennai and its Nasdaq listing;
