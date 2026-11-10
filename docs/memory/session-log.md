@@ -21,3 +21,12 @@ Each entry: date, model, what was done, what changed, what is next. Keep entries
 - Created memory system: `CLAUDE.md` (rewritten), `MEMORY.md`, and `docs/memory/` (user-preferences, decisions, skills, workflow-phases, laws-status, ai-job-search, session-log).
 
 **Next:** Phase C on Sonnet. Preflight: A1 fetch smoke test and Hindi check. Then C0 for Nithin Kamath, then `/newseat`. Stop after Nithin for the user's review.
+
+## 2026-11-10 (session 2, model: Opus 5.5 then Sonnet 5.5)
+
+- Reviewed state; all self-tests pass; upstream Roast Room unchanged (2,039 stars, 474 forks).
+- User granted git authority and asked for a branch per feature. Updated CLAUDE.md, user-preferences, decisions D14 and D15.
+- Added `origin`, committed Phase A+B on `feat/india-layer-and-laws`, pushed. Remote `main` has only a README.
+- Gave the user a token estimate for 5 quick seats and an open-source growth plan.
+
+**Next:** user confirms; build Nithin at `--quick` on `feat/seat-nithin`.

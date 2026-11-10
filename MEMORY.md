@@ -1,13 +1,13 @@
 # MEMORY: live project state
 
-Last updated: 2026-11-05. Keep this file current. Read it at the start of every session. See `docs/memory/` for topic files.
+Last updated: 2026-11-10. Keep this file current. Read it at the start of every session. See `docs/memory/` for topic files.
 
 ## Current state (one screen)
 
 - **Project:** Baithak, open-source Indian-market idea council. Fork of Roast Room (nateherkai, MIT).
 - **Repo:** `C:\Users\Furqan\Desktop\IndianRoastRoom\baithak`, branch `main`.
-  - Git: HEAD is the upstream baseline `e40f406` (Roast Room). **All Baithak work is uncommitted.** The user commits and pushes manually. Claude must not commit or push.
-  - Remotes: `upstream` = nateherkai/roast-room (never push there). There is no `origin` yet. The user plans to create `cipher-cmd/Baithak` and push by hand.
+  - Git (2026-11-10): Claude MAY commit and push. One branch per feature. All Phase A+B work is committed on `feat/india-layer-and-laws` (pushed to `origin`, repo is private). Remote `main` holds only a README (unrelated history); merge needs `--allow-unrelated-histories` once the user approves.
+  - Remotes: `upstream` = nateherkai/roast-room (never push there). `origin` = cipher-cmd/Baithak (private).
 - **Seats:** none built yet. `.claude/skills/baithak/roster.json` has an empty roster. Planned v1 seats: Nithin Kamath, Kunal Shah, Sridhar Vembu, Girish Mathrubootham, Deepinder Goyal (Aman Gupta excluded: Delhi HC order, May 2026).
 - **Laws:** 14 files in `.claude/skills/baithak/laws/`. Phase B complete (2026-11-05). `check_laws.py --lint` passes. Several files are marked as secondary-source only; see `docs/memory/laws-status.md`.
 - **Scripts:** `check_quotes.py` (Baithak, brain quotes, has `--selftest`), `check_laws.py` (has `--selftest`, `--lint`), `check_quotes.mjs` and `fetch.mjs` and `add_seat.mjs` (newseat). All self-tests pass.
@@ -17,7 +17,8 @@ Last updated: 2026-11-05. Keep this file current. Read it at the start of every 
 
 ## Next step
 
-1. User switches the session to Sonnet: `/model sonnet`.
+0. Decision D15: all five seats at `--quick` depth, Nithin first, short review, then the rest. Branch per seat batch: `feat/seat-nithin`, then `feat/seats-v1-rest`.
+1. Session model is Sonnet (set 2026-11-10).
 2. User says: `Read CLAUDE.md, MEMORY.md, then WORKPLAN.md, and do the next unticked task.`
 3. The next task is the Phase C preflight in A1 (fetch smoke test, Hindi caption check), then C0 (personality-rights check for Nithin), then `/newseat Nithin Kamath`, then the **stop for review** after Nithin.
 
