@@ -46,8 +46,10 @@ const r = JSON.parse(fs.readFileSync(ROSTER, "utf8"));
 const others = r.seats.filter((s) => s.key !== seat.key);
 if (others.some((s) => s.slug === seat.slug)) fail(`slug ${seat.slug} already belongs to another seat`);
 if (others.some((s) => s.short.toLowerCase() === seat.short.toLowerCase())) fail(`short name ${seat.short} is taken; pick another`);
+const prev = r.seats.find((s) => s.key === seat.key);
+if (!seat.color && prev) seat.color = prev.color; // re-registering keeps the seat's colour
 if (!/^#[0-9a-f]{6}$/i.test(seat.color || "")) {
-  const used = new Set(r.seats.map((s) => s.color.toLowerCase()));
+  const used = new Set(others.map((s) => s.color.toLowerCase()));
   seat.color = PALETTE.find((c) => !used.has(c)) || PALETTE[r.seats.length % PALETTE.length];
 }
 const at = r.seats.findIndex((s) => s.key === seat.key);
