@@ -39,3 +39,5 @@ Every instruction the user has given, in order, with the date. Newest at the bot
 - **2026-11-10. Build all 5 seats at `--quick` depth first** (user agreed). Deepen later, ideally with contributors.
 - **2026-11-10. User wants Claude to act as an advisor on open-source growth:** how to market, make public, and get contributors.
 - **2026-11-10. User wants a token-cost estimate** for the 5 quick seats before building.
+- **2026-11-10. Model split for seat building.** Set up everything on Opus. Stop right before extraction and tell the user; the user switches to Haiku for extraction to save tokens. Decisions, writing and checks continue on Sonnet or Opus.
+- **2026-11-10. Automate repetitive seat steps with scripts** (seatkit.py). Test the script on Girish and fix it from what that seat shows.

@@ -58,6 +58,12 @@ Read this when a task needs one of them. Each entry says what it is, where it li
   - Step 9: test consult.
   - Step 10: report.
 
+### `scripts/seatkit.py` (added 2026-11-10)
+- **What:** the mechanical half of building a seat. Reads the seat row from `references/seats.md` by key. Does not call any LLM.
+- **Steps:** `discover <key> "query" ... [--must word] [--min 25]` (yt-dlp search, long videos only, writes `build/<slug>/candidates.tsv`; a human or Claude copies good URLs to `urls.txt`), `fetch <key>` (fetch.mjs plus automatic screening: drops caption spam, garbled captions, Devanagari, under 500 words; writes `excluded.json`), `plan <key>` (batches about 45k words; writes ready-to-paste agent prompts to `build/<slug>/prompts/` and `RUNBOOK.md`), `check <key> notes|brain|<file>`, `finish <key>` (sources.md, add_seat with depth and source count, every acceptance check; must print `ALL CHECKS PASS`), `cost <key> [stage tokens]` (logs sub-agent tokens to `cost.tsv`).
+- **Self-test:** `python .claude/skills/newseat/scripts/seatkit.py --selftest`.
+- **Model split (user, 2026-11-10):** setup and judgment on Opus or Sonnet; the user switches the session to Haiku for extraction agents; writers, `_hot.md`, agent file and consult on Sonnet or Opus.
+
 ### `scripts/fetch.mjs`
 - **What:** turns web pages, YouTube videos, or local files into corpus files with source ids (S001, S002...).
 - **Invocations:**
