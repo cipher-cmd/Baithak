@@ -1,0 +1,38 @@
+name: checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 3 1 * *"   # monthly: flags law files older than 6 months
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Self-tests
+        run: |
+          python .claude/skills/baithak/scripts/check_quotes.py --selftest
+          python .claude/skills/baithak/scripts/check_laws.py --selftest
+          node .claude/skills/newseat/scripts/check_quotes.mjs --selftest
+          python .claude/skills/newseat/scripts/seatkit.py --selftest
+      - name: Law files (format and staleness)
+        run: python .claude/skills/baithak/scripts/check_laws.py --lint
+      - name: Example sessions (quotes and law citations)
+        run: |
+          for d in sessions/*example*/; do
+            python .claude/skills/baithak/scripts/check_quotes.py "$d"
+            python .claude/skills/baithak/scripts/check_laws.py "$d"
+          done
+      - name: House style (no em or en dashes)
+        run: python .github/scripts/check_dashes.py
+      - name: Plugin manifests are valid JSON
+        run: |
+          python -m json.tool .claude-plugin/plugin.json > /dev/null
+          python -m json.tool .claude-plugin/marketplace.json > /dev/null
