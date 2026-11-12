@@ -4,6 +4,8 @@
 
 **Baithak** (बैठक, "a sitting, a meeting") is a council of AI advisors for people building in India. Bring an idea or a hard decision. Advisors argue it out over two or three rounds, and a Chair hands back a scored verdict: the call, the strongest objection, a 7-day test you can run for under ₹5,000, and the point at which you should walk away.
 
+**Website:** [cipher-cmd.github.io/Baithak](https://cipher-cmd.github.io/Baithak/)
+
 It runs inside [Claude Code](https://claude.com/claude-code). Your Claude plan covers it; no API key needed.
 
 ## Why it is different
