@@ -10,233 +10,542 @@
 <meta property="og:image" content="https://cipher-cmd.github.io/Baithak/banner.png">
 <meta property="og:url" content="https://cipher-cmd.github.io/Baithak/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e1626'/><ellipse cx='32' cy='38' rx='18' ry='8' fill='%23e8a33d'/><g fill='%23f3e6cf'><circle cx='14' cy='26' r='4'/><circle cx='23' cy='19' r='4'/><circle cx='32' cy='16' r='4'/><circle cx='41' cy='19' r='4'/><circle cx='50' cy='26' r='4'/></g></svg>">
+<meta name="theme-color" content="#120d09">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23120d09'/><rect x='10' y='18' width='44' height='28' rx='6' fill='%23f1e4c8'/><rect x='14' y='22' width='26' height='20' rx='3' fill='%23e8a33d'/><circle cx='47' cy='32' r='5' fill='%23120d09'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="banner.png">
 <style>
   :root {
-    --bg: #0b1220; --bg2: #111a2c; --card: #141f34; --line: #24314c;
-    --text: #e9e3d6; --muted: #9aa6bd; --amber: #e8a33d; --amber2: #f5c26b;
-    --black: #e25c4f; --gray: #b9c0cc; --white: #6fcf97;
-    --serif: "Fraunces", Georgia, serif; --sans: "Hanken Grotesk", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+    --bg: #120d09; --bg2: #19120c; --wood: #241810; --wood2: #2e1f14; --line: #3a2a1d; --line2: #4d3826;
+    --cream: #f1e4c8; --text: #efe4cf; --muted: #c2b298; --dim: #a8987d;
+    --amber: #f0a43a; --glow: #ffc56b; --ink: #1f160d;
+    --red: #e9614f; --green: #6fd29a; --grey: #c9c2b5;
+    --display: "Big Shoulders Display", "Hanken Grotesk", system-ui, sans-serif;
+    --sans: "Hanken Grotesk", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --needle: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --r: 14px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); }
-  a { color: var(--amber2); }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-  nav { position: sticky; top: 0; z-index: 9; background: rgba(11,18,32,.85); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .logo { font: 700 22px var(--serif); color: var(--text); text-decoration: none; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  /* film grain: fixed, non-interactive, never on a scrolling layer */
+  body::after { content: ""; position: fixed; inset: 0; z-index: 30; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  a { color: var(--glow); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  code, .mono { font-family: var(--mono); }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  h2 { font: 800 clamp(44px, 7vw, 92px)/0.92 var(--display); text-transform: uppercase; letter-spacing: -0.005em; margin: 0 0 20px; }
+  h2 em { font-style: normal; color: var(--amber); }
+  .lede { color: var(--muted); font-size: clamp(17px, 1.6vw, 20px); max-width: 54ch; margin: 0; }
+  .grille { background-image: radial-gradient(rgba(0,0,0,.42) 1.2px, transparent 1.6px); background-size: 7px 7px; }
+
+  /* the tuning dial is the navigation */
+  .radio { position: fixed; inset: 0 0 auto 0; z-index: 20; background: linear-gradient(180deg, #1b130c, #140e09); border-bottom: 1px solid var(--line2); box-shadow: 0 10px 30px -18px rgba(0,0,0,.9); }
+  .radio .wrap { display: flex; align-items: center; gap: 22px; height: 66px; }
+  .logo { font: 900 26px var(--display); color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: .04em; flex: none; }
   .logo span { color: var(--amber); }
-  nav .links a { color: var(--muted); text-decoration: none; margin-left: 22px; font-size: 14px; }
-  nav .links a:hover { color: var(--text); }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1px solid var(--amber); cursor: pointer; font-size: 15px; }
-  .btn.primary { background: var(--amber); color: #1a1205; }
-  .btn.ghost { color: var(--amber2); background: transparent; }
-  .btn:hover { filter: brightness(1.08); }
+  .band { position: relative; flex: 1; height: 40px; border-radius: 8px; background: linear-gradient(180deg, #f6ebd3, #e6d5b2); box-shadow: inset 0 2px 6px rgba(0,0,0,.35), 0 0 0 1px #0d0906, 0 0 22px rgba(255,197,107,.12); overflow: hidden; }
+  .band::before { content: ""; position: absolute; inset: auto 8px 4px 8px; height: 9px; background: repeating-linear-gradient(90deg, rgba(31,22,13,.55) 0 1px, transparent 1px 10px); }
+  .band a { position: absolute; top: 5px; transform: translateX(-50%); font: 700 10.5px var(--mono); color: #5a4630; text-decoration: none; letter-spacing: .04em; white-space: nowrap; transition: color 200ms ease; }
+  .band a b { display: block; font: 800 12px var(--display); color: var(--ink); letter-spacing: .06em; text-align: center; }
+  .band a.on b, .band a:hover b { color: #b5300f; }
+  .needle-track { position: absolute; inset: 0 8px; pointer-events: none; transform: translateX(calc(-100% + 0px)); }
+  .needle-track i { position: absolute; right: 0; top: 2px; bottom: 2px; width: 2px; background: #c8361a; box-shadow: 0 0 8px rgba(200,54,26,.6); }
+  @supports (animation-timeline: scroll()) {
+    .needle-track { animation: tune linear both; animation-timeline: scroll(root); }
+    @keyframes tune { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+  }
+  @supports not (animation-timeline: scroll()) { .needle-track { display: none; } }
+  .gh { flex: none; display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 999px; border: 1px solid var(--amber); color: var(--glow); text-decoration: none; font: 600 14px var(--sans); transition: transform 160ms var(--ease-out), background-color 200ms ease; }
+  .gh:hover { background: rgba(240,164,58,.1); }
+  .gh:active { transform: scale(0.97); }
+  .now { display: none; font: 500 12px var(--mono); color: var(--muted); }
 
-  .hero { padding: 64px 0 40px; text-align: center; }
-  .eyebrow { letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-size: 12px; }
-  h1 { font: 700 clamp(38px, 6vw, 64px)/1.08 var(--serif); margin: 14px 0 16px; }
-  h1 em { font-style: italic; color: var(--amber); }
-  .sub { max-width: 680px; margin: 0 auto 28px; color: var(--muted); font-size: 18px; }
-  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .install { margin: 28px auto 0; max-width: 560px; text-align: left; }
-  .cmd { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #070c16; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 500 14px var(--mono); color: var(--amber2); margin-bottom: 8px; overflow-x: auto; }
-  .cmd button { flex: none; background: var(--card); color: var(--muted); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font: 500 12px var(--sans); cursor: pointer; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 999px; font: 600 15px var(--sans); text-decoration: none; border: 1px solid var(--amber); cursor: pointer; transition: transform 160ms var(--ease-out), background-color 200ms ease, box-shadow 200ms ease; white-space: nowrap; }
+  .btn:active { transform: scale(0.97); }
+  .btn.solid { background: linear-gradient(180deg, #f7b552, #e0912a); color: #1c1006; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 18px -10px rgba(0,0,0,.8); }
+  .btn.solid:hover { background: linear-gradient(180deg, #ffc163, #e8992f); }
+  .btn.line { color: var(--glow); background: rgba(18,13,9,.5); }
+
+  /* 1. the room: zoom out from the laptop as you scroll */
+  .stage { position: relative; height: 230vh; }
+  .stage .pin { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
+  .room { position: absolute; inset: 0; }
+  .room img { position: absolute; left: 0; top: 0; width: 100%; height: 178%; object-fit: cover; object-position: 33% 0%; transform-origin: 26% 23%; filter: sepia(.18) saturate(1.05); }
+  .room::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,13,9,.6) 0%, rgba(18,13,9,.12) 38%, rgba(18,13,9,.94) 100%); }
+  .hero-copy { position: absolute; inset: auto 0 8vh 0; z-index: 2; }
+  .hero-copy h1 { font: 900 clamp(58px, 10vw, 150px)/0.86 var(--display); text-transform: uppercase; margin: 0 0 20px; max-width: 11ch; }
+  .hero-copy h1 em { font-style: normal; color: var(--amber); }
+  .hero-copy p { color: #e2d4b8; font-size: clamp(17px, 1.7vw, 21px); max-width: 44ch; margin: 0 0 26px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .caption { position: absolute; inset: auto 0 11vh 0; z-index: 2; text-align: center; opacity: 0; }
+  .caption p { font: 800 clamp(34px, 5vw, 68px)/0.95 var(--display); text-transform: uppercase; margin: 0; }
+  .caption span { color: var(--amber); }
+  @supports (animation-timeline: view()) {
+    .stage { view-timeline-name: --stage; }
+    .room img { animation: zoomout linear both; animation-timeline: --stage; animation-range: contain 0% contain 100%; }
+    .hero-copy { animation: fadeup linear both; animation-timeline: --stage; animation-range: contain 0% contain 32%; }
+    .caption { animation: capin linear both; animation-timeline: --stage; animation-range: contain 48% contain 100%; }
+    @keyframes zoomout { from { transform: scale(2.35); } to { transform: scale(1); } }
+    @keyframes fadeup { to { opacity: 0; transform: translateY(-40px); filter: blur(4px); } }
+    @keyframes capin { 0% { opacity: 0; transform: translateY(24px); } 40%, 100% { opacity: 1; transform: none; } }
+  }
+  @supports not (animation-timeline: view()) { .stage { height: 100dvh; } .caption { display: none; } }
+
+  .rv { opacity: 0; transform: translateY(28px); filter: blur(6px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out), filter 700ms var(--ease-out); }
+  .rv.in { opacity: 1; transform: none; filter: none; }
+  .rv.d1 { transition-delay: 80ms; } .rv.d2 { transition-delay: 160ms; } .rv.d3 { transition-delay: 240ms; } .rv.d4 { transition-delay: 320ms; }
+  section.ch { padding: clamp(100px, 15vh, 170px) 0; position: relative; scroll-margin-top: 66px; }
+
+  /* 2. one line: phosphor terminal set into a wooden cabinet */
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .split > * { min-width: 0; }
+  .cabinet { padding: 16px; border-radius: 22px; background: linear-gradient(145deg, #3a2618, #23170e 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 90px -30px rgba(0,0,0,.9); }
+  .crt { position: relative; border-radius: 12px; background: radial-gradient(120% 120% at 50% 40%, #1f1407, #0c0803 70%); box-shadow: inset 0 0 40px rgba(0,0,0,.9), 0 0 0 1px #0a0603; overflow: hidden; }
+  .crt::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px); }
+  .crt pre { margin: 0; padding: 22px; font: 400 13.5px/1.75 var(--mono); color: #ffcf86; text-shadow: 0 0 6px rgba(255,180,80,.45); white-space: pre-wrap; word-break: break-word; min-height: 370px; }
+  .cab-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding: 0 6px; font: 500 12px var(--mono); color: var(--muted); }
+  .knobs { display: flex; gap: 10px; }
+  .knobs i { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #6b5340, #2a1d13); box-shadow: 0 2px 4px rgba(0,0,0,.6); }
+  .t-d { color: #c49a62; } .t-k { color: #ff7b5c; font-weight: 700; } .t-g { color: #9be7b3; } .t-w { color: #fff3dc; }
+  .cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: -2px; background: #ffcf86; box-shadow: 0 0 8px rgba(255,180,80,.7); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* 3. checks: cream dial-face panel */
+  .board { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; margin-top: 48px; }
+  .board > * { min-width: 0; }
+  .checks { background: linear-gradient(180deg, #f3e7cd, #e8d8b6); color: var(--ink); border-radius: var(--r); padding: clamp(22px, 3vw, 34px); box-shadow: inset 0 1px 0 #fff8e6, 0 30px 70px -30px rgba(0,0,0,.8); }
+  .check { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 16px 0; }
+  .check + .check { border-top: 1px solid rgba(31,22,13,.16); }
+  .box { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(31,22,13,.35); display: grid; place-items: center; transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease; }
+  .box svg { width: 14px; height: 14px; stroke: #fff6e4; stroke-width: 3; fill: none; stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset 420ms var(--ease-out) 120ms; }
+  .check.on .box { background: #c8361a; border-color: #c8361a; }
+  .check.on .box svg { stroke-dashoffset: 0; }
+  .check h3 { margin: 0 0 2px; font: 800 24px/1.05 var(--display); text-transform: uppercase; }
+  .check p { margin: 0; color: #4f3e2a; font-size: 15px; }
+  .zonecard { border-radius: var(--r); padding: clamp(22px, 3vw, 34px); background: linear-gradient(160deg, var(--wood2), var(--wood)); border: 1px solid var(--line2); display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }
+  .zonecard h3 { margin: 0; font: 800 32px/0.98 var(--display); text-transform: uppercase; }
+  .zones { display: grid; gap: 10px; }
+  .zone { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 10px; background: #160f0a; border: 1px solid var(--line); }
+  .zone b { display: inline-flex; align-items: center; gap: 10px; font: 700 15px var(--mono); letter-spacing: .08em; }
+  .zone b::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+  .zone span { color: var(--muted); font-size: 14px; text-align: right; }
+  .zone.w b { color: var(--green); } .zone.g b { color: var(--grey); } .zone.k b { color: var(--red); }
+  .types { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .types span { border: 1px solid var(--line2); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: #e2d4b8; }
+
+  /* 4. seats: walnut panels with brass plates, 3D tilt */
+  .seats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 48px; }
+  .seats > * { min-width: 0; }
+  .seat { grid-column: span 2; position: relative; padding: 24px; border-radius: var(--r); background: linear-gradient(160deg, #3a2718, #22160e 75%); border: 1px solid var(--line2); transform-style: preserve-3d; box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 50px -28px rgba(0,0,0,.9); }
+  .seat:nth-child(4) { grid-column: 2 / span 2; }
+  .seat:nth-child(5) { grid-column: 4 / span 2; }
+  .seat .glare { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 300ms ease; background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,197,107,.16), transparent 60%); }
+  .seat:hover .glare { opacity: 1; }
+  .plate { display: inline-block; padding: 6px 14px; border-radius: 5px; background: linear-gradient(180deg, #f6d68e, #c58a2c); color: #2a1a05; font: 900 22px var(--display); text-transform: uppercase; letter-spacing: .03em; box-shadow: 0 6px 16px -6px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.6); transform: translateZ(40px); }
+  .seat .pillar { margin: 14px 0 6px; color: var(--glow); font: 500 13px var(--mono); transform: translateZ(25px); }
+  .seat .ask { margin: 0; font-size: 16.5px; line-height: 1.45; transform: translateZ(18px); }
+  .seat .src { margin-top: 14px; color: var(--dim); font-size: 13px; transform: translateZ(10px); }
+  .footnote { color: var(--dim); font-size: 14px; margin-top: 18px; }
+
+  /* 5. debate: analog VU meters */
+  .debate { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; margin-top: 48px; align-items: start; }
+  .debate > * { min-width: 0; }
+  .meters { position: sticky; top: 90px; padding: 22px; border-radius: 22px; background: linear-gradient(145deg, #3a2618, #23170e 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 90px -30px rgba(0,0,0,.9); }
+  .tabs { display: flex; padding: 4px; border-radius: 999px; gap: 4px; margin-bottom: 18px; background: #140d08; box-shadow: inset 0 2px 5px rgba(0,0,0,.6); }
+  .tabs button { flex: 1; border: 0; background: transparent; color: var(--muted); font: 600 14px var(--sans); padding: 9px 12px; border-radius: 999px; cursor: pointer; transition: background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
+  .tabs button:active { transform: scale(0.97); }
+  .tabs button[aria-selected="true"] { background: linear-gradient(180deg, #f7b552, #e0912a); color: #1c1006; }
+  .vu-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .vu { border-radius: 10px; padding: 12px 10px 10px; background: radial-gradient(130% 110% at 50% 100%, #fbefd3, #ead6ae); box-shadow: inset 0 0 18px rgba(120,80,30,.35), 0 0 22px rgba(255,197,107,.18); color: var(--ink); text-align: center; }
+  .dial { position: relative; height: 62px; overflow: hidden; }
+  .scale { position: absolute; left: 50%; bottom: -60px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; background: conic-gradient(from -60deg, rgba(31,22,13,.55) 0 1deg, transparent 1deg 12deg, rgba(31,22,13,.55) 12deg 13deg, transparent 13deg 24deg, rgba(31,22,13,.55) 24deg 25deg, transparent 25deg 36deg, rgba(31,22,13,.55) 36deg 37deg, transparent 37deg 48deg, rgba(31,22,13,.55) 48deg 49deg, transparent 49deg 60deg, rgba(31,22,13,.55) 60deg 61deg, transparent 61deg 72deg, rgba(31,22,13,.55) 72deg 73deg, transparent 73deg 84deg, rgba(31,22,13,.55) 84deg 85deg, transparent 85deg 96deg, rgba(200,54,26,.8) 96deg 97deg, transparent 97deg 108deg, rgba(200,54,26,.8) 108deg 109deg, transparent 109deg 120deg, rgba(200,54,26,.8) 120deg 121deg, transparent 121deg); -webkit-mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); }
+  .pointer { position: absolute; left: 50%; bottom: 0; width: 2px; height: 56px; margin-left: -1px; background: #1f160d; transform-origin: 50% 100%; transform: rotate(-60deg); transition: transform 1100ms var(--needle); }
+  .vu .val { font: 900 32px/1 var(--display); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .vu .opt { font: 700 11px var(--mono); letter-spacing: .06em; color: #5a4630; }
+  .vu.veto .val { color: #b5300f; }
+  .vu.top .val { color: #8a5a10; }
+  .legend { margin: 14px 4px 0; font-size: 14px; color: var(--muted); }
+  .lines { display: grid; gap: 14px; }
+  .line { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 22px; }
+  .line .who { font: 500 13px var(--mono); color: var(--glow); margin-bottom: 8px; }
+  .line p { margin: 0; font-size: 17px; line-height: 1.5; }
+  .line.moved { border-color: rgba(240,164,58,.45); background: linear-gradient(180deg, rgba(240,164,58,.06), transparent), var(--bg2); }
+
+  /* 6. verdict */
+  .verdict-wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px, 5vw, 64px); align-items: center; margin-top: 48px; }
+  .verdict-wrap > * { min-width: 0; }
+  .paper { position: relative; background: linear-gradient(180deg, #f6ecd6, #ecdcbc); color: var(--ink); border-radius: 4px; padding: clamp(24px, 3.4vw, 40px); box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); }
+  .paper.rv.in { transform: rotate(-1.2deg); }
+  .paper .hd { font: 700 12px var(--mono); letter-spacing: .16em; color: #6d5a40; }
+  .paper h3 { font: 900 clamp(46px, 5.4vw, 72px)/0.9 var(--display); text-transform: uppercase; margin: 8px 0 14px; }
+  .paper p { margin: 0 0 12px; font-size: 16px; }
+  .paper .meta { font: 500 13px var(--mono); color: #574632; }
+  .stamp { position: absolute; right: 22px; top: 18px; border: 3px solid #c8361a; color: #c8361a; font: 900 28px var(--display); letter-spacing: .06em; padding: 2px 12px; border-radius: 6px; transform: rotate(-9deg) scale(1.7); opacity: 0; mix-blend-mode: multiply; }
+  .paper.in .stamp { animation: stamp 520ms var(--ease-out) 450ms forwards; }
+  @keyframes stamp { 0% { opacity: 0; transform: rotate(-16deg) scale(1.7); } 60% { opacity: 1; transform: rotate(-8deg) scale(0.94); } 100% { opacity: .92; transform: rotate(-9deg) scale(1); } }
+  .take { display: grid; gap: 24px; }
+  .take h3 { margin: 0 0 4px; font: 800 28px/1 var(--display); text-transform: uppercase; }
+  .take p { margin: 0; color: var(--muted); }
+
+  /* 7. install */
+  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 44px; }
+  .install > * { min-width: 0; }
+  .way { background: linear-gradient(160deg, var(--wood2), var(--wood)); border: 1px solid var(--line2); border-radius: var(--r); padding: 26px; }
+  .way.main { border-color: rgba(240,164,58,.55); }
+  .way h3 { margin: 0 0 6px; font: 800 28px/1 var(--display); text-transform: uppercase; }
+  .way p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+  .cmd { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0d0905; border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px 11px 14px; font: 500 14px var(--mono); color: #ffcf86; margin-bottom: 8px; }
+  .cmd span { overflow-x: auto; white-space: nowrap; min-width: 0; }
+  .cmd button { flex: none; background: #241810; color: var(--muted); border: 1px solid var(--line2); border-radius: 8px; padding: 5px 10px; font: 500 12px var(--sans); cursor: pointer; transition: color 160ms ease, transform 160ms var(--ease-out); }
   .cmd button:hover { color: var(--text); }
-  .note { color: var(--muted); font-size: 13px; text-align: center; }
-  .banner { margin: 40px auto 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
-  .banner img { display: block; width: 100%; height: auto; }
+  .cmd button:active { transform: scale(0.95); }
+  .limits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; margin-top: 40px; }
+  .limits div { padding: 18px 0; border-top: 1px solid var(--line); }
+  .limits b { display: block; font: 800 22px var(--display); text-transform: uppercase; margin-bottom: 2px; }
+  .limits span { color: var(--muted); font-size: 15px; }
 
-  section { padding: 72px 0; border-top: 1px solid var(--line); }
-  h2 { font: 700 clamp(28px, 4vw, 40px)/1.15 var(--serif); margin: 0 0 12px; }
-  .lead { color: var(--muted); max-width: 680px; margin: 0 0 36px; }
-  .grid { display: grid; gap: 16px; }
-  .grid > * { min-width: 0; }
-  .g3 { grid-template-columns: repeat(3, 1fr); }
-  .g4 { grid-template-columns: repeat(4, 1fr); }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
-  .card h3 { margin: 0 0 6px; font: 600 17px var(--sans); }
-  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
-  .step { font: 700 13px var(--mono); color: var(--amber); margin-bottom: 8px; }
+  .closer { text-align: center; padding: clamp(120px, 18vh, 200px) 0; background: radial-gradient(55% 70% at 50% 100%, rgba(240,164,58,.18), transparent 70%); }
+  .closer h2 { max-width: 13ch; margin: 0 auto 28px; }
+  .closer .actions { justify-content: center; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0 36px; color: var(--dim); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 
-  .seat { display: flex; gap: 14px; align-items: flex-start; }
-  .badge { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 700 15px var(--serif); background: linear-gradient(145deg, #2a3a5a, #1a2540); color: var(--amber2); border: 1px solid #3a4d74; }
-  .seat q { display: block; margin-top: 8px; color: var(--text); font-size: 14px; quotes: none; }
-  .tag { display: inline-block; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; margin-top: 8px; }
-
-  .types { display: flex; flex-wrap: wrap; gap: 10px; }
-  .types span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-size: 14px; }
-
-  .verdict { background: #f4ecdc; color: #241b10; border-radius: 16px; padding: 28px; max-width: 760px; box-shadow: 0 20px 60px rgba(0,0,0,.4); position: relative; }
-  .verdict .label { font: 700 12px var(--mono); letter-spacing: .14em; color: #7a6a52; }
-  .verdict h3 { font: 700 30px var(--serif); margin: 6px 0 10px; }
-  .stamp { position: absolute; right: 24px; top: 22px; transform: rotate(-8deg); border: 3px solid var(--black); color: var(--black); font: 700 22px var(--mono); padding: 4px 12px; border-radius: 6px; }
-  .verdict p { margin: 0 0 12px; }
-  .verdict .meta { font: 500 13px var(--mono); color: #5b4c35; }
-  .zones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-  .zone { border-radius: 10px; padding: 10px 14px; font-size: 14px; background: var(--card); border: 1px solid var(--line); }
-  .zone b { font-family: var(--mono); }
-  .zone.w b { color: var(--white); } .zone.g b { color: var(--gray); } .zone.k b { color: var(--black); }
-
-  .honest li { margin-bottom: 8px; color: var(--muted); }
-  .honest li b { color: var(--text); }
-  .final { text-align: center; }
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-
-  @media (max-width: 860px) { .g3, .g4 { grid-template-columns: 1fr 1fr; } nav .links a:not(.keep) { display: none; } }
-  @media (max-width: 560px) { .g3, .g4 { grid-template-columns: 1fr; } .hero { padding-top: 40px; } .stamp { position: static; display: inline-block; margin-bottom: 10px; } }
+  @media (max-width: 900px) {
+    .split, .board, .debate, .verdict-wrap, .install { grid-template-columns: 1fr; }
+    .seats { grid-template-columns: 1fr 1fr; }
+    .seat, .seat:nth-child(4) { grid-column: auto; }
+    .seat:nth-child(5) { grid-column: 1 / -1; }
+    .meters { position: static; }
+    .limits { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .band { display: none; }
+    .now { display: block; flex: 1; text-align: right; }
+  }
+  @media (max-width: 560px) {
+    .seats { grid-template-columns: 1fr; }
+    .crt pre { font-size: 12.5px; min-height: 0; }
+    .gh { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
+    .rv { opacity: 1; transform: none; filter: none; }
+    .stage { height: 100dvh; }
+    .room img { transform: none; }
+    .hero-copy { opacity: 1; transform: none; filter: none; }
+    .caption, .needle-track { display: none; }
+    .stamp { opacity: .92; transform: rotate(-9deg); }
+  }
 </style>
 </head>
 <body>
 
-<nav>
+<header class="radio" id="nav">
   <div class="wrap">
-    <a class="logo" href="#">Baithak<span>.</span></a>
-    <div class="links">
-      <a href="#how">How it works</a>
-      <a href="#council">The council</a>
-      <a href="#example">Example</a>
-      <a class="keep" href="https://github.com/cipher-cmd/Baithak">GitHub ↗</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Baithak · The Indian Council</div>
-    <h1>Bring an idea to <em>Baithak.</em></h1>
-    <p class="sub">A council of AI advisors for people building in India. It checks who pays, what breaks, and whether it is even legal, then argues it out and hands you a scored verdict, a 7-day test under ₹5,000, and the point to walk away.</p>
-    <div class="cta">
-      <a class="btn primary" href="#install">Install free</a>
-      <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak/blob/main/sessions/2026-11-10-example-fantasy-cricket/verdict.md">Read a real verdict</a>
-    </div>
-    <div class="banner"><img src="banner.png" alt="Five empty council chairs with nameplates around a table with chai, a unit-economics notebook, a UPI payment and a verdict stamped BLACK and GO WITH CONDITIONS" width="1728" height="910"></div>
+    <a class="logo" href="#top">Baithak<span>.</span></a>
+    <nav class="band" aria-label="Sections">
+      <div class="needle-track" aria-hidden="true"><i></i></div>
+      <a href="#top" style="left:6%"><b>88.4</b>room</a>
+      <a href="#run" style="left:22%"><b>91.2</b>brief</a>
+      <a href="#checks" style="left:38%"><b>94.6</b>checks</a>
+      <a href="#seats" style="left:54%"><b>98.3</b>council</a>
+      <a href="#debate" style="left:70%"><b>101.7</b>debate</a>
+      <a href="#verdict" style="left:84%"><b>104.5</b>verdict</a>
+      <a href="#install" style="left:96%"><b>107.1</b>tune in</a>
+    </nav>
+    <span class="now" id="now">88.4 · the room</span>
+    <a class="gh" href="https://github.com/cipher-cmd/Baithak">GitHub</a>
   </div>
 </header>
 
-<section id="how">
-  <div class="wrap">
-    <h2>US validators don't know India. This one does.</h2>
-    <p class="lead">Before a single advisor speaks, the Chair runs the checks that decide most Indian startups. Then the council argues, changes its mind for real reasons, and votes.</p>
-    <div class="grid g3">
-      <div class="card"><div class="step">01 · BRIEF</div><h3>Describe the idea</h3><p>One line, who pays, what they do today, your budget and your lean. Say "just run it" and the Chair fills gaps with stated assumptions.</p></div>
-      <div class="card"><div class="step">02 · INDIA CHECKS</div><h3>The Chair checks India first</h3><p>India 1, 2, 3 or global. Eight idea types, each with its own tests. Friction, scalability walls, and a WHITE, GRAY or BLACK legal zone.</p></div>
-      <div class="card"><div class="step">03 · VERDICT</div><h3>The council argues and scores</h3><p>Advisors debate over two or three rounds. You get the call, the strongest objection, a 7-day jugaad test and kill criteria.</p></div>
+<div class="stage" id="top" data-station="88.4 · the room">
+  <div class="pin">
+    <div class="room"><img src="banner.png" alt="A founder at a laptop typing /baithak, facing a round table with five empty council chairs and nameplates, cups of chai, a unit-economics notebook, a UPI payment and a stamped verdict" fetchpriority="high"></div>
+    <div class="hero-copy">
+      <div class="wrap">
+        <h1>Bring your idea to the <em>baithak.</em></h1>
+        <p>Five AI advisors built from Indian founders. They check who pays and whether it's legal, then argue it out.</p>
+        <div class="actions">
+          <a class="btn solid" href="#install">Install free</a>
+          <a class="btn line" href="#verdict">See a real verdict</a>
+        </div>
+      </div>
     </div>
-    <div class="grid g4" style="margin-top:16px">
-      <div class="card"><h3>Who pays?</h3><p>India 1 · India 2 · India 3 · India-to-Global. Mixing them is a failure on its own.</p></div>
-      <div class="card"><h3>5 friction filters</h3><p>The ₹12k employee test, the hard-money anchor, the CA gatekeeper, UPI collection, public rails.</p></div>
-      <div class="card"><h3>Scalability</h3><p>Metro bubble, USD cost against INR revenue, linear human ops, pin-code and language walls.</p></div>
-      <div class="card"><h3>Legal zone</h3><p>Cited only from 24 dated, sourced law files. A BLACK idea can never get a GO.</p></div>
+    <div class="caption"><div class="wrap"><p>Five chairs. One table.<br><span>Your idea in the middle.</span></p></div></div>
+  </div>
+</div>
+
+<main>
+<section class="ch" id="run" data-station="91.2 · the brief">
+  <div class="wrap split">
+    <div>
+      <h2 class="rv">It starts with <em>one line.</em></h2>
+      <p class="lede rv d1">Type your idea the way you'd tell a friend. Who pays, what they do today, your budget, which way you're leaning. The Chair fills the gaps and says what it assumed.</p>
+    </div>
+    <div class="cabinet rv d2">
+      <div class="crt"><pre id="term" aria-live="polite" aria-label="Replay of a real Baithak run"></pre></div>
+      <div class="cab-foot"><span>replay of a real run</span><span class="knobs" aria-hidden="true"><i></i><i></i></span></div>
     </div>
   </div>
 </section>
 
-<section id="council">
+<section class="ch" id="checks" data-station="94.6 · the checks">
   <div class="wrap">
-    <h2>Five advisors. Five lenses. Real disagreement.</h2>
-    <p class="lead">Each advisor is built from one Indian founder's public interviews, talks and letters. Every quote is verbatim, carries a source id, and is checked by a script on every run. They are simulations, not the people, and are not endorsed by them.</p>
-    <div class="grid g3">
-      <div class="card seat"><div class="badge">NK</div><div><h3>Nithin</h3><p>Trust, regulation, capital discipline</p><q>Will Indians trust you with their money without you burning cash to buy them?</q></div></div>
-      <div class="card seat"><div class="badge">KS</div><div><h3>Kunal</h3><p>Consumer behaviour, India 1 vs Bharat</p><q>Is this a big enough leap over today's jugaad that nobody goes back?</q></div></div>
-      <div class="card seat"><div class="badge">SV</div><div><h3>Vembu</h3><p>Frugal R&amp;D, Bharat, bootstrapping</p><q>Can you build real depth cheaply, outside the metro bubble, without VC money?</q></div></div>
-      <div class="card seat"><div class="badge">GM</div><div><h3>Girish</h3><p>B2B SaaS, India-to-global</p><q>Why sell this for ₹999 in India when the world will pay $500?</q></div></div>
-      <div class="card seat"><div class="badge">DG</div><div><h3>Deepinder</h3><p>Consumer habit, operations at scale</p><q>Is this a daily habit, and what breaks at 10,000 orders a day?</q></div></div>
-      <div class="card"><h3>Pick your own table</h3><p>Seat the recommended board, tick only the advisors you want, or ask one advisor directly:</p><div class="cmd" style="margin-top:10px"><span>/baithak ask nithin …</span></div></div>
-    </div>
-    <p class="note" style="margin-top:18px;text-align:left">The questions above are each seat's lens, written by Baithak, not quotes.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Whatever you're building in India</h2>
-    <p class="lead">The Chair sorts every idea into a type and runs the checks that matter for it. A pickle brand and a SaaS tool are not judged by the same rules.</p>
-    <div class="types">
-      <span>SaaS and B2B software</span><span>Consumer apps and content</span><span>Marketplaces</span><span>D2C, FMCG and food</span><span>Manufacturing and hardware</span><span>Agencies, coaching, clinics</span><span>Shops, restaurants, franchises</span><span>Fintech, health, education, real estate, insurance</span>
-    </div>
-    <div class="zones">
-      <div class="zone w"><b>WHITE</b> · known compliance path, build</div>
-      <div class="zone g"><b>GRAY</b> · build with a compliance switch</div>
-      <div class="zone k"><b>BLACK</b> · vetoed, find the legal route</div>
+    <h2 class="rv">First, the Chair <em>checks India.</em></h2>
+    <p class="lede rv d1">US validators skip this part. Here it decides most outcomes.</p>
+    <div class="board">
+      <div class="checks rv d1" id="checklist">
+        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>Who actually pays</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p></div></div>
+        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>What kind of business</h3><p>Eight types, each with its own tests. A pickle brand is not judged like a SaaS tool.</p></div></div>
+        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>Where it gets stuck</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></div></div>
+        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>What breaks at scale</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></div></div>
+      </div>
+      <div class="zonecard grille rv d2">
+        <div>
+          <h3>Then the legal zone. From 24 dated, sourced law files.</h3>
+          <div class="types"><span>SaaS</span><span>Consumer apps</span><span>Marketplaces</span><span>D2C and food</span><span>Manufacturing</span><span>Services</span><span>Local shops</span><span>Fintech, health, edtech</span></div>
+        </div>
+        <div class="zones">
+          <div class="zone w"><b>WHITE</b><span>known path, build</span></div>
+          <div class="zone g"><b>GRAY</b><span>build with a compliance switch</span></div>
+          <div class="zone k"><b>BLACK</b><span>vetoed, find the legal route</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="example">
+<section class="ch" id="seats" data-station="98.3 · the council">
   <div class="wrap">
-    <h2>A real run: ₹49 fantasy cricket</h2>
-    <p class="lead">A founder wants Tier-2 students to pay ₹49 per contest for cash prizes. "Dream11 proved the market."</p>
-    <div class="verdict">
-      <div class="stamp">BLACK</div>
-      <div class="label">BAITHAK · VERDICT</div>
-      <h3>DON'T DO IT</h3>
-      <p><b>The call:</b> Do not build the paid-entry app; it is an online money game and is vetoed. Build nothing yet. Run a no-code WhatsApp college league and pitch sponsors; reopen the free version only if the gates are met.</p>
-      <p class="meta">A 1.3 · B 4.1 · C 5.3 · Legal zone A BLACK, B GRAY · Evidence level 0</p>
-      <p><b>7-day test:</b> one WhatsApp group per college and a shared scoreboard, under ₹5,000. Pass mark: 40% submit a team for match two without being chased.</p>
-      <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket" style="color:#8a5a14">Read every round and the full verdict →</a></p>
+    <h2 class="rv">Five chairs fill. <em>Five frequencies.</em></h2>
+    <p class="lede rv d1">Every advisor is built from one founder's public interviews, talks and letters. Every quote is verbatim and checked by a script. They are simulations, not the people.</p>
+    <div class="seats">
+      <article class="seat rv"><div class="glare"></div><span class="plate">Nithin</span><div class="pillar">trust · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src">Built from 9 public sources</div></article>
+      <article class="seat rv d1"><div class="glare"></div><span class="plate">Kunal</span><div class="pillar">consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src">Built from 10 public sources</div></article>
+      <article class="seat rv d2"><div class="glare"></div><span class="plate">Vembu</span><div class="pillar">frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src">Built from 11 public sources</div></article>
+      <article class="seat rv d1"><div class="glare"></div><span class="plate">Girish</span><div class="pillar">B2B SaaS · global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src">Built from 11 public sources</div></article>
+      <article class="seat rv d2"><div class="glare"></div><span class="plate">Deepinder</span><div class="pillar">habit · operations</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src">Built from 13 public sources</div></article>
     </div>
-    <p class="lead" style="margin-top:22px">In round two, every advisor changed position because of another advisor's argument. That is the point: a council, not an echo.</p>
+    <p class="footnote rv">Each question is that seat's lens, written by Baithak. Seat the whole table, tick only the ones you want, or ask one: <code>/baithak ask nithin …</code></p>
   </div>
 </section>
 
-<section id="install">
+<section class="ch" id="debate" data-station="101.7 · the debate">
   <div class="wrap">
-    <h2>Install in a minute</h2>
-    <p class="lead">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it; no API key, no signup.</p>
-    <div class="install" style="margin:0;max-width:640px">
-      <p class="note" style="text-align:left;margin:0 0 6px">As a Claude Code plugin (recommended), inside Claude Code:</p>
-      <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak">Copy</button></div>
-      <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak">Copy</button></div>
-      <p class="note" style="text-align:left;margin:14px 0 6px">Or with the skills CLI, in your project folder:</p>
-      <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak">Copy</button></div>
-      <p class="note" style="text-align:left;margin:14px 0 6px">Then bring your idea. Start with <code>--quick</code>: four advisors, two rounds.</p>
-      <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick ">Copy</button></div>
+    <h2 class="rv">They argue. <em>Needles move.</em></h2>
+    <p class="lede rv d1">From the real run: a ₹49-entry fantasy cricket app for Tier-2 students. Switch rounds and watch the council change its mind.</p>
+    <div class="debate">
+      <div class="meters rv d1">
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-round="1">Opening</button>
+          <button role="tab" aria-selected="false" data-round="2">After debate</button>
+        </div>
+        <div class="vu-row">
+          <div class="vu veto"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="1.6" data-r2="1.3"></div></div><div class="val">1.6</div><div class="opt">A · PAID</div></div>
+          <div class="vu"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="4.4" data-r2="4.1"></div></div><div class="val">4.4</div><div class="opt">B · FREE</div></div>
+          <div class="vu top"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="5.1" data-r2="5.3"></div></div><div class="val">5.1</div><div class="opt">C · WAIT</div></div>
+        </div>
+        <p class="legend">Weighted council score out of 10. A is BLACK zone and vetoed whatever it scores.</p>
+      </div>
+      <div class="lines">
+        <div class="line rv"><div class="who">Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
+        <div class="line rv d1"><div class="who">Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers." <span class="mono" style="color:var(--dim);font-size:13px">(S007)</span></p></div>
+        <div class="line moved rv d2"><div class="who">Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
+        <div class="line moved rv d3"><div class="who">Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
+        <div class="line moved rv d4"><div class="who">Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="ch" id="verdict" data-station="104.5 · the verdict">
   <div class="wrap">
-    <h2>Honest about its limits</h2>
-    <ul class="honest">
-      <li><b>Not legal or financial advice.</b> The legal zone tells you what to check. GRAY and BLACK always end with "verify with a lawyer".</li>
-      <li><b>Law files are dated and sourced.</b> Several rest on law-firm summaries because official sites block automated reading; each file says what is unverified.</li>
-      <li><b>Advisors are simulations</b> built from public statements, not the people, and are not endorsed by them. No faces, no voices. Anyone named can opt out.</li>
-      <li><b>Open source (MIT).</b> CAs, lawyers and founders: the law files and advisors get better with your pull requests.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="final">
-  <div class="wrap">
-    <h2>Your next idea deserves a baithak.</h2>
-    <p class="sub">Free, open source, and built for India.</p>
-    <div class="cta">
-      <a class="btn primary" href="#install">Install free</a>
-      <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak">Star on GitHub</a>
+    <h2 class="rv">The verdict <em>lands.</em></h2>
+    <div class="verdict-wrap">
+      <div class="paper rv">
+        <div class="stamp" aria-hidden="true">BLACK</div>
+        <div class="hd">BAITHAK · VERDICT</div>
+        <h3>Don't do it</h3>
+        <p><b>The call:</b> don't build the paid-entry app; it's an online money game and is vetoed. Build nothing yet. Run a no-code WhatsApp college league and pitch sponsors; reopen the free version only if the gates are met.</p>
+        <p class="meta">A 1.3 · B 4.1 · C 5.3 · legal zone A BLACK, B GRAY</p>
+        <p><b>7-day test, under ₹5,000:</b> one WhatsApp group per college and a shared scoreboard. Pass mark: 40% submit a team for match two without being chased.</p>
+        <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket" style="color:#7a4c0e">Read every round →</a></p>
+      </div>
+      <div class="take">
+        <div class="rv d1"><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div>
+        <div class="rv d2"><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div>
+        <div class="rv d3"><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div>
+      </div>
     </div>
   </div>
 </section>
+
+<section class="ch" id="install" data-station="107.1 · tune in">
+  <div class="wrap">
+    <h2 class="rv">Tune <em>in.</em></h2>
+    <p class="lede rv d1">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
+    <div class="install">
+      <div class="way main rv d1">
+        <h3>Claude Code plugin</h3>
+        <p>Inside Claude Code. Recommended.</p>
+        <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak">Copy</button></div>
+        <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak">Copy</button></div>
+      </div>
+      <div class="way rv d2">
+        <h3>Skills CLI</h3>
+        <p>In your project folder, then start with <code>--quick</code>.</p>
+        <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak">Copy</button></div>
+        <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick ">Copy</button></div>
+      </div>
+    </div>
+    <div class="limits">
+      <div class="rv"><b>Not legal advice</b><span>The zone tells you what to check. GRAY and BLACK always end with "verify with a lawyer".</span></div>
+      <div class="rv d1"><b>Sources on every law</b><span>Each file is dated and lists what is still unverified. Lawyers and CAs can fix them by pull request.</span></div>
+      <div class="rv"><b>Simulations, labelled</b><span>Built from public statements, not endorsed by the people. No faces, no voices. Anyone named can opt out.</span></div>
+      <div class="rv d1"><b>Free and open source</b><span>MIT licence. A fork of Roast Room, rebuilt for India.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="closer">
+  <div class="wrap">
+    <h2 class="rv">Your next idea deserves a <em>baithak.</em></h2>
+    <div class="actions rv d1">
+      <a class="btn solid" href="#install">Install free</a>
+      <a class="btn line" href="https://github.com/cipher-cmd/Baithak">Star on GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
 
 <footer>
   <div class="wrap">
-    <span>Baithak · MIT · A fork of <a href="https://github.com/nateherkai/roast-room">Roast Room</a> by nateherkai, rebuilt for India.</span>
+    <span>Baithak · MIT · Fork of <a href="https://github.com/nateherkai/roast-room">Roast Room</a> by nateherkai</span>
     <span><a href="https://github.com/cipher-cmd/Baithak/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/cipher-cmd/Baithak/issues/new?template=remove-my-seat.md">Opt-out</a></span>
   </div>
 </footer>
 
 <script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // reveal on enter, once
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+  // the dial lights the station you are on (works without scroll-timeline support too)
+  var links = {}; document.querySelectorAll('.band a').forEach(function (a) { links[a.getAttribute('href')] = a; });
+  var now = document.getElementById('now');
+  var so = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      Object.keys(links).forEach(function (k) { links[k].classList.toggle('on', k === '#' + en.target.id); });
+      now.textContent = en.target.dataset.station;
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('[data-station]').forEach(function (s) { so.observe(s); });
+
+  // the Chair ticks the checklist one item at a time
+  var checks = document.querySelectorAll('.check');
+  new IntersectionObserver(function (e, o) {
+    if (!e[0].isIntersecting) return;
+    o.disconnect();
+    checks.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, reduce ? 0 : 350 + i * 420); });
+  }, { threshold: 0.45 }).observe(document.getElementById('checklist'));
+
+  // phosphor terminal: replay of the real fantasy-cricket run
+  var lines = [
+    ['', '> '], ['w', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.\n\n'],
+    ['d', 'Chair   '], ['', 'type: consumer app + regulated sector\n'],
+    ['d', 'Chair   '], ['', 'who pays: India 2 (students)\n'],
+    ['d', 'Chair   '], ['', 'legal zone A: '], ['k', 'BLACK'], ['d', '  [laws/online-gaming-act-2025.md]\n'],
+    ['d', 'Chair   '], ['', 'seating Nithin, Kunal, Deepinder, Vembu\n\n'],
+    ['d', 'Round 1 '], ['', 'four cards in. split: B vs C\n'],
+    ['d', 'Round 2 '], ['', 'every seat moved after the debate\n\n'],
+    ['g', '✓ '], ['', '18 quotes verified, 3 law citations verified\n'],
+    ['', 'Verdict '], ['k', "DON'T DO IT"], ['', '  (paid entry vetoed)\n'],
+    ['d', 'saved to sessions/…-fantasy-cricket/verdict.md\n']
+  ];
+  var term = document.getElementById('term');
+  var map = { w: 't-w', d: 't-d', k: 't-k', g: 't-g' };
+  function renderAll() {
+    term.textContent = '';
+    lines.forEach(function (l) { var s = document.createElement('span'); s.className = map[l[0]] || ''; s.textContent = l[1]; term.appendChild(s); });
+  }
+  function type() {
+    term.textContent = '';
+    var cur = document.createElement('span'); cur.className = 'cursor';
+    var li = 0, ci = 0, span = null;
+    (function step() {
+      if (li >= lines.length) { term.appendChild(cur); return; }
+      if (!span) { span = document.createElement('span'); span.className = map[lines[li][0]] || ''; term.appendChild(span); }
+      var text = lines[li][1], fast = li > 1;
+      ci += fast ? 3 : 1;
+      span.textContent = text.slice(0, ci);
+      term.appendChild(cur);
+      if (ci >= text.length) { li++; ci = 0; span = null; setTimeout(step, text.slice(-1) === '\n' ? (fast ? 260 : 500) : 40); }
+      else setTimeout(step, fast ? 12 : 26);
+    })();
+  }
+  new IntersectionObserver(function (e, o) {
+    if (!e[0].isIntersecting) return;
+    o.disconnect();
+    reduce ? renderAll() : type();
+  }, { threshold: 0.4 }).observe(term);
+
+  // VU meters: needle angle maps 0..10 onto -60..+60 degrees
+  var pointers = document.querySelectorAll('.pointer');
+  function setRound(r) {
+    document.querySelectorAll('.tabs button').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.round === r)); });
+    pointers.forEach(function (p) {
+      var v = parseFloat(p.dataset['r' + r]);
+      p.style.transform = 'rotate(' + (-60 + v * 12) + 'deg)';
+      p.closest('.vu').querySelector('.val').textContent = v.toFixed(1);
+    });
+  }
+  document.querySelectorAll('.tabs button').forEach(function (b) { b.addEventListener('click', function () { setRound(b.dataset.round); }); });
+  var meters = document.querySelector('.meters');
+  new IntersectionObserver(function (e, o) {
+    if (!e[0].isIntersecting) return;
+    o.disconnect();
+    setRound('1');
+    setTimeout(function () { setRound('2'); }, reduce ? 0 : 2200);
+  }, { threshold: 0.6 }).observe(meters);
+
+  // 3D tilt with a soft spring follow, fine pointers only
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.seat').forEach(function (card) {
+      var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+      function loop() {
+        x += (tx - x) * 0.12; y += (ty - y) * 0.12;
+        var moving = Math.abs(tx - x) > 0.01 || Math.abs(ty - y) > 0.01;
+        // perspective only while tilted, so plates sit flush at rest
+        card.style.transform = (!moving && tx === 0 && ty === 0) ? '' : 'perspective(900px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
+        raf = moving ? requestAnimationFrame(loop) : null;
+      }
+      card.addEventListener('pointermove', function (ev) {
+        var r = card.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+        tx = (px - 0.5) * 14; ty = (0.5 - py) * 12;
+        card.style.setProperty('--gx', (px * 100) + '%'); card.style.setProperty('--gy', (py * 100) + '%');
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+      card.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+    });
+  }
+
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); };
-      if (navigator.clipboard) { navigator.clipboard.writeText(b.dataset.copy).then(done, done); } else { done(); }
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1400); };
+      navigator.clipboard ? navigator.clipboard.writeText(b.dataset.copy).then(done, done) : done();
     });
   });
+})();
 </script>
 </body>
 </html>
