@@ -47,10 +47,10 @@
   .radio .wrap { display: flex; align-items: center; gap: 22px; height: 66px; }
   .logo { font: 900 26px var(--display); color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: .04em; flex: none; }
   .logo span { color: var(--amber); }
-  .band { position: relative; flex: 1; height: 40px; border-radius: 8px; background: linear-gradient(180deg, #f6ebd3, #e6d5b2); box-shadow: inset 0 2px 6px rgba(0,0,0,.35), 0 0 0 1px #0d0906, 0 0 22px rgba(255,197,107,.12); overflow: hidden; }
+  .band { position: relative; flex: 1; height: 44px; border-radius: 8px; background: linear-gradient(180deg, #f6ebd3, #e6d5b2); box-shadow: inset 0 2px 6px rgba(0,0,0,.35), 0 0 0 1px #0d0906, 0 0 22px rgba(255,197,107,.12); overflow: hidden; }
   .band::before { content: ""; position: absolute; inset: auto 8px 4px 8px; height: 9px; background: repeating-linear-gradient(90deg, rgba(31,22,13,.55) 0 1px, transparent 1px 10px); }
-  .band a { position: absolute; top: 5px; transform: translateX(-50%); font: 700 10.5px var(--mono); color: #5a4630; text-decoration: none; letter-spacing: .04em; white-space: nowrap; transition: color 200ms ease; }
-  .band a b { display: block; font: 800 12px var(--display); color: var(--ink); letter-spacing: .06em; text-align: center; }
+  .band a { position: absolute; top: 4px; transform: translateX(-50%); font: 700 11.5px/1.2 var(--mono); color: #5a4630; text-decoration: none; letter-spacing: .04em; white-space: nowrap; transition: color 200ms ease; }
+  .band a b { display: block; font: 800 13px var(--display); color: var(--ink); letter-spacing: .06em; text-align: center; }
   .band a.on b, .band a:hover b { color: #b5300f; }
   .needle-track { position: absolute; inset: 0 8px; pointer-events: none; transform: translateX(calc(-100% + 0px)); }
   .needle-track i { position: absolute; right: 0; top: 2px; bottom: 2px; width: 2px; background: #c8361a; box-shadow: 0 0 8px rgba(200,54,26,.6); }
@@ -165,7 +165,7 @@
   .scale { position: absolute; left: 50%; bottom: -60px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; background: conic-gradient(from -60deg, rgba(31,22,13,.55) 0 1deg, transparent 1deg 12deg, rgba(31,22,13,.55) 12deg 13deg, transparent 13deg 24deg, rgba(31,22,13,.55) 24deg 25deg, transparent 25deg 36deg, rgba(31,22,13,.55) 36deg 37deg, transparent 37deg 48deg, rgba(31,22,13,.55) 48deg 49deg, transparent 49deg 60deg, rgba(31,22,13,.55) 60deg 61deg, transparent 61deg 72deg, rgba(31,22,13,.55) 72deg 73deg, transparent 73deg 84deg, rgba(31,22,13,.55) 84deg 85deg, transparent 85deg 96deg, rgba(200,54,26,.8) 96deg 97deg, transparent 97deg 108deg, rgba(200,54,26,.8) 108deg 109deg, transparent 109deg 120deg, rgba(200,54,26,.8) 120deg 121deg, transparent 121deg); -webkit-mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); }
   .pointer { position: absolute; left: 50%; bottom: 0; width: 2px; height: 56px; margin-left: -1px; background: #1f160d; transform-origin: 50% 100%; transform: rotate(-60deg); transition: transform 1100ms var(--needle); }
   .vu .val { font: 900 32px/1 var(--display); font-variant-numeric: tabular-nums; margin-top: 4px; }
-  .vu .opt { font: 700 11px var(--mono); letter-spacing: .06em; color: #5a4630; }
+  .vu .opt { font: 700 11.5px var(--mono); letter-spacing: .06em; color: #5a4630; }
   .vu.veto .val { color: #b5300f; }
   .vu.top .val { color: #8a5a10; }
   .legend { margin: 14px 4px 0; font-size: 14px; color: var(--muted); }
