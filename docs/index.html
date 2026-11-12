@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>(function () { var d = document.documentElement, m = null; try { m = localStorage.getItem('baithak-motion'); } catch (e) {} if (m === 'off' || (m !== 'on' && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) d.classList.add('rm'); })();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Baithak: the Indian founder council</title>
 <meta name="description" content="Bring an idea for India. Five AI advisors check who pays and whether it's legal, argue it out, and hand you a verdict, a 7-day test under ₹5,000, and the point to walk away. Free and open source.">
@@ -312,7 +313,7 @@
   .toolchain-marquee::before, .toolchain-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; z-index: 2; width: 16vw; pointer-events: none; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
   .toolchain-marquee::before { left: 0; -webkit-mask-image: linear-gradient(90deg, #000, transparent); mask-image: linear-gradient(90deg, #000, transparent); }
   .toolchain-marquee::after { right: 0; -webkit-mask-image: linear-gradient(270deg, #000, transparent); mask-image: linear-gradient(270deg, #000, transparent); }
-  @media (prefers-reduced-motion: reduce) { .marquee-toggle { display: none !important; } }
+   html.rm .marquee-toggle { display: none !important; } 
   .tool-badge {
     display: inline-flex !important;
     align-items: center;
@@ -962,11 +963,22 @@
   }
 
   /* press + ripple: everything clickable answers back */
-  .btn, .seg button, .cmd button, .ttab, .replay, .sound { position: relative; overflow: hidden; }
+  .btn, .seg button, .cmd button, .ttab, .replay, .sound, .motion { position: relative; overflow: hidden; }
   .card:active { transform: scale(0.985); transition-duration: 120ms; }
-  .seg button:active, .ttab:active, .replay:active, .sound:active { transform: scale(0.95); }
+  .seg button:active, .ttab:active, .replay:active, .sound:active, .motion:active { transform: scale(0.95); }
   .ripple { position: absolute; border-radius: 50%; pointer-events: none; background: currentColor; opacity: 0.28; transform: scale(0.1); animation: ripple 650ms var(--ease-out) forwards; }
   @keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+  /* animations toggle: a dot glides along its track while motion is on */
+  .motion { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--paper); color: var(--ink); cursor: pointer; box-shadow: 3px 3px 0 var(--ink); transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 200ms ease; }
+  .motion:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .motion:focus-visible, .sound:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .motion[aria-pressed="true"] { background: var(--yellow); }
+  .motion .trk { position: relative; width: 20px; height: 8px; }
+  .motion .trk::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -0.75px; border-radius: 2px; background: currentColor; opacity: 0.35; }
+  .motion .trk i { position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: 50%; background: currentColor; transform: translateX(6px); }
+  .motion[aria-pressed="true"] .trk i { animation: glide 1.3s ease-in-out infinite alternate; }
+  @keyframes glide { from { transform: translateX(0); } to { transform: translateX(12px); } }
 
   /* sound toggle */
   .sound { display: grid; place-items: center; width: 40px; height: 40px; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--paper); color: var(--ink); font-size: 19px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 200ms ease; }
@@ -1039,101 +1051,100 @@
   .hero-note b { animation: ping 2.4s ease-out 3.4s infinite; }
   .ty { display: inline-block; }
 
-  @media (prefers-reduced-motion: no-preference) {
-    /* hero: card, dots and label, sun, then India Gate draws, the terminal rises and types, chairs fill */
-    .art .grid { opacity: 0; animation: gridin 900ms ease 450ms forwards; }
-    .art .label { opacity: 0; animation: rise 700ms var(--ease-out) 650ms forwards; }
-    .sundisc { animation-delay: 750ms; }
-    .d-a { --dd: 1100ms; } .d-b { --dd: 1500ms; } .d-c { --dd: 1850ms; } .d-d { --dd: 2200ms; }
-    .f-b { --fd: 2300ms; } .f-c { --fd: 2600ms; } .f-d { --fd: 2900ms; }
-    .hterm { transform: translateY(100%); animation: termup 900ms var(--ease-out) 1300ms forwards; }
-    .hterm .ty { overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 18ch; border-right: 2px solid var(--yellow); animation: typing 1100ms steps(18) 2100ms both, caret 700ms steps(1) 2100ms 5 forwards; }
-    .hterm .tm { opacity: 0; animation: rise 600ms var(--ease-out) 3200ms forwards; }
-    .hterm .cl:not(.run):not(.ok) { opacity: 0.32; transform: translateX(-6px); }
-    .eyebrow.rv:not(.in)::after { transform: scaleX(0); }
-    .eyebrow::after { transform-origin: left; }
-    .eyebrow.in::after, .hero .eyebrow::after { animation: linein 900ms var(--ease-io) 350ms both; }
+      /* hero: card, dots and label, sun, then India Gate draws, the terminal rises and types, chairs fill */
+    html:not(.rm) .art .grid { opacity: 0; animation: gridin 900ms ease 450ms forwards; }
+    html:not(.rm) .art .label { opacity: 0; animation: rise 700ms var(--ease-out) 650ms forwards; }
+    html:not(.rm) .sundisc { animation-delay: 750ms; }
+    html:not(.rm) .d-a { --dd: 1100ms; } html:not(.rm) .d-b { --dd: 1500ms; } html:not(.rm) .d-c { --dd: 1850ms; } html:not(.rm) .d-d { --dd: 2200ms; }
+    html:not(.rm) .f-b { --fd: 2300ms; } html:not(.rm) .f-c { --fd: 2600ms; } html:not(.rm) .f-d { --fd: 2900ms; }
+    html:not(.rm) .hterm { transform: translateY(100%); animation: termup 900ms var(--ease-out) 1300ms forwards; }
+    html:not(.rm) .hterm .ty { overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 18ch; border-right: 2px solid var(--yellow); animation: typing 1100ms steps(18) 2100ms both, caret 700ms steps(1) 2100ms 5 forwards; }
+    html:not(.rm) .hterm .tm { opacity: 0; animation: rise 600ms var(--ease-out) 3200ms forwards; }
+    html:not(.rm) .hterm .cl:not(.run):not(.ok) { opacity: 0.32; transform: translateX(-6px); }
+    html:not(.rm) .eyebrow.rv:not(.in)::after { transform: scaleX(0); }
+    html:not(.rm) .eyebrow::after { transform-origin: left; }
+    html:not(.rm) .eyebrow.in::after, html:not(.rm) .hero .eyebrow::after { animation: linein 900ms var(--ease-io) 350ms both; }
 
     /* hero stats: tiles rise in turn, numbers count, icons pop */
-    .stats .stat { opacity: 0; transform: translateY(16px); transition: opacity 500ms ease, transform 650ms var(--ease-out); }
-    .stats .ic { scale: 0; transition: scale 560ms var(--spring); }
-    .stats.on .stat { opacity: 1; transform: none; }
-    .stats.on .ic { scale: 1; }
-    .stats.on .stat:nth-child(1) { transition-delay: 900ms; } .stats.on .stat:nth-child(1) .ic { transition-delay: 1300ms; }
-    .stats.on .stat:nth-child(2) { transition-delay: 990ms; } .stats.on .stat:nth-child(2) .ic { transition-delay: 1390ms; }
-    .stats.on .stat:nth-child(3) { transition-delay: 1080ms; } .stats.on .stat:nth-child(3) .ic { transition-delay: 1480ms; }
-    .stats.on .stat:nth-child(4) { transition-delay: 1170ms; } .stats.on .stat:nth-child(4) .ic { transition-delay: 1570ms; }
-    .stats.on .stat:nth-child(5) { transition-delay: 1260ms; } .stats.on .stat:nth-child(5) .ic { transition-delay: 1660ms; }
+    html:not(.rm) .stats .stat { opacity: 0; transform: translateY(16px); transition: opacity 500ms ease, transform 650ms var(--ease-out); }
+    html:not(.rm) .stats .ic { scale: 0; transition: scale 560ms var(--spring); }
+    html:not(.rm) .stats.on .stat { opacity: 1; transform: none; }
+    html:not(.rm) .stats.on .ic { scale: 1; }
+    html:not(.rm) .stats.on .stat:nth-child(1) { transition-delay: 900ms; } html:not(.rm) .stats.on .stat:nth-child(1) .ic { transition-delay: 1300ms; }
+    html:not(.rm) .stats.on .stat:nth-child(2) { transition-delay: 990ms; } html:not(.rm) .stats.on .stat:nth-child(2) .ic { transition-delay: 1390ms; }
+    html:not(.rm) .stats.on .stat:nth-child(3) { transition-delay: 1080ms; } html:not(.rm) .stats.on .stat:nth-child(3) .ic { transition-delay: 1480ms; }
+    html:not(.rm) .stats.on .stat:nth-child(4) { transition-delay: 1170ms; } html:not(.rm) .stats.on .stat:nth-child(4) .ic { transition-delay: 1570ms; }
+    html:not(.rm) .stats.on .stat:nth-child(5) { transition-delay: 1260ms; } html:not(.rm) .stats.on .stat:nth-child(5) .ic { transition-delay: 1660ms; }
 
     /* marquee rows slide in from the side they travel to */
-    .tool-row { opacity: 0; transform: translateX(-48px); transition: opacity 700ms ease, transform 1000ms var(--ease-out); }
-    .tool-row[data-direction="right"] { transform: translateX(48px); }
-    .toolchain-marquee.seen .tool-row { opacity: 1; transform: none; }
-    .toolchain-marquee.seen .tool-row:nth-child(2) { transition-delay: 140ms; } .toolchain-marquee.seen .tool-row:nth-child(3) { transition-delay: 280ms; }
+    html:not(.rm) .tool-row { opacity: 0; transform: translateX(-48px); transition: opacity 700ms ease, transform 1000ms var(--ease-out); }
+    html:not(.rm) .tool-row[data-direction="right"] { transform: translateX(48px); }
+    html:not(.rm) .toolchain-marquee.seen .tool-row { opacity: 1; transform: none; }
+    html:not(.rm) .toolchain-marquee.seen .tool-row:nth-child(2) { transition-delay: 140ms; } html:not(.rm) .toolchain-marquee.seen .tool-row:nth-child(3) { transition-delay: 280ms; }
 
     /* text lands first, then its icon pops */
-    .rv :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), .asks.rv span > i, .eyebrow.rv .n { scale: 0; opacity: 0; transition: scale 560ms var(--spring) var(--pd, 520ms), opacity 200ms ease var(--pd, 520ms); }
-    .rv.in :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), .asks.rv.in span > i, .eyebrow.rv.in .n { scale: 1; opacity: 1; }
-    .eyebrow.rv { --pd: 120ms; }
-    .rv.d1 { --pd: 600ms; } .rv.d2 { --pd: 680ms; } .rv.d3 { --pd: 760ms; } .rv.d4 { --pd: 840ms; }
-    .asks span:nth-child(2) { --pd: 600ms; } .asks span:nth-child(3) { --pd: 680ms; } .asks span:nth-child(4) { --pd: 760ms; }
-    @media (max-width: 900px) { .seats .seat .ini { scale: 1; opacity: 1; } }
+    html:not(.rm) .rv :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), html:not(.rm) .asks.rv span > i, html:not(.rm) .eyebrow.rv .n { scale: 0; opacity: 0; transition: scale 560ms var(--spring) var(--pd, 520ms), opacity 200ms ease var(--pd, 520ms); }
+    html:not(.rm) .rv.in :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), html:not(.rm) .asks.rv.in span > i, html:not(.rm) .eyebrow.rv.in .n { scale: 1; opacity: 1; }
+    html:not(.rm) .eyebrow.rv { --pd: 120ms; }
+    html:not(.rm) .rv.d1 { --pd: 600ms; } html:not(.rm) .rv.d2 { --pd: 680ms; } html:not(.rm) .rv.d3 { --pd: 760ms; } html:not(.rm) .rv.d4 { --pd: 840ms; }
+    html:not(.rm) .asks span:nth-child(2) { --pd: 600ms; } html:not(.rm) .asks span:nth-child(3) { --pd: 680ms; } html:not(.rm) .asks span:nth-child(4) { --pd: 760ms; }
+    @media (max-width: 900px) { html:not(.rm) .seats .seat .ini { scale: 1; opacity: 1; } }
 
     /* hover: the icon in whatever you point at gives a little shake */
-    .card:hover .ic > i, .card:hover .num > i, .step:hover .no, .seat:hover .ini, .stat:hover .ic, .q:hover .who > i, .way:hover .lab > i, .asks span:hover > i, .tool-badge:hover .tool-icon i, .cmd:hover button i, .get:hover .ic > i { animation: shake 620ms var(--ease-out); }
-    .q { transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), background-color 300ms ease; }
-    .q:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--ink); }
-    .cell:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+    html:not(.rm) .card:hover .ic > i, html:not(.rm) .card:hover .num > i, html:not(.rm) .step:hover .no, html:not(.rm) .seat:hover .ini, html:not(.rm) .stat:hover .ic, html:not(.rm) .q:hover .who > i, html:not(.rm) .way:hover .lab > i, html:not(.rm) .asks span:hover > i, html:not(.rm) .tool-badge:hover .tool-icon i, html:not(.rm) .cmd:hover button i, html:not(.rm) .get:hover .ic > i { animation: shake 620ms var(--ease-out); }
+    html:not(.rm) .q { transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), background-color 300ms ease; }
+    html:not(.rm) .q:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--ink); }
+    html:not(.rm) .cell:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
 
     /* who pays: inner ring draws, its label pops, then the next ring out */
-    .rings .rg { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; transition: stroke-dashoffset 650ms var(--ease-io), fill-opacity 450ms ease; }
-    .rings .r0 { opacity: 0; transition: opacity 500ms ease; }
-    .rings .rt { opacity: 0; transform: translateY(6px) scale(0.8); transform-box: fill-box; transform-origin: center; transition: opacity 300ms ease, transform 450ms var(--spring); }
-    .cell.on .rings .rg { stroke-dashoffset: 0; fill-opacity: 1; }
-    .cell.on .rings .r0, .cell.on .rings .rt { opacity: 1; transform: none; }
-    .cell.on .rings .r1 { transition-delay: 0ms, 350ms; } .cell.on .rings .t1 { transition-delay: 420ms; }
-    .cell.on .rings .r2 { transition-delay: 520ms, 870ms; } .cell.on .rings .t2 { transition-delay: 940ms; }
-    .cell.on .rings .r3 { transition-delay: 1040ms, 1390ms; } .cell.on .rings .t3 { transition-delay: 1460ms; }
-    .cell.on .rings .r0 { transition-delay: 1560ms; } .cell.on .rings .t4 { transition-delay: 1800ms; }
-    .cell .chips span { opacity: 0; transform: scale(0.6); transition: opacity 250ms ease, transform 450ms var(--spring); }
-    .cell.on .chips span { opacity: 1; transform: none; }
-    .cell.on .chips span:nth-child(1) { transition-delay: 420ms; } .cell.on .chips span:nth-child(2) { transition-delay: 940ms; }
-    .cell.on .chips span:nth-child(3) { transition-delay: 1460ms; } .cell.on .chips span:nth-child(4) { transition-delay: 1800ms; }
+    html:not(.rm) .rings .rg { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; transition: stroke-dashoffset 650ms var(--ease-io), fill-opacity 450ms ease; }
+    html:not(.rm) .rings .r0 { opacity: 0; transition: opacity 500ms ease; }
+    html:not(.rm) .rings .rt { opacity: 0; transform: translateY(6px) scale(0.8); transform-box: fill-box; transform-origin: center; transition: opacity 300ms ease, transform 450ms var(--spring); }
+    html:not(.rm) .cell.on .rings .rg { stroke-dashoffset: 0; fill-opacity: 1; }
+    html:not(.rm) .cell.on .rings .r0, html:not(.rm) .cell.on .rings .rt { opacity: 1; transform: none; }
+    html:not(.rm) .cell.on .rings .r1 { transition-delay: 0ms, 350ms; } html:not(.rm) .cell.on .rings .t1 { transition-delay: 420ms; }
+    html:not(.rm) .cell.on .rings .r2 { transition-delay: 520ms, 870ms; } html:not(.rm) .cell.on .rings .t2 { transition-delay: 940ms; }
+    html:not(.rm) .cell.on .rings .r3 { transition-delay: 1040ms, 1390ms; } html:not(.rm) .cell.on .rings .t3 { transition-delay: 1460ms; }
+    html:not(.rm) .cell.on .rings .r0 { transition-delay: 1560ms; } html:not(.rm) .cell.on .rings .t4 { transition-delay: 1800ms; }
+    html:not(.rm) .cell .chips span { opacity: 0; transform: scale(0.6); transition: opacity 250ms ease, transform 450ms var(--spring); }
+    html:not(.rm) .cell.on .chips span { opacity: 1; transform: none; }
+    html:not(.rm) .cell.on .chips span:nth-child(1) { transition-delay: 420ms; } html:not(.rm) .cell.on .chips span:nth-child(2) { transition-delay: 940ms; }
+    html:not(.rm) .cell.on .chips span:nth-child(3) { transition-delay: 1460ms; } html:not(.rm) .cell.on .chips span:nth-child(4) { transition-delay: 1800ms; }
 
     /* legal zones: a line runs down, each zone arrives as the line reaches it, then its badge stamps */
-    .zones { position: relative; padding-left: 20px; }
-    .zones::before { content: ""; position: absolute; left: 6px; top: 20px; bottom: 20px; width: 2px; border-radius: 2px; background: var(--ink); transform: scaleY(0); transform-origin: top; transition: transform 1350ms cubic-bezier(0.45, 0, 0.2, 1); }
-    .cell.on .zones::before { transform: scaleY(1); }
-    .zone { position: relative; }
-    .zone::before { content: ""; position: absolute; left: -19px; top: 50%; width: 10px; height: 10px; margin-top: -5px; box-sizing: border-box; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--paper); transition: background-color 250ms ease; }
-    .cell.on .zone::before { background: var(--yellow); }
-    .zone b { scale: 0; transition: scale 460ms var(--spring); }
-    .cell.on .zone b { scale: 1; }
-    .cell.on .zone:nth-child(1) b { transition-delay: 250ms; }
-    .cell.on .zone:nth-child(2), .cell.on .zone:nth-child(2)::before { transition-delay: 450ms; } .cell.on .zone:nth-child(2) b { transition-delay: 700ms; }
-    .cell.on .zone:nth-child(3), .cell.on .zone:nth-child(3)::before { transition-delay: 900ms; } .cell.on .zone:nth-child(3) b { transition-delay: 1150ms; }
-    .cell.on .zone:nth-child(4), .cell.on .zone:nth-child(4)::before { transition-delay: 1350ms; } .cell.on .zone:nth-child(4) b { transition-delay: 1600ms; }
+    html:not(.rm) .zones { position: relative; padding-left: 20px; }
+    html:not(.rm) .zones::before { content: ""; position: absolute; left: 6px; top: 20px; bottom: 20px; width: 2px; border-radius: 2px; background: var(--ink); transform: scaleY(0); transform-origin: top; transition: transform 1350ms cubic-bezier(0.45, 0, 0.2, 1); }
+    html:not(.rm) .cell.on .zones::before { transform: scaleY(1); }
+    html:not(.rm) .zone { position: relative; }
+    html:not(.rm) .zone::before { content: ""; position: absolute; left: -19px; top: 50%; width: 10px; height: 10px; margin-top: -5px; box-sizing: border-box; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--paper); transition: background-color 250ms ease; }
+    html:not(.rm) .cell.on .zone::before { background: var(--yellow); }
+    html:not(.rm) .zone b { scale: 0; transition: scale 460ms var(--spring); }
+    html:not(.rm) .cell.on .zone b { scale: 1; }
+    html:not(.rm) .cell.on .zone:nth-child(1) b { transition-delay: 250ms; }
+    html:not(.rm) .cell.on .zone:nth-child(2), html:not(.rm) .cell.on .zone:nth-child(2)::before { transition-delay: 450ms; } html:not(.rm) .cell.on .zone:nth-child(2) b { transition-delay: 700ms; }
+    html:not(.rm) .cell.on .zone:nth-child(3), html:not(.rm) .cell.on .zone:nth-child(3)::before { transition-delay: 900ms; } html:not(.rm) .cell.on .zone:nth-child(3) b { transition-delay: 1150ms; }
+    html:not(.rm) .cell.on .zone:nth-child(4), html:not(.rm) .cell.on .zone:nth-child(4)::before { transition-delay: 1350ms; } html:not(.rm) .cell.on .zone:nth-child(4) b { transition-delay: 1600ms; }
 
     /* council table: each chair pops into place */
-    .top-table .seat-pos { opacity: 0; scale: 0.4; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease, opacity 350ms ease, scale 650ms var(--spring); }
-    .top-table .seat-pos.on { opacity: 1; scale: 1; }
+    html:not(.rm) .top-table .seat-pos { opacity: 0; scale: 0.4; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease, opacity 350ms ease, scale 650ms var(--spring); }
+    html:not(.rm) .top-table .seat-pos.on { opacity: 1; scale: 1; }
 
     /* debate board: the three options arrive one by one */
-    .board .row { opacity: 0; transform: translateX(-14px); transition: opacity 400ms ease, transform 550ms var(--ease-out); }
-    .board.in .row { opacity: 1; transform: none; }
-    .board.in .row.veto { transition-delay: 450ms; } .board.in .row:not(.veto):not(.top) { transition-delay: 600ms; } .board.in .row.top { transition-delay: 750ms; }
+    html:not(.rm) .board .row { opacity: 0; transform: translateX(-14px); transition: opacity 400ms ease, transform 550ms var(--ease-out); }
+    html:not(.rm) .board.in .row { opacity: 1; transform: none; }
+    html:not(.rm) .board.in .row.veto { transition-delay: 450ms; } html:not(.rm) .board.in .row:not(.veto):not(.top) { transition-delay: 600ms; } html:not(.rm) .board.in .row.top { transition-delay: 750ms; }
 
     /* trust notes: the rule above each one draws across */
-    .trust div { position: relative; border-top-color: transparent !important; }
-    .trust div::before { content: ""; position: absolute; left: 0; right: 0; top: -1.5px; height: 1.5px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-io) 150ms; }
-    .dark .trust div::before { background: #55595d; }
-    .trust div.in::before { transform: scaleX(1); }
+    html:not(.rm) .trust div { position: relative; border-top-color: transparent !important; }
+    html:not(.rm) .trust div::before { content: ""; position: absolute; left: 0; right: 0; top: -1.5px; height: 1.5px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-io) 150ms; }
+    html:not(.rm) .dark .trust div::before { background: #55595d; }
+    html:not(.rm) .trust div.in::before { transform: scaleX(1); }
 
     /* install: the commands slide in after their card opens */
-    .way .cmd { opacity: 0; transform: translateY(10px); transition: opacity 400ms ease, transform 500ms var(--ease-out); }
-    .way.in .cmd { opacity: 1; transform: none; transition-delay: 700ms; }
-    .way.in .cmd + .cmd { transition-delay: 850ms; }
-  }
+    html:not(.rm) .way .cmd { opacity: 0; transform: translateY(10px); transition: opacity 400ms ease, transform 500ms var(--ease-out); }
+    html:not(.rm) .way.in .cmd { opacity: 1; transform: none; transition-delay: 700ms; }
+    html:not(.rm) .way.in .cmd + .cmd { transition-delay: 850ms; }
+  
 
   @media (max-width: 1100px) {
     .seats { grid-template-columns: repeat(3, 1fr); }
@@ -1164,7 +1175,9 @@
     body { font-size: 16px; }
     .nav { height: 64px; }
     .ch { scroll-margin-top: 63px; }
-    .navactions .btn.gh { display: none; }
+    .navactions .btn.gh, .navactions .free { display: none; }
+    .navactions { gap: 8px; }
+    .navactions .btn.sm { padding: 0 12px; }
     .brand { font-size: 21px; }
     .actions .btn { flex: 1 1 auto; }
     .art .label span:last-child { display: none; }
@@ -1185,24 +1198,23 @@
     .traffic-lights { display: none; }
     .ttab { padding: 0 8px; font-size: 11px; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
-    .rv, .in-1, .in-2, .in-3, .in-4, .in-5, .art, .hterm { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
-    mark { background-size: 100% 100% !important; }
-    .sp .wi { transform: none !important; }
-    .rail, .chip, .chsheet { transition: none !important; }
-    .draw { stroke-dashoffset: 0 !important; }
-    .fillin { fill-opacity: 1 !important; }
-    .sundisc { opacity: 0.95 !important; transform: none !important; }
-    .room { height: auto !important; }
-    .room .pin { position: relative !important; }
-    .room .frame { clip-path: none !important; }
-    .room .caps p { opacity: 1 !important; }
-    .stamp { opacity: 0.92; transform: rotate(-9deg); }
-    .zone { opacity: 1; transform: none; }
-    .steps::before { transform: none; }
-    .tool-track { animation: none !important; flex-wrap: nowrap !important; }
-  }
+      html.rm *, html.rm *::before, html.rm *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
+    html.rm .rv, html.rm .in-1, html.rm .in-2, html.rm .in-3, html.rm .in-4, html.rm .in-5, html.rm .art, html.rm .hterm { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+    html.rm mark { background-size: 100% 100% !important; }
+    html.rm .sp .wi { transform: none !important; }
+    html.rm .rail, html.rm .chip, html.rm .chsheet { transition: none !important; }
+    html.rm .draw { stroke-dashoffset: 0 !important; }
+    html.rm .fillin { fill-opacity: 1 !important; }
+    html.rm .sundisc { opacity: 0.95 !important; transform: none !important; }
+    html.rm .room { height: auto !important; }
+    html.rm .room .pin { position: relative !important; }
+    html.rm .room .frame { clip-path: none !important; }
+    html.rm .room .caps p { opacity: 1 !important; }
+    html.rm .stamp { opacity: 0.92; transform: rotate(-9deg); }
+    html.rm .zone { opacity: 1; transform: none; }
+    html.rm .steps::before { transform: none; }
+    html.rm .tool-track { animation: none !important; flex-wrap: nowrap !important; }
+  
 </style>
 </head>
 <body>
@@ -1219,9 +1231,10 @@
       <a href="#install">Install</a>
     </nav>
     <div class="navactions">
+      <button class="motion" id="motion" aria-pressed="true" aria-label="Animations" title="Animations on or off"><span class="trk" aria-hidden="true"><i></i></span></button>
       <button class="sound" id="sound" aria-pressed="true" aria-label="Interface sounds"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
       <a class="btn sm gh" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>GitHub</a>
-      <a class="btn sm primary" href="#install"><i class="ph ph-download-simple" style="margin-right:4px"></i>Install free</a>
+      <a class="btn sm primary" href="#install"><i class="ph ph-download-simple" style="margin-right:4px"></i><span>Install<span class="free"> free</span></span></a>
     </div>
   </div>
 </header>
@@ -1830,7 +1843,8 @@
 
 <script>
 (function () {
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // reduce is read live everywhere below, so flipping it changes timing from the next step on
+  var reduce = document.documentElement.classList.contains('rm');
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   function once(el, fn, th) { if (!el) return; new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: th || 0.4 }).observe(el); }
 
@@ -1884,11 +1898,22 @@
     toast(soundOn ? 'Sounds on' : 'Sounds off', soundOn ? 'ph-speaker-high' : 'ph-speaker-slash');
   });
 
+  // ===== animations toggle: saved choice, else the system setting =====
+  var mbtn = document.getElementById('motion');
+  mbtn.setAttribute('aria-pressed', String(!reduce));
+  mbtn.addEventListener('click', function () {
+    reduce = !reduce;
+    document.documentElement.classList.toggle('rm', reduce);
+    mbtn.setAttribute('aria-pressed', String(!reduce));
+    try { localStorage.setItem('baithak-motion', reduce ? 'off' : 'on'); } catch (e) {}
+    toast(reduce ? 'Animations off' : 'Animations on', reduce ? 'ph-pause-circle' : 'ph-play-circle');
+  });
+
   // ===== click feedback: ripple from the exact press point + a click sound =====
-  var PRESS = '.btn, .card, .seg button, .cmd button, .ttab, .replay, .sound, .rail button, .chip, .chsheet a, .navlinks a, .brand, .seat, .chips span, .asks span, footer a';
+  var PRESS = '.btn, .card, .seg button, .cmd button, .ttab, .replay, .sound, .motion, .rail button, .chip, .chsheet a, .navlinks a, .brand, .seat, .chips span, .asks span, footer a';
   document.addEventListener('pointerdown', function (ev) {
     var el = ev.target.closest(PRESS); if (!el) return;
-    if (el.matches('.btn, .seg button, .cmd button, .ttab, .replay, .sound, .card, .seat') && !reduce) {
+    if (el.matches('.btn, .seg button, .cmd button, .ttab, .replay, .sound, .motion, .card, .seat') && !reduce) {
       var r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2, rp = document.createElement('span');
       rp.className = 'ripple'; rp.style.width = rp.style.height = d + 'px';
       rp.style.left = (ev.clientX - r.left - d / 2) + 'px'; rp.style.top = (ev.clientY - r.top - d / 2) + 'px';
