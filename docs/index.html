@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baithak: an AI founder council for India</title>
+<meta name="description" content="Bring an idea for India. A council of AI advisors argues it out and returns a scored verdict, a 7-day test under ₹5,000, and the point to walk away. Free and open source.">
+<meta property="og:title" content="Baithak: bring an idea to the Indian council">
+<meta property="og:description" content="India checks, 8 idea types, a WHITE/GRAY/BLACK legal gate from 24 sourced law files, and a scored verdict. A free Claude Code skill.">
+<meta property="og:image" content="https://cipher-cmd.github.io/Baithak/banner.png">
+<meta property="og:url" content="https://cipher-cmd.github.io/Baithak/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e1626'/><ellipse cx='32' cy='38' rx='18' ry='8' fill='%23e8a33d'/><g fill='%23f3e6cf'><circle cx='14' cy='26' r='4'/><circle cx='23' cy='19' r='4'/><circle cx='32' cy='16' r='4'/><circle cx='41' cy='19' r='4'/><circle cx='50' cy='26' r='4'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1220; --bg2: #111a2c; --card: #141f34; --line: #24314c;
+    --text: #e9e3d6; --muted: #9aa6bd; --amber: #e8a33d; --amber2: #f5c26b;
+    --black: #e25c4f; --gray: #b9c0cc; --white: #6fcf97;
+    --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); }
+  a { color: var(--amber2); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  nav { position: sticky; top: 0; z-index: 9; background: rgba(11,18,32,.85); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font: 700 22px var(--serif); color: var(--text); text-decoration: none; }
+  .logo span { color: var(--amber); }
+  nav .links a { color: var(--muted); text-decoration: none; margin-left: 22px; font-size: 14px; }
+  nav .links a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1px solid var(--amber); cursor: pointer; font-size: 15px; }
+  .btn.primary { background: var(--amber); color: #1a1205; }
+  .btn.ghost { color: var(--amber2); background: transparent; }
+  .btn:hover { filter: brightness(1.08); }
+
+  .hero { padding: 64px 0 40px; text-align: center; }
+  .eyebrow { letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-size: 12px; }
+  h1 { font: 700 clamp(38px, 6vw, 64px)/1.08 var(--serif); margin: 14px 0 16px; }
+  h1 em { font-style: italic; color: var(--amber); }
+  .sub { max-width: 680px; margin: 0 auto 28px; color: var(--muted); font-size: 18px; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .install { margin: 28px auto 0; max-width: 560px; text-align: left; }
+  .cmd { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #070c16; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 500 14px var(--mono); color: var(--amber2); margin-bottom: 8px; overflow-x: auto; }
+  .cmd button { flex: none; background: var(--card); color: var(--muted); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font: 500 12px var(--sans); cursor: pointer; }
+  .cmd button:hover { color: var(--text); }
+  .note { color: var(--muted); font-size: 13px; text-align: center; }
+  .banner { margin: 40px auto 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  .banner img { display: block; width: 100%; height: auto; }
+
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  h2 { font: 700 clamp(28px, 4vw, 40px)/1.15 var(--serif); margin: 0 0 12px; }
+  .lead { color: var(--muted); max-width: 680px; margin: 0 0 36px; }
+  .grid { display: grid; gap: 16px; }
+  .grid > * { min-width: 0; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .card h3 { margin: 0 0 6px; font: 600 17px var(--sans); }
+  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .step { font: 700 13px var(--mono); color: var(--amber); margin-bottom: 8px; }
+
+  .seat { display: flex; gap: 14px; align-items: flex-start; }
+  .badge { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 700 15px var(--serif); background: linear-gradient(145deg, #2a3a5a, #1a2540); color: var(--amber2); border: 1px solid #3a4d74; }
+  .seat q { display: block; margin-top: 8px; color: var(--text); font-size: 14px; quotes: none; }
+  .tag { display: inline-block; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; margin-top: 8px; }
+
+  .types { display: flex; flex-wrap: wrap; gap: 10px; }
+  .types span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-size: 14px; }
+
+  .verdict { background: #f4ecdc; color: #241b10; border-radius: 16px; padding: 28px; max-width: 760px; box-shadow: 0 20px 60px rgba(0,0,0,.4); position: relative; }
+  .verdict .label { font: 700 12px var(--mono); letter-spacing: .14em; color: #7a6a52; }
+  .verdict h3 { font: 700 30px var(--serif); margin: 6px 0 10px; }
+  .stamp { position: absolute; right: 24px; top: 22px; transform: rotate(-8deg); border: 3px solid var(--black); color: var(--black); font: 700 22px var(--mono); padding: 4px 12px; border-radius: 6px; }
+  .verdict p { margin: 0 0 12px; }
+  .verdict .meta { font: 500 13px var(--mono); color: #5b4c35; }
+  .zones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .zone { border-radius: 10px; padding: 10px 14px; font-size: 14px; background: var(--card); border: 1px solid var(--line); }
+  .zone b { font-family: var(--mono); }
+  .zone.w b { color: var(--white); } .zone.g b { color: var(--gray); } .zone.k b { color: var(--black); }
+
+  .honest li { margin-bottom: 8px; color: var(--muted); }
+  .honest li b { color: var(--text); }
+  .final { text-align: center; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) { .g3, .g4 { grid-template-columns: 1fr 1fr; } nav .links a:not(.keep) { display: none; } }
+  @media (max-width: 560px) { .g3, .g4 { grid-template-columns: 1fr; } .hero { padding-top: 40px; } .stamp { position: static; display: inline-block; margin-bottom: 10px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#">Baithak<span>.</span></a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#council">The council</a>
+      <a href="#example">Example</a>
+      <a class="keep" href="https://github.com/cipher-cmd/Baithak">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Baithak · The Indian Council</div>
+    <h1>Bring an idea to <em>Baithak.</em></h1>
+    <p class="sub">A council of AI advisors for people building in India. It checks who pays, what breaks, and whether it is even legal, then argues it out and hands you a scored verdict, a 7-day test under ₹5,000, and the point to walk away.</p>
+    <div class="cta">
+      <a class="btn primary" href="#install">Install free</a>
+      <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak/blob/main/sessions/2026-11-10-example-fantasy-cricket/verdict.md">Read a real verdict</a>
+    </div>
+    <div class="banner"><img src="banner.png" alt="Five empty council chairs with nameplates around a table with chai, a unit-economics notebook, a UPI payment and a verdict stamped BLACK and GO WITH CONDITIONS" width="1728" height="910"></div>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <h2>US validators don't know India. This one does.</h2>
+    <p class="lead">Before a single advisor speaks, the Chair runs the checks that decide most Indian startups. Then the council argues, changes its mind for real reasons, and votes.</p>
+    <div class="grid g3">
+      <div class="card"><div class="step">01 · BRIEF</div><h3>Describe the idea</h3><p>One line, who pays, what they do today, your budget and your lean. Say "just run it" and the Chair fills gaps with stated assumptions.</p></div>
+      <div class="card"><div class="step">02 · INDIA CHECKS</div><h3>The Chair checks India first</h3><p>India 1, 2, 3 or global. Eight idea types, each with its own tests. Friction, scalability walls, and a WHITE, GRAY or BLACK legal zone.</p></div>
+      <div class="card"><div class="step">03 · VERDICT</div><h3>The council argues and scores</h3><p>Advisors debate over two or three rounds. You get the call, the strongest objection, a 7-day jugaad test and kill criteria.</p></div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="card"><h3>Who pays?</h3><p>India 1 · India 2 · India 3 · India-to-Global. Mixing them is a failure on its own.</p></div>
+      <div class="card"><h3>5 friction filters</h3><p>The ₹12k employee test, the hard-money anchor, the CA gatekeeper, UPI collection, public rails.</p></div>
+      <div class="card"><h3>Scalability</h3><p>Metro bubble, USD cost against INR revenue, linear human ops, pin-code and language walls.</p></div>
+      <div class="card"><h3>Legal zone</h3><p>Cited only from 24 dated, sourced law files. A BLACK idea can never get a GO.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="council">
+  <div class="wrap">
+    <h2>Five advisors. Five lenses. Real disagreement.</h2>
+    <p class="lead">Each advisor is built from one Indian founder's public interviews, talks and letters. Every quote is verbatim, carries a source id, and is checked by a script on every run. They are simulations, not the people, and are not endorsed by them.</p>
+    <div class="grid g3">
+      <div class="card seat"><div class="badge">NK</div><div><h3>Nithin</h3><p>Trust, regulation, capital discipline</p><q>Will Indians trust you with their money without you burning cash to buy them?</q></div></div>
+      <div class="card seat"><div class="badge">KS</div><div><h3>Kunal</h3><p>Consumer behaviour, India 1 vs Bharat</p><q>Is this a big enough leap over today's jugaad that nobody goes back?</q></div></div>
+      <div class="card seat"><div class="badge">SV</div><div><h3>Vembu</h3><p>Frugal R&amp;D, Bharat, bootstrapping</p><q>Can you build real depth cheaply, outside the metro bubble, without VC money?</q></div></div>
+      <div class="card seat"><div class="badge">GM</div><div><h3>Girish</h3><p>B2B SaaS, India-to-global</p><q>Why sell this for ₹999 in India when the world will pay $500?</q></div></div>
+      <div class="card seat"><div class="badge">DG</div><div><h3>Deepinder</h3><p>Consumer habit, operations at scale</p><q>Is this a daily habit, and what breaks at 10,000 orders a day?</q></div></div>
+      <div class="card"><h3>Pick your own table</h3><p>Seat the recommended board, tick only the advisors you want, or ask one advisor directly:</p><div class="cmd" style="margin-top:10px"><span>/baithak ask nithin …</span></div></div>
+    </div>
+    <p class="note" style="margin-top:18px;text-align:left">The questions above are each seat's lens, written by Baithak, not quotes.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Whatever you're building in India</h2>
+    <p class="lead">The Chair sorts every idea into a type and runs the checks that matter for it. A pickle brand and a SaaS tool are not judged by the same rules.</p>
+    <div class="types">
+      <span>SaaS and B2B software</span><span>Consumer apps and content</span><span>Marketplaces</span><span>D2C, FMCG and food</span><span>Manufacturing and hardware</span><span>Agencies, coaching, clinics</span><span>Shops, restaurants, franchises</span><span>Fintech, health, education, real estate, insurance</span>
+    </div>
+    <div class="zones">
+      <div class="zone w"><b>WHITE</b> · known compliance path, build</div>
+      <div class="zone g"><b>GRAY</b> · build with a compliance switch</div>
+      <div class="zone k"><b>BLACK</b> · vetoed, find the legal route</div>
+    </div>
+  </div>
+</section>
+
+<section id="example">
+  <div class="wrap">
+    <h2>A real run: ₹49 fantasy cricket</h2>
+    <p class="lead">A founder wants Tier-2 students to pay ₹49 per contest for cash prizes. "Dream11 proved the market."</p>
+    <div class="verdict">
+      <div class="stamp">BLACK</div>
+      <div class="label">BAITHAK · VERDICT</div>
+      <h3>DON'T DO IT</h3>
+      <p><b>The call:</b> Do not build the paid-entry app; it is an online money game and is vetoed. Build nothing yet. Run a no-code WhatsApp college league and pitch sponsors; reopen the free version only if the gates are met.</p>
+      <p class="meta">A 1.3 · B 4.1 · C 5.3 · Legal zone A BLACK, B GRAY · Evidence level 0</p>
+      <p><b>7-day test:</b> one WhatsApp group per college and a shared scoreboard, under ₹5,000. Pass mark: 40% submit a team for match two without being chased.</p>
+      <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket" style="color:#8a5a14">Read every round and the full verdict →</a></p>
+    </div>
+    <p class="lead" style="margin-top:22px">In round two, every advisor changed position because of another advisor's argument. That is the point: a council, not an echo.</p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install in a minute</h2>
+    <p class="lead">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it; no API key, no signup.</p>
+    <div class="install" style="margin:0;max-width:640px">
+      <p class="note" style="text-align:left;margin:0 0 6px">As a Claude Code plugin (recommended), inside Claude Code:</p>
+      <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak">Copy</button></div>
+      <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak">Copy</button></div>
+      <p class="note" style="text-align:left;margin:14px 0 6px">Or with the skills CLI, in your project folder:</p>
+      <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak">Copy</button></div>
+      <p class="note" style="text-align:left;margin:14px 0 6px">Then bring your idea. Start with <code>--quick</code>: four advisors, two rounds.</p>
+      <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick ">Copy</button></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Honest about its limits</h2>
+    <ul class="honest">
+      <li><b>Not legal or financial advice.</b> The legal zone tells you what to check. GRAY and BLACK always end with "verify with a lawyer".</li>
+      <li><b>Law files are dated and sourced.</b> Several rest on law-firm summaries because official sites block automated reading; each file says what is unverified.</li>
+      <li><b>Advisors are simulations</b> built from public statements, not the people, and are not endorsed by them. No faces, no voices. Anyone named can opt out.</li>
+      <li><b>Open source (MIT).</b> CAs, lawyers and founders: the law files and advisors get better with your pull requests.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Your next idea deserves a baithak.</h2>
+    <p class="sub">Free, open source, and built for India.</p>
+    <div class="cta">
+      <a class="btn primary" href="#install">Install free</a>
+      <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak">Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Baithak · MIT · A fork of <a href="https://github.com/nateherkai/roast-room">Roast Room</a> by nateherkai, rebuilt for India.</span>
+    <span><a href="https://github.com/cipher-cmd/Baithak/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/cipher-cmd/Baithak/issues/new?template=remove-my-seat.md">Opt-out</a></span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(b.dataset.copy).then(done, done); } else { done(); }
+    });
+  });
+</script>
+</body>
+</html>
