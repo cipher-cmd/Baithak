@@ -126,8 +126,8 @@
 
   .hterm { position: relative; margin: -64px 18px 18px auto; width: min(80%, 420px); background: #25272b; color: #e8e9e9; border: 1px solid #55595d; border-radius: 13px; box-shadow: 0 18px 40px rgba(21, 23, 25, 0.35); overflow: hidden; opacity: 0; transform: translateY(24px); animation: rise 900ms var(--ease-out) 1200ms forwards; }
   .tbar { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 13px; border-bottom: 1px solid #45484d; font: 500 11.5px var(--mono); color: #b8bdc1; letter-spacing: 0.06em; }
-  .tbar i { width: 9px; height: 9px; border-radius: 50%; background: #ed7656; }
-  .tbar i:nth-child(2) { background: var(--yellow); } .tbar i:nth-child(3) { background: #75b975; }
+  .tbar > i { width: 9px; height: 9px; border-radius: 50%; background: #ed7656; }
+  .tbar > i:nth-child(2) { background: var(--yellow); } .tbar > i:nth-child(3) { background: #75b975; }
   .tbar span { margin-left: auto; }
   .hterm .body { padding: 14px 16px 16px; font: 12.5px/1.95 var(--mono); }
   .ty { color: var(--yellow); } .tm { color: #aeb2b6; }
@@ -389,6 +389,90 @@
   footer a:hover { color: var(--yellow); }
   footer .legal { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 22px; padding-top: 16px; border-top: 1px solid #45484c; font: 500 12px var(--mono); color: #969b9e; }
 
+
+  /* ===== motion layer 2: directional reveals, word masks, exits ===== */
+  .rv.fl { transform: translateX(-64px); }
+  .rv.fr { transform: translateX(64px); }
+  .rv.ft { transform: translateY(-44px); }
+  .rv.zm { transform: scale(0.9); }
+  .rv.fd { transform: none; }
+  .rv.rot { transform: translateY(48px) rotate(-4deg); }
+  .rv.clip { transform: none; filter: none; opacity: 1; clip-path: inset(0 0 100% 0 round 16px); }
+  .rv.clip.in { animation: clipin 1100ms var(--ease-io) both; }
+  @keyframes clipin { to { clip-path: inset(0 0 0 0 round 16px); } }
+  .rv.done { clip-path: none; opacity: 1; transform: none; filter: none; }
+  .sheet.rv.done { transform: rotate(-1.2deg); }
+  .sp.rv { opacity: 1; transform: none; filter: none; }
+  .sp.rv.in { animation: none; }
+  .sp .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.08em 0.02em 0.12em; margin: -0.08em -0.02em -0.12em; }
+  .sp .wi { display: inline-block; transform: translateY(108%) rotate(4deg); transform-origin: 0 100%; transition: transform 950ms var(--ease-out) calc(var(--i) * 55ms + 80ms); }
+  .sp.in .wi { transform: none; }
+  .sp.in mark { animation-delay: calc(var(--n, 4) * 55ms + 450ms); }
+  .nav { animation: navin 800ms var(--ease-out) both; }
+  @keyframes navin { from { transform: translateY(-100%); } }
+  @supports (animation-timeline: view()) {
+    .head, .hero-grid, .split > div:first-child { animation: exitup linear both; animation-timeline: view(); animation-range: exit 10% exit 100%; }
+    @keyframes exitup { to { opacity: 0; transform: translateY(-60px) scale(0.97); filter: blur(4px); } }
+    .closer .big-b { animation: bigb linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    @keyframes bigb { from { transform: translateX(18%) rotate(-8deg); } to { transform: translateX(-8%) rotate(4deg); } }
+  }
+
+  /* press + ripple: everything clickable answers back */
+  .btn, .seg button, .cmd button, .ttab, .replay, .sound, .rail button { position: relative; overflow: hidden; }
+  .card:active { transform: scale(0.985); transition-duration: 120ms; }
+  .seg button:active, .ttab:active, .replay:active, .sound:active, .rail button:active { transform: scale(0.95); }
+  .ripple { position: absolute; border-radius: 50%; pointer-events: none; background: currentColor; opacity: 0.28; transform: scale(0.1); animation: ripple 650ms var(--ease-out) forwards; }
+  @keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+  /* sound toggle */
+  .sound { display: grid; place-items: center; width: 40px; height: 40px; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--paper); color: var(--ink); font-size: 19px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 200ms ease; }
+  .sound:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .sound[aria-pressed="true"] { background: var(--yellow); }
+  .sound .bars { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
+  .sound .bars i { width: 3px; background: var(--ink); border-radius: 2px; height: 4px; transition: height 200ms ease; }
+  .sound[aria-pressed="true"] .bars i { animation: eq 900ms ease-in-out infinite; }
+  .sound[aria-pressed="true"] .bars i:nth-child(2) { animation-delay: -300ms; } .sound[aria-pressed="true"] .bars i:nth-child(3) { animation-delay: -600ms; }
+  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+
+  /* chapter rail */
+  .rail { position: fixed; right: 18px; top: 50%; z-index: 45; display: none; flex-direction: column; gap: 4px; padding: 8px 6px; border: 1.5px solid var(--ink); border-radius: 999px; background: rgba(245, 245, 242, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 3px 3px 0 var(--ink); transform: translate(140%, -50%); transition: transform 700ms var(--ease-out); }
+  .rail.on { transform: translate(0, -50%); }
+  .rail button { display: grid; place-items: center; width: 26px; height: 26px; border: 0; border-radius: 50%; background: transparent; cursor: pointer; color: var(--ink); }
+  .rail button i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: transform 300ms var(--ease-out), background-color 300ms ease; }
+  .rail button.cur i { background: var(--ink); transform: scale(1.5); }
+  .rail button span { position: absolute; right: 38px; white-space: nowrap; padding: 5px 10px; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--yellow); font: 700 12px var(--mono); letter-spacing: 0.06em; opacity: 0; transform: translateX(8px); pointer-events: none; transition: opacity 180ms ease, transform 220ms var(--ease-out); }
+  .rail button { overflow: visible; }
+  .rail button:hover span, .rail button:focus-visible span { opacity: 1; transform: none; }
+  @media (min-width: 1100px) { .rail { display: flex; } }
+
+  /* toast */
+  .toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom)); z-index: 80; display: flex; align-items: center; gap: 10px; padding: 12px 18px; border: 1.5px solid var(--ink); border-radius: 12px; background: var(--ink); color: var(--paper); font: 700 14px var(--sans); box-shadow: 4px 4px 0 var(--yellow); transform: translate(-50%, 160%); transition: transform 420ms var(--ease-out); }
+  .toast i { color: var(--yellow); font-size: 18px; }
+  .toast.on { transform: translate(-50%, 0); }
+
+  /* terminal demo: tabs, spinner, progress */
+  .term .tbar { gap: 6px; }
+  .ttabs { position: relative; display: flex; gap: 2px; margin-left: 12px; padding: 3px; border-radius: 8px; background: #1c1e21; }
+  .ttab { position: relative; z-index: 1; min-height: 26px; padding: 0 11px; border: 0; border-radius: 6px; background: transparent; color: #9da2a6; font: 600 12px var(--mono); cursor: pointer; transition: color 200ms ease, transform 160ms var(--ease-out); }
+  .ttab[aria-selected="true"] { color: var(--ink); }
+  .tind { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 0; width: 40px; border-radius: 6px; background: var(--yellow); transition: transform 380ms var(--ease-out), width 380ms var(--ease-out); }
+  .replay { margin-left: auto; display: grid; place-items: center; width: 28px; height: 26px; border: 1px solid #55595d; border-radius: 6px; background: transparent; color: #c9cccf; cursor: pointer; font-size: 14px; transition: transform 160ms var(--ease-out), color 160ms ease; }
+  .replay:hover { color: var(--yellow); }
+  .replay:hover i { transform: rotate(-120deg); }
+  .replay i { transition: transform 400ms var(--ease-out); }
+  .term pre { min-height: 400px; }
+  .t-p { color: var(--yellow); font-weight: 700; } .t-spin { color: var(--yellow); }
+  .tline { display: inline-block; animation: tline 260ms var(--ease-out) both; }
+  @keyframes tline { from { opacity: 0; transform: translateX(-6px); } }
+  .tprog { height: 3px; background: #1c1e21; }
+  .tprog span { display: block; height: 100%; background: var(--yellow); transform-origin: 0 50%; transform: scaleX(0); transition: transform 500ms var(--ease-out); }
+  .table-wrap .top-table g { transform-box: fill-box; transform-origin: center; transition: transform 400ms var(--ease-out); }
+  .table-wrap .top-table g.hl { transform: scale(1.18); }
+  .table-wrap .top-table g.hl .seatc { stroke: #fff; stroke-width: 3; }
+  .cell:hover .ic i, .get:hover .ic i { animation: wiggle 600ms var(--ease-out); }
+  @keyframes wiggle { 30% { transform: rotate(-14deg) scale(1.1); } 60% { transform: rotate(8deg); } }
+  .cell .ic i, .get .ic i { display: inline-block; }
+
   @media (max-width: 1100px) {
     .seats { grid-template-columns: repeat(3, 1fr); }
     .ev { grid-template-columns: 1fr 1fr; }
@@ -431,11 +515,17 @@
     .row { grid-template-columns: 22px 1fr auto; gap: 8px; }
     .ticker { margin-top: 26px; }
     .note { flex-direction: column; gap: 6px; }
+    .term .tbar span:not(.tind) { display: none; }
+    .ttab { padding: 0 8px; }
+    .term .tbar > i { display: none; }
+    .ttabs { margin-left: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
-    .rv, .in-1, .in-2, .in-3, .in-4, .in-5, .art, .hterm { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .rv, .in-1, .in-2, .in-3, .in-4, .in-5, .art, .hterm { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
     mark { background-size: 100% 100% !important; }
+    .sp .wi { transform: none !important; }
+    .rail { transition: none; }
     .draw { stroke-dashoffset: 0 !important; }
     .fillin { fill-opacity: 1 !important; }
     .sundisc { opacity: 0.95 !important; transform: none !important; }
@@ -464,6 +554,7 @@
       <a href="#install">Install</a>
     </nav>
     <div class="navactions">
+      <button class="sound" id="sound" aria-pressed="true" aria-label="Interface sounds"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
       <a class="btn sm gh" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>GitHub</a>
       <a class="btn sm primary" href="#install">Install free</a>
     </div>
@@ -476,7 +567,7 @@
       <div class="hero-grid">
         <div>
           <div class="eyebrow in-1">The Indian founder council</div>
-          <h1 class="in-2">Bring your idea to the <mark>Baithak.</mark></h1>
+          <h1 class="sp" id="h1">Bring your idea to the <mark>Baithak.</mark></h1>
           <p class="desc in-3">Five AI advisors built from Indian founders. The Chair checks who pays, where it gets stuck, what breaks at scale and what is legal. Then the council argues it out and hands you a verdict.</p>
           <div class="actions in-4">
             <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>/baithak --quick</a>
@@ -552,13 +643,22 @@
     <div class="wrap split">
       <div>
         <div class="eyebrow rv"><span class="n">01</span>The idea</div>
-        <h2 class="rv d1">It starts with <mark>one line.</mark></h2>
-        <p class="lede rv d2">Type your idea the way you'd tell a friend. The Chair fills the gaps and tells you what it assumed.</p>
-        <div class="asks rv d3"><span>Who pays?</span><span>What do they do today?</span><span>Your budget</span><span>Which way you lean</span></div>
+        <h2 class="rv sp">It starts with <mark>one line.</mark></h2>
+        <p class="lede rv fl d2">Type your idea the way you'd tell a friend. The Chair fills the gaps and tells you what it assumed.</p>
+        <div class="asks rv fl d3"><span>Who pays?</span><span>What do they do today?</span><span>Your budget</span><span>Which way you lean</span></div>
       </div>
-      <div class="term rv d2">
-        <div class="tbar"><i></i><i></i><i></i><span>claude · ~/my-idea</span></div>
-        <pre id="term" aria-label="Replay of a real Baithak run"></pre>
+      <div class="term rv fr">
+        <div class="tbar"><i></i><i></i><i></i>
+          <div class="ttabs" role="tablist" aria-label="Terminal demo">
+            <button class="ttab" role="tab" aria-selected="true" data-scene="0">install</button>
+            <button class="ttab" role="tab" aria-selected="false" data-scene="1">run</button>
+            <button class="ttab" role="tab" aria-selected="false" data-scene="2">verify</button>
+            <span class="tind" aria-hidden="true"></span>
+          </div>
+          <button class="replay" id="replay" aria-label="Replay this scene"><i class="ph ph-arrow-counter-clockwise"></i></button>
+        </div>
+        <pre id="term" aria-label="Replay of a real Baithak session"></pre>
+        <div class="tprog" aria-hidden="true"><span id="tprog"></span></div>
       </div>
     </div>
   </section>
@@ -568,15 +668,15 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">02</span>The method</div>
-          <h2 class="rv d1">Idea in. India check. <mark>Clear call out.</mark></h2>
+          <h2 class="rv sp">Idea in. India check. <mark>Clear call out.</mark></h2>
         </div>
         <p class="lede rv d2">Not a score from a generic prompt. The Chair states its assumptions and runs the checks before any advisor speaks.</p>
       </div>
       <div class="steps" id="steps">
-        <article class="card step lift rv"><div class="no">01</div><h3>The Chair checks India</h3><p>Who pays, what kind of business it is, where it gets stuck, what breaks at scale, and the legal zone.</p></article>
-        <article class="card step lift rv d1"><div class="no">02</div><h3>You choose the council</h3><p>The recommended board, the seats you pick, one advisor alone, or all five.</p></article>
+        <article class="card step lift rv fl"><div class="no">01</div><h3>The Chair checks India</h3><p>Who pays, what kind of business it is, where it gets stuck, what breaks at scale, and the legal zone.</p></article>
+        <article class="card step lift rv ft d1"><div class="no">02</div><h3>You choose the council</h3><p>The recommended board, the seats you pick, one advisor alone, or all five.</p></article>
         <article class="card step lift rv d2"><div class="no">03</div><h3>They argue it out</h3><p>Opening views, a debate, revised positions. Every round is saved.</p></article>
-        <article class="card step hot rv d3"><div class="no">04</div><h3>You get a decision</h3><p>A scored verdict, the strongest objection, a 7-day test under ₹5,000 and a point to walk away.</p></article>
+        <article class="card step hot rv fr d3"><div class="no">04</div><h3>You get a decision</h3><p>A scored verdict, the strongest objection, a 7-day test under ₹5,000 and a point to walk away.</p></article>
       </div>
     </div>
   </section>
@@ -586,12 +686,12 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">03</span>Before the debate</div>
-          <h2 class="rv d1">First, the Chair <mark>checks India.</mark></h2>
+          <h2 class="rv sp">First, the Chair <mark>checks India.</mark></h2>
         </div>
         <p class="lede rv d2">The checks US validators skip. In India they decide most outcomes. Watch them tick.</p>
       </div>
       <div class="bento" id="bento">
-        <article class="card cell wide rv"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">01 / Customer</div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays?</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p><div class="chips"><span>India 1</span><span>India 2</span><span>India 3</span><span>Global</span></div>
+        <article class="card cell wide rv fl"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">01 / Customer</div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays?</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p><div class="chips"><span>India 1</span><span>India 2</span><span>India 3</span><span>Global</span></div>
           <svg class="rings" viewBox="0 0 520 170" aria-hidden="true">
             <path pathLength="1" d="M60 170 A200 200 0 0 1 460 170" stroke="#b8bbbd" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
             <path class="rg r3" pathLength="1" d="M110 170 A150 150 0 0 1 410 170" fill="#eceeed" stroke="#1f2125" stroke-width="1.5"/>
@@ -600,11 +700,11 @@
             <text x="260" y="162" text-anchor="middle">INDIA 1</text><text x="260" y="112">INDIA 2</text><text x="260" y="50">INDIA 3</text>
             <text x="516" y="22" text-anchor="end">GLOBAL →</text>
           </svg></article>
-        <article class="card cell wide rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">05 / Legal zone</div><div class="ic"><i class="ph ph-scales"></i></div><h3>WHITE, GRAY, BLACK or UNMAPPED</h3><p>Cited only from 24 dated, sourced law files.</p>
+        <article class="card cell wide rv fr d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">05 / Legal zone</div><div class="ic"><i class="ph ph-scales"></i></div><h3>WHITE, GRAY, BLACK or UNMAPPED</h3><p>Cited only from 24 dated, sourced law files.</p>
           <div class="zones"><div class="zone"><span>Known path, build</span><b class="z-w">WHITE</b></div><div class="zone"><span>Build with a compliance switch</span><b class="z-g">GRAY</b></div><div class="zone"><span>Vetoed, find the legal route</span><b class="z-k">BLACK</b></div><div class="zone"><span>Not covered, ask the regulator</span><b class="z-u">UNMAPPED</b></div></div></article>
-        <article class="card cell rv"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">02 / Business model</div><div class="ic"><i class="ph ph-squares-four"></i></div><h3>What kind of business?</h3><p>A pickle brand is not judged like a SaaS tool.</p></article>
-        <article class="card cell rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">03 / Friction</div><div class="ic"><i class="ph ph-currency-inr"></i></div><h3>Where does it get stuck?</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></article>
-        <article class="card cell full-sm rv d2"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">04 / Scale</div><div class="ic"><i class="ph ph-trend-up"></i></div><h3>What breaks at 10,000?</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></article>
+        <article class="card cell rv zm"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">02 / Business model</div><div class="ic"><i class="ph ph-squares-four"></i></div><h3>What kind of business?</h3><p>A pickle brand is not judged like a SaaS tool.</p></article>
+        <article class="card cell rv ft d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">03 / Friction</div><div class="ic"><i class="ph ph-currency-inr"></i></div><h3>Where does it get stuck?</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></article>
+        <article class="card cell full-sm rv zm d2"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">04 / Scale</div><div class="ic"><i class="ph ph-trend-up"></i></div><h3>What breaks at 10,000?</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></article>
       </div>
     </div>
   </section>
@@ -614,19 +714,19 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">04</span>The playbook</div>
-          <h2 class="rv d1">Eight idea types. <mark>Different tests.</mark></h2>
+          <h2 class="rv sp">Eight idea types. <mark>Different tests.</mark></h2>
         </div>
         <p class="lede rv d2">One checklist does not fit every business. Regulated sectors get an extra legal bar on top of their type.</p>
       </div>
       <div class="types">
-        <article class="card type lift rv"><div class="num">TYPE 01<i class="ph ph-code"></i></div><h3>Software and SaaS</h3><p>Margins after cloud and AI, payback, global pricing.</p></article>
-        <article class="card type lift rv d1"><div class="num">TYPE 02<i class="ph ph-device-mobile"></i></div><h3>Consumer app and content</h3><p>Habit, retention, revenue per user.</p></article>
-        <article class="card type lift rv d2"><div class="num">TYPE 03<i class="ph ph-storefront"></i></div><h3>Marketplace</h3><p>Liquidity, off-platform leakage, take rate.</p></article>
-        <article class="card type lift rv d3"><div class="num">TYPE 04<i class="ph ph-package"></i></div><h3>Physical product and D2C</h3><p>Margins, channel stack, working capital, COD returns.</p></article>
+        <article class="card type lift rv ft"><div class="num">TYPE 01<i class="ph ph-code"></i></div><h3>Software and SaaS</h3><p>Margins after cloud and AI, payback, global pricing.</p></article>
+        <article class="card type lift rv ft d1"><div class="num">TYPE 02<i class="ph ph-device-mobile"></i></div><h3>Consumer app and content</h3><p>Habit, retention, revenue per user.</p></article>
+        <article class="card type lift rv ft d2"><div class="num">TYPE 03<i class="ph ph-storefront"></i></div><h3>Marketplace</h3><p>Liquidity, off-platform leakage, take rate.</p></article>
+        <article class="card type lift rv ft d3"><div class="num">TYPE 04<i class="ph ph-package"></i></div><h3>Physical product and D2C</h3><p>Margins, channel stack, working capital, COD returns.</p></article>
         <article class="card type lift rv"><div class="num">TYPE 05<i class="ph ph-factory"></i></div><h3>Manufacturing and hardware</h3><p>Capex, utilisation, import dependence, certification time.</p></article>
         <article class="card type lift rv d1"><div class="num">TYPE 06<i class="ph ph-handshake"></i></div><h3>Service business</h3><p>Founder dependence, utilisation, productisation.</p></article>
         <article class="card type lift rv d2"><div class="num">TYPE 07<i class="ph ph-map-pin"></i></div><h3>Local business</h3><p>Rent share, break-even orders, commissions.</p></article>
-        <article class="card type reg lift rv d3"><div class="num">TYPE 08<i class="ph ph-shield-check"></i></div><h3>Regulated sector</h3><p>Fintech, health, education, real estate, insurance. Stricter legal checks on top.</p></article>
+        <article class="card type reg lift rv zm d3"><div class="num">TYPE 08<i class="ph ph-shield-check"></i></div><h3>Regulated sector</h3><p>Fintech, health, education, real estate, insurance. Stricter legal checks on top.</p></article>
       </div>
     </div>
   </section>
@@ -636,10 +736,10 @@
       <div class="table-wrap">
         <div>
           <div class="eyebrow rv"><span class="n">05</span>Five seats, five lenses</div>
-          <h2 class="rv d1">Five chairs fill. <mark>Each sees a different risk.</mark></h2>
+          <h2 class="rv sp">Five chairs fill. <mark>Each sees a different risk.</mark></h2>
           <p class="lede rv d2">Each advisor is built from one founder's public interviews, talks and letters. Every attributed quote is verbatim, linked to a source and checked by a script.</p>
         </div>
-        <svg class="top-table rv d2" id="topTable" viewBox="0 0 420 420" aria-hidden="true">
+        <svg class="top-table rv zm d2" id="topTable" viewBox="0 0 420 420" aria-hidden="true">
           <circle class="orbit" cx="210" cy="210" r="190"/>
           <circle class="tbl" cx="210" cy="210" r="92"/>
           <text x="210" y="205" text-anchor="middle" fill="#d3d5d6" style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.14em">YOUR IDEA</text>
@@ -652,11 +752,11 @@
         </svg>
       </div>
       <div class="seats">
-        <article class="seat rv"><div class="glare"></div><div class="sh"><span>SEAT 01</span><span class="ini">NK</span></div><h3>Nithin Kamath</h3><div class="pillar">Trust · regulation · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src"><i class="ph ph-books"></i>9 public sources</div></article>
-        <article class="seat rv d1"><div class="glare"></div><div class="sh"><span>SEAT 02</span><span class="ini">KS</span></div><h3>Kunal Shah</h3><div class="pillar">Consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src"><i class="ph ph-books"></i>10 public sources</div></article>
-        <article class="seat rv d2"><div class="glare"></div><div class="sh"><span>SEAT 03</span><span class="ini">SV</span></div><h3>Sridhar Vembu</h3><div class="pillar">Frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src"><i class="ph ph-books"></i>11 sources · business views</div></article>
-        <article class="seat rv d3"><div class="glare"></div><div class="sh"><span>SEAT 04</span><span class="ini">GM</span></div><h3>Girish Mathrubootham</h3><div class="pillar">B2B SaaS · India to global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
-        <article class="seat rv d4"><div class="glare"></div><div class="sh"><span>SEAT 05</span><span class="ini">DG</span></div><h3>Deepinder Goyal</h3><div class="pillar">Habit · operations · scale</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src"><i class="ph ph-books"></i>13 public sources</div></article>
+        <article class="seat rv ft"><div class="glare"></div><div class="sh"><span>SEAT 01</span><span class="ini">NK</span></div><h3>Nithin Kamath</h3><div class="pillar">Trust · regulation · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src"><i class="ph ph-books"></i>9 public sources</div></article>
+        <article class="seat rv ft d1"><div class="glare"></div><div class="sh"><span>SEAT 02</span><span class="ini">KS</span></div><h3>Kunal Shah</h3><div class="pillar">Consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src"><i class="ph ph-books"></i>10 public sources</div></article>
+        <article class="seat rv ft d2"><div class="glare"></div><div class="sh"><span>SEAT 03</span><span class="ini">SV</span></div><h3>Sridhar Vembu</h3><div class="pillar">Frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src"><i class="ph ph-books"></i>11 sources · business views</div></article>
+        <article class="seat rv ft d3"><div class="glare"></div><div class="sh"><span>SEAT 04</span><span class="ini">GM</span></div><h3>Girish Mathrubootham</h3><div class="pillar">B2B SaaS · India to global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
+        <article class="seat rv ft d4"><div class="glare"></div><div class="sh"><span>SEAT 05</span><span class="ini">DG</span></div><h3>Deepinder Goyal</h3><div class="pillar">Habit · operations · scale</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src"><i class="ph ph-books"></i>13 public sources</div></article>
       </div>
       <div class="note rv"><strong>Simulations, not the people.</strong><span>Each question above is that seat's lens, written by Baithak. Not affiliated with or endorsed by the founders. No portraits, photos or voices. Ask one seat with <code style="background:rgba(255,255,255,.08);color:var(--yellow)">/baithak ask nithin …</code></span></div>
     </div>
@@ -667,12 +767,12 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">06</span>A real run · fantasy cricket</div>
-          <h2 class="rv d1">Then they argue, <mark>and change their minds.</mark></h2>
+          <h2 class="rv sp">Then they argue, <mark>and change their minds.</mark></h2>
         </div>
         <p class="lede rv d2">A ₹49-entry fantasy cricket app for Tier-2 students. Flip between rounds and watch the scores move.</p>
       </div>
       <div class="debate">
-        <div class="card board rv d1">
+        <div class="card board rv fl d1">
           <div class="tag">THE IDEA UNDER REVIEW</div>
           <h3>Students pay ₹49 per contest and win cash.</h3>
           <div class="seg" role="tablist" aria-label="Round">
@@ -685,11 +785,11 @@
           <p class="foot">Weighted council score out of 10</p>
         </div>
         <div class="quotes">
-          <div class="card q rv"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
-          <div class="card q rv d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers."</p></div>
-          <div class="card q moved rv d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
-          <div class="card q moved rv d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
-          <div class="card q moved rv d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
+          <div class="card q rv fr"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>“Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK.”</p></div>
+          <div class="card q rv fr d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>“Most tech founders are great at building dams and terrible at finding rivers.”</p></div>
+          <div class="card q moved rv fr d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>“So I drop the slide. It changes the test, not the verdict.”</p></div>
+          <div class="card q moved rv fr d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>“My Rs 3 lakh stage one put build money ahead of that proof. That is backwards.”</p></div>
+          <div class="card q moved rv fr d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>“I have no good answer. A student does nothing on a no-match day.”</p></div>
         </div>
       </div>
     </div>
@@ -700,11 +800,11 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">07</span>The Chair's verdict</div>
-          <h2 class="rv d1">The verdict <mark>lands.</mark></h2>
+          <h2 class="rv sp">The verdict <mark>lands.</mark></h2>
         </div>
       </div>
       <div class="verdict">
-        <div class="sheet rv">
+        <div class="sheet rv rot">
           <div class="stamp" aria-hidden="true">BLACK</div>
           <div class="hd"><img src="web-app-manifest-192x192.png" alt="" width="26" height="26">BAITHAK · VERDICT</div>
           <h3>Don't do it.</h3>
@@ -714,9 +814,9 @@
           <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket">Read every round →</a></p>
         </div>
         <div class="gets">
-          <div class="card get lift rv d1"><div class="ic"><i class="ph ph-prohibit"></i></div><div><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div></div>
-          <div class="card get lift rv d2"><div class="ic"><i class="ph ph-flask"></i></div><div><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div></div>
-          <div class="card get lift rv d3"><div class="ic"><i class="ph ph-door-open"></i></div><div><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div></div>
+          <div class="card get lift rv fr d1"><div class="ic"><i class="ph ph-prohibit"></i></div><div><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div></div>
+          <div class="card get lift rv fr d2"><div class="ic"><i class="ph ph-flask"></i></div><div><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div></div>
+          <div class="card get lift rv fr d3"><div class="ic"><i class="ph ph-door-open"></i></div><div><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div></div>
         </div>
       </div>
     </div>
@@ -727,18 +827,18 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">08</span>Evidence, not theatre</div>
-          <h2 class="rv d1">Every claim has <mark>a trail.</mark></h2>
+          <h2 class="rv sp">Every claim has <mark>a trail.</mark></h2>
         </div>
         <p class="lede rv d2">Baithak shows what it knows, what it doesn't, and what still needs checking.</p>
       </div>
       <div class="ev" id="ev">
-        <article class="card ink rv"><div class="big" data-count="24">24</div><h3>Dated law files</h3><p>Each lists its sources, a last-verified date and what to watch for.</p></article>
-        <article class="card lift rv d1"><div class="big" data-count="1191">1,191</div><h3>Sourced quotes</h3><p>Verbatim lines across five brains, each tied to a source id.</p></article>
-        <article class="card lift rv d2"><div class="big" data-count="54">54</div><h3>Public sources</h3><p>Interviews, podcasts, talks and letters behind the five seats.</p></article>
-        <article class="card lift rv d3"><div class="big" data-count="0">0</div><h3>Quiet WHITEs</h3><p>Anything outside coverage returns UNMAPPED, never a quiet pass.</p></article>
+        <article class="card ink rv clip"><div class="big" data-count="24">24</div><h3>Dated law files</h3><p>Each lists its sources, a last-verified date and what to watch for.</p></article>
+        <article class="card lift rv zm d1"><div class="big" data-count="1191">1,191</div><h3>Sourced quotes</h3><p>Verbatim lines across five brains, each tied to a source id.</p></article>
+        <article class="card lift rv zm d2"><div class="big" data-count="54">54</div><h3>Public sources</h3><p>Interviews, podcasts, talks and letters behind the five seats.</p></article>
+        <article class="card lift rv zm d3"><div class="big" data-count="0">0</div><h3>Quiet WHITEs</h3><p>Anything outside coverage returns UNMAPPED, never a quiet pass.</p></article>
       </div>
       <div class="trust">
-        <div class="rv"><b>Not legal or financial advice</b>GRAY and BLACK always end with "verify with a lawyer before you build".</div>
+        <div class="rv fd"><b>Not legal or financial advice</b>GRAY and BLACK always end with "verify with a lawyer before you build".</div>
         <div class="rv d1"><b>Sources have limits</b>Each law file records what is still unverified against official text.</div>
         <div class="rv d2"><b>Open source · MIT</b>A fork of Roast Room, rebuilt for India.</div>
       </div>
@@ -750,26 +850,26 @@
       <div class="head">
         <div>
           <div class="eyebrow rv"><span class="n">09</span>Get started</div>
-          <h2 class="rv d1">Pull up <mark>a chair.</mark></h2>
+          <h2 class="rv sp">Pull up <mark>a chair.</mark></h2>
         </div>
         <p class="lede rv d2">Runs inside <a href="https://claude.com/claude-code" style="color:var(--yellow)">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
       </div>
       <div class="install">
-        <div class="way main rv">
+        <div class="way main rv clip">
           <div class="lab"><i class="ph ph-star-four"></i>Recommended · plugin</div>
           <h3>Two commands</h3>
           <p>Inside Claude Code. The skill is then <code>/baithak:baithak</code>.</p>
           <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
           <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
-        <div class="way rv d1">
+        <div class="way rv clip d1">
           <div class="lab"><i class="ph ph-package"></i>Any project · skills CLI</div>
           <h3>One command</h3>
           <p>In your project folder, then start with <code>--quick</code>.</p>
           <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
           <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick " aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
-        <div class="way rv d2">
+        <div class="way rv clip d2">
           <div class="lab"><i class="ph ph-git-branch"></i>Build on it · clone</div>
           <h3>Make it yours</h3>
           <p>Build new seats or edit law files.</p>
@@ -778,7 +878,7 @@
         </div>
       </div>
       <div class="trust">
-        <div class="rv"><b>Start small</b><code style="background:rgba(255,255,255,.08);color:var(--yellow)">--quick</code> seats four advisors for two rounds. A full five-seat council is fifteen runs.</div>
+        <div class="rv fd"><b>Start small</b><code style="background:rgba(255,255,255,.08);color:var(--yellow)">--quick</code> seats four advisors for two rounds. A full five-seat council is fifteen runs.</div>
         <div class="rv d1"><b>Choose the room</b>The recommended board, the seats you tick, one advisor, or everyone.</div>
         <div class="rv d2"><b>Keep the record</b>Brief, checks, every round and the verdict are saved in <code style="background:rgba(255,255,255,.08);color:var(--yellow)">sessions/</code>.</div>
       </div>
@@ -789,16 +889,29 @@
     <div class="big-b" aria-hidden="true">B.</div>
     <div class="wrap">
       <div>
-        <h2 class="rv">Your next idea deserves a <span class="serif">baithak.</span></h2>
+        <h2 class="rv sp">Your next idea deserves a <span class="serif">baithak.</span></h2>
         <p class="rv d1">An idea, a pivot, a hard call. Bring it to the table and let it take the questions.</p>
       </div>
-      <div class="actions rv d2">
+      <div class="actions rv zm d2">
         <a class="btn inv" href="#install"><i class="ph ph-terminal-window"></i>Run /baithak</a>
         <a class="btn" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>Star on GitHub</a>
       </div>
     </div>
   </section>
 </main>
+
+<nav class="rail" id="rail" aria-label="Chapters">
+  <button data-to="story" aria-label="01 The idea"><i></i><span>01 The idea</span></button>
+  <button data-to="method" aria-label="02 The method"><i></i><span>02 The method</span></button>
+  <button data-to="checks" aria-label="03 India checks"><i></i><span>03 India checks</span></button>
+  <button data-to="types" aria-label="04 Idea types"><i></i><span>04 Idea types</span></button>
+  <button data-to="council" aria-label="05 The council"><i></i><span>05 The council</span></button>
+  <button data-to="sample" aria-label="06 A real run"><i></i><span>06 A real run</span></button>
+  <button data-to="verdict" aria-label="07 The verdict"><i></i><span>07 The verdict</span></button>
+  <button data-to="evidence" aria-label="08 Evidence"><i></i><span>08 Evidence</span></button>
+  <button data-to="install" aria-label="09 Install"><i></i><span>09 Install</span></button>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"><i class="ph ph-check-circle"></i><span>Copied</span></div>
 
 <footer>
   <div class="wrap">
@@ -821,6 +934,117 @@
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   function once(el, fn, th) { if (!el) return; new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: th || 0.4 }).observe(el); }
 
+
+  // ===== sound: tiny synthesized UI sounds (Web Audio, no files) =====
+  var AC = null, master = null, soundOn = true, unlocked = false;
+  try { soundOn = localStorage.getItem('baithak-sound') !== 'off'; } catch (e) {}
+  var sbtn = document.getElementById('sound');
+  sbtn.setAttribute('aria-pressed', String(soundOn));
+  function unlock() {
+    if (unlocked) return; unlocked = true;
+    try { AC = new (window.AudioContext || window.webkitAudioContext)(); master = AC.createGain(); master.gain.value = 0.32; master.connect(AC.destination); } catch (e) { AC = null; }
+  }
+  function noise(dur) {
+    var b = AC.createBuffer(1, Math.max(1, AC.sampleRate * dur), AC.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+    var n = AC.createBufferSource(); n.buffer = b; return n;
+  }
+  function tone(type, f1, f2, dur, vol, at) {
+    var t = AC.currentTime + (at || 0), o = AC.createOscillator(), g = AC.createGain();
+    o.type = type; o.frequency.setValueAtTime(f1, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.02);
+  }
+  function burst(freq, q, dur, vol) {
+    var n = noise(dur), f = AC.createBiquadFilter(), g = AC.createGain();
+    f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q; g.gain.value = vol;
+    n.connect(f); f.connect(g); g.connect(master); n.start();
+  }
+  var SFX = {
+    click: function () { burst(3200, 1.2, 0.03, 0.9); tone('sine', 1500, 900, 0.05, 0.12); },
+    soft: function () { burst(2400, 1, 0.02, 0.35); },
+    key: function () { burst(1800 + Math.random() * 1600, 2, 0.012, 0.18); },
+    pop: function () { tone('sine', 660, 990, 0.09, 0.18); tone('sine', 990, 1320, 0.12, 0.14, 0.07); },
+    tick: function () { tone('triangle', 1200, 1600, 0.06, 0.08); },
+    flap: function () { burst(900, 0.8, 0.035, 0.5); },
+    thud: function () { tone('sine', 140, 55, 0.22, 0.5); burst(400, 0.6, 0.08, 0.6); },
+    done: function () { tone('sine', 523, 0, 0.12, 0.12); tone('sine', 784, 0, 0.18, 0.12, 0.09); }
+  };
+  function sfx(name) {
+    if (!soundOn || !AC) return;
+    if (AC.state === 'suspended') AC.resume();
+    try { SFX[name](); } catch (e) {}
+  }
+  document.addEventListener('pointerdown', unlock, { once: true, capture: true });
+  document.addEventListener('keydown', unlock, { once: true, capture: true });
+  sbtn.addEventListener('click', function () {
+    soundOn = !soundOn; sbtn.setAttribute('aria-pressed', String(soundOn));
+    try { localStorage.setItem('baithak-sound', soundOn ? 'on' : 'off'); } catch (e) {}
+    if (soundOn) { unlock(); sfx('pop'); }
+    toast(soundOn ? 'Sounds on' : 'Sounds off', soundOn ? 'ph-speaker-high' : 'ph-speaker-slash');
+  });
+
+  // ===== click feedback: ripple from the exact press point + a click sound =====
+  var PRESS = '.btn, .card, .seg button, .cmd button, .ttab, .replay, .sound, .rail button, .navlinks a, .brand, .seat, .chips span, .asks span, footer a';
+  document.addEventListener('pointerdown', function (ev) {
+    var el = ev.target.closest(PRESS); if (!el) return;
+    if (el.matches('.btn, .seg button, .cmd button, .ttab, .replay, .sound, .rail button, .card, .seat') && !reduce) {
+      var r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2, rp = document.createElement('span');
+      rp.className = 'ripple'; rp.style.width = rp.style.height = d + 'px';
+      rp.style.left = (ev.clientX - r.left - d / 2) + 'px'; rp.style.top = (ev.clientY - r.top - d / 2) + 'px';
+      el.appendChild(rp); rp.addEventListener('animationend', function () { rp.remove(); });
+    }
+    setTimeout(function () { sfx(el.matches('.card, .seat, .chips span, .asks span') ? 'soft' : 'click'); }, 0);
+  });
+
+  // ===== toast =====
+  var toastEl = document.getElementById('toast'), toastT = null;
+  function toast(msg, icon) {
+    toastEl.querySelector('span').textContent = msg;
+    toastEl.querySelector('i').className = 'ph ' + (icon || 'ph-check-circle');
+    toastEl.classList.add('on'); clearTimeout(toastT);
+    toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 1800);
+  }
+
+  // ===== headlines: split into words that rise through a mask =====
+  function split(el) {
+    var i = 0;
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+        if (c.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span'), wi = document.createElement('span');
+            w.className = 'w'; wi.className = 'wi'; wi.style.setProperty('--i', i++); wi.textContent = part;
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          c.parentNode.replaceChild(frag, c);
+        } else if (c.nodeType === 1) walk(c);
+      });
+    })(el);
+    el.style.setProperty('--n', i);
+  }
+  document.querySelectorAll('.sp').forEach(split);
+  var h1 = document.getElementById('h1');
+  requestAnimationFrame(function () { setTimeout(function () { h1.classList.add('in'); }, 120); });
+
+  // ===== eyebrows decode like a split-flap when they arrive =====
+  var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/·';
+  function scramble(el) {
+    var node = el.lastChild; if (!node || node.nodeType !== 3 || reduce) return;
+    var final = node.textContent, f = 0, total = 18;
+    (function step() {
+      f++;
+      node.textContent = final.split('').map(function (ch, i) {
+        if (ch === ' ' || i < (f / total) * final.length) return ch;
+        return GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }).join('');
+      if (f < total) setTimeout(step, 32); else node.textContent = final;
+    })();
+  }
+
   // reveal: one-shot keyframes, then .done hands transform back to hover effects
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (en) {
@@ -828,6 +1052,7 @@
       var el = en.target; io.unobserve(el);
       el.addEventListener('animationend', function done(ev) { if (ev.target !== el) return; el.classList.add('done'); el.removeEventListener('animationend', done); });
       el.classList.add('in');
+      if (el.classList.contains('eyebrow')) scramble(el);
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
@@ -839,6 +1064,27 @@
     es.forEach(function (en) { var a = links[en.target.id]; if (a) a.classList.toggle('cur', en.isIntersecting); });
   }, { rootMargin: '-45% 0px -50% 0px' });
   Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+
+  // chapter rail: appears after the hero, tracks the chapter in view
+  var rail = document.getElementById('rail'), rbtn = {};
+  rail.querySelectorAll('button').forEach(function (b) {
+    rbtn[b.dataset.to] = b;
+    b.addEventListener('click', function () { document.getElementById(b.dataset.to).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); });
+  });
+  new IntersectionObserver(function (e) { rail.classList.toggle('on', !e[0].isIntersecting); }, { threshold: 0.2 }).observe(document.querySelector('.hero'));
+  var rspy = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { var b = rbtn[en.target.id]; if (b) b.classList.toggle('cur', en.isIntersecting); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(rbtn).forEach(function (id) { rspy.observe(document.getElementById(id)); });
+
+  // seat cards light their chair at the table
+  var tableSeats = document.querySelectorAll('#topTable g');
+  document.querySelectorAll('.seat').forEach(function (card, i) {
+    var g = tableSeats[i];
+    card.addEventListener('pointerenter', function () { g.classList.add('hl'); });
+    card.addEventListener('pointerleave', function () { g.classList.remove('hl'); });
+    card.addEventListener('click', function () { g.classList.add('hl'); setTimeout(function () { g.classList.remove('hl'); }, 700); });
+  });
 
   // hero: chairs fill, then the live checklist ticks
   var chairs = document.querySelectorAll('#heroChairs .chair');
@@ -883,7 +1129,7 @@
   // checks tick in turn
   var cells = document.querySelectorAll('.cell');
   once(document.getElementById('bento'), function () {
-    cells.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, reduce ? 0 : 500 + i * 380); });
+    cells.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); sfx('tick'); }, reduce ? 0 : 500 + i * 380); });
   }, 0.2);
 
   // council: seats take their chairs
@@ -892,36 +1138,111 @@
     tt.querySelectorAll('g').forEach(function (g, i) { setTimeout(function () { g.classList.add('on'); }, reduce ? 0 : 500 + i * 320); });
   }, 0.4);
 
-  // terminal replay of the real run
-  var L = [
-    ['t-s', '> '], ['t-w', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.\n\n'],
-    ['t-d', 'Chair   '], ['', 'type: consumer app + regulated sector\n'],
-    ['t-d', 'Chair   '], ['', 'who pays: India 2 (students)\n'],
-    ['t-d', 'Chair   '], ['', 'legal zone A: '], ['t-k', 'BLACK'], ['t-d', '  [laws/online-gaming-act-2025.md]\n'],
-    ['t-d', 'Chair   '], ['', 'seating Nithin, Kunal, Deepinder, Vembu\n\n'],
-    ['t-d', 'Round 1 '], ['', 'four cards in. split: B vs C\n'],
-    ['t-d', 'Round 2 '], ['', 'every seat moved after the debate\n\n'],
-    ['t-g', '✓ '], ['', '18 quotes verified, 3 law citations verified\n'],
-    ['t-s', 'Verdict '], ['t-k', "DON'T DO IT"], ['', '  (paid entry vetoed)\n'],
-    ['t-d', 'saved to sessions/…-fantasy-cricket/verdict.md\n']
+  // ===== terminal: three real scenes (install, run, verify) on a loop =====
+  var SCENES = [
+    [
+      ['cmd', '/plugin marketplace add cipher-cmd/Baithak'],
+      ['spin', 'fetching github.com/cipher-cmd/Baithak', 1100, 'marketplace baithak added'],
+      ['cmd', '/plugin install baithak@baithak'],
+      ['spin', 'installing the baithak skill', 900, 'installed. run it as /baithak:baithak'],
+      ['gap'],
+      ['note', '# or, in any project folder'],
+      ['sh', 'npx skills add cipher-cmd/Baithak'],
+      ['spin', 'copying skills', 900, 'baithak and newseat added to .claude/skills']
+    ],
+    [
+      ['cmd', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.'],
+      ['gap'],
+      ['kv', 'Chair   ', 'type: consumer app + regulated sector'],
+      ['kv', 'Chair   ', 'who pays: India 2 (students)'],
+      ['zone'],
+      ['kv', 'Chair   ', 'seating Nithin, Kunal, Deepinder, Vembu'],
+      ['spin', 'Round 1  four seats arguing in parallel', 1600, 'Round 1  four cards in. split: B vs C'],
+      ['spin', 'Round 2  debate', 1400, 'Round 2  every seat moved after the debate'],
+      ['spin', 'checking quotes and law citations', 900, '18 quotes verified, 3 law citations verified'],
+      ['verdict'],
+      ['note', 'saved to sessions/2026-11-10-example-fantasy-cricket/']
+    ],
+    [
+      ['sh', 'python .claude/skills/baithak/scripts/check_quotes.py sessions/2026-11-10-example-fantasy-cricket'],
+      ['out', 'brain quotes verified: 18; quotes of earlier rounds or the brief: 0; unverified: 0'],
+      ['sh', 'python .claude/skills/baithak/scripts/check_laws.py sessions/2026-11-10-example-fantasy-cricket'],
+      ['out', 'law citations: 3; problems: 0'],
+      ['sh', 'ls sessions/2026-11-10-example-fantasy-cricket'],
+      ['out', 'brief.md  india-checks.md  round-1.md  round-2.md  verdict.md']
+    ]
   ];
-  var term = document.getElementById('term');
-  function add(cls, txt) { var s = document.createElement('span'); s.className = cls; s.textContent = txt; term.appendChild(s); return s; }
-  once(term, function () {
-    if (reduce) { L.forEach(function (l) { add(l[0], l[1]); }); return; }
-    var cur = document.createElement('span'); cur.className = 'cursor';
-    var li = 0, ci = 0, span = null;
-    (function step() {
-      if (li >= L.length) { term.appendChild(cur); return; }
-      if (!span) span = add(L[li][0], '');
-      var t = L[li][1], fast = li > 1;
-      ci += fast ? 3 : 1;
-      span.textContent = t.slice(0, ci);
-      term.appendChild(cur);
-      if (ci >= t.length) { li++; ci = 0; span = null; setTimeout(step, t.slice(-1) === '\n' ? (fast ? 240 : 520) : 40); }
-      else setTimeout(step, fast ? 11 : 24);
-    })();
-  });
+  var term = document.getElementById('term'), tprog = document.getElementById('tprog');
+  var tabs = document.querySelectorAll('.ttab'), tind = document.querySelector('.tind');
+  var runId = 0, scene = 0, termSeen = false, termVisible = false;
+  var FR = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
+  function sleep(ms, id) { return new Promise(function (res, rej) { setTimeout(function () { id === runId ? res() : rej('x'); }, reduce ? 0 : ms); }); }
+  function line() { var l = document.createElement('span'); l.className = 'tline'; term.appendChild(l); return l; }
+  function seg(parent, cls, txt) { var s2 = document.createElement('span'); if (cls) s2.className = cls; s2.textContent = txt; parent.appendChild(s2); return s2; }
+  var cur = document.createElement('span'); cur.className = 'cursor';
+  function moveTabInd() {
+    var t = tabs[scene]; tind.style.width = t.offsetWidth + 'px'; tind.style.transform = 'translateX(' + (t.offsetLeft - 3) + 'px)';
+    tabs.forEach(function (b, i) { b.setAttribute('aria-selected', String(i === scene)); });
+  }
+  async function typeInto(el, txt, id) {
+    for (var i = 1; i <= txt.length; i++) {
+      el.textContent = txt.slice(0, i); el.parentNode.appendChild(cur);
+      if (i % 2) sfx('key');
+      await sleep(txt.length > 60 ? 9 : 26 + Math.random() * 30, id);
+    }
+  }
+  async function play(n) {
+    var id = ++runId; scene = n; moveTabInd();
+    term.textContent = ''; tprog.style.transform = 'scaleX(0)';
+    var ops = SCENES[n];
+    try {
+      for (var k = 0; k < ops.length; k++) {
+        var op = ops[k], l;
+        tprog.style.transform = 'scaleX(' + (k / ops.length) + ')';
+        if (op[0] === 'cmd' || op[0] === 'sh') {
+          l = line(); seg(l, 't-p', op[0] === 'cmd' ? '❯ ' : '$ ');
+          var body = seg(l, 't-w', ''); l.appendChild(cur);
+          await sleep(320, id); await typeInto(body, op[1], id); await sleep(260, id);
+          term.appendChild(document.createTextNode('\n'));
+        } else if (op[0] === 'spin') {
+          l = line(); var sp = seg(l, 't-spin', FR[0] + ' '), tx = seg(l, 't-d', op[1]);
+          term.appendChild(document.createTextNode('\n')); term.appendChild(cur);
+          var end = Date.now() + (reduce ? 0 : op[2]), f = 0;
+          while (Date.now() < end) { sp.textContent = FR[f++ % FR.length] + ' '; await sleep(70, id); }
+          sp.className = 't-g'; sp.textContent = '✓ '; tx.className = ''; tx.textContent = op[3]; sfx('tick');
+        } else if (op[0] === 'kv') {
+          l = line(); seg(l, 't-d', op[1]); seg(l, '', op[2]); term.appendChild(document.createTextNode('\n')); await sleep(340, id);
+        } else if (op[0] === 'zone') {
+          l = line(); seg(l, 't-d', 'Chair   '); seg(l, '', 'legal zone A: '); seg(l, 't-k', 'BLACK'); seg(l, 't-d', '  [laws/online-gaming-act-2025.md]');
+          term.appendChild(document.createTextNode('\n')); sfx('thud'); await sleep(520, id);
+        } else if (op[0] === 'verdict') {
+          term.appendChild(document.createTextNode('\n'));
+          l = line(); seg(l, 't-s', 'Verdict  '); seg(l, 't-k', "DON'T DO IT"); seg(l, '', '  (paid entry vetoed)');
+          term.appendChild(document.createTextNode('\n')); sfx('done'); await sleep(500, id);
+        } else if (op[0] === 'out') {
+          l = line(); seg(l, '', op[1]); term.appendChild(document.createTextNode('\n')); await sleep(420, id);
+        } else if (op[0] === 'note') {
+          l = line(); seg(l, 't-d', op[1]); term.appendChild(document.createTextNode('\n')); await sleep(300, id);
+        } else if (op[0] === 'gap') {
+          term.appendChild(document.createTextNode('\n'));
+        }
+        term.appendChild(cur);
+      }
+      tprog.style.transform = 'scaleX(1)';
+      if (reduce) return;
+      await sleep(3200, id);
+      while (!termVisible) await sleep(400, id);
+      play((n + 1) % SCENES.length);
+    } catch (e) { /* superseded by a newer run */ }
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { play(+b.dataset.scene); }); });
+  document.getElementById('replay').addEventListener('click', function () { play(scene); });
+  new IntersectionObserver(function (e) {
+    termVisible = e[0].isIntersecting;
+    if (termVisible && !termSeen) { termSeen = true; play(0); }
+  }, { threshold: 0.35 }).observe(term);
+  window.addEventListener('resize', moveTabInd);
+  moveTabInd();
 
   // split-flap scoreboard
   var groups = document.querySelectorAll('.flaps');
@@ -938,7 +1259,7 @@
         if (f.textContent === target[i]) return;
         if (reduce) { f.textContent = target[i]; return; }
         setTimeout(function () {
-          f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+          f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); sfx('flap');
           setTimeout(function () { f.textContent = target[i]; }, 230);
         }, gi * 120 + i * 70);
       });
@@ -968,11 +1289,14 @@
     document.querySelectorAll('.seat').forEach(function (s) { tilt(s, 12); });
   }
 
+  var sheet = document.querySelector('.sheet');
+  once(sheet, function () { setTimeout(function () { sfx('thud'); }, reduce ? 0 : 1050); }, 0.4);
+
   // copy buttons
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
       var ic = b.querySelector('i');
-      var done = function () { b.classList.add('ok'); ic.className = 'ph ph-check'; setTimeout(function () { b.classList.remove('ok'); ic.className = 'ph ph-copy'; }, 1400); };
+      var done = function () { sfx('pop'); toast('Copied to clipboard'); b.classList.add('ok'); ic.className = 'ph ph-check'; setTimeout(function () { b.classList.remove('ok'); ic.className = 'ph ph-copy'; }, 1400); };
       navigator.clipboard ? navigator.clipboard.writeText(b.dataset.copy).then(done, done) : done();
     });
   });
