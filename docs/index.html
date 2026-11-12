@@ -2,424 +2,500 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Baithak: an AI founder council for India</title>
-<meta name="description" content="Bring an idea for India. A council of AI advisors argues it out and returns a scored verdict, a 7-day test under ₹5,000, and the point to walk away. Free and open source.">
-<meta property="og:title" content="Baithak: bring an idea to the Indian council">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baithak: the Indian council for your next idea</title>
+<meta name="description" content="Bring an idea for India. Five AI advisors check who pays and whether it's legal, argue it out, and hand you a verdict, a 7-day test under ₹5,000, and the point to walk away. Free and open source.">
+<meta property="og:title" content="Baithak: bring your idea to the Indian council">
 <meta property="og:description" content="India checks, 8 idea types, a WHITE/GRAY/BLACK legal gate from 24 sourced law files, and a scored verdict. A free Claude Code skill.">
 <meta property="og:image" content="https://cipher-cmd.github.io/Baithak/banner.png">
 <meta property="og:url" content="https://cipher-cmd.github.io/Baithak/">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#120d09">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23120d09'/><rect x='10' y='18' width='44' height='28' rx='6' fill='%23f1e4c8'/><rect x='14' y='22' width='26' height='20' rx='3' fill='%23e8a33d'/><circle cx='47' cy='32' r='5' fill='%23120d09'/></svg>">
+<meta name="theme-color" content="#0b0e15">
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="banner.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="preload" as="image" href="logo.jpg">
 <style>
   :root {
-    --bg: #120d09; --bg2: #19120c; --wood: #241810; --wood2: #2e1f14; --line: #3a2a1d; --line2: #4d3826;
-    --cream: #f1e4c8; --text: #efe4cf; --muted: #c2b298; --dim: #a8987d;
-    --amber: #f0a43a; --glow: #ffc56b; --ink: #1f160d;
-    --red: #e9614f; --green: #6fd29a; --grey: #c9c2b5;
-    --display: "Big Shoulders Display", "Hanken Grotesk", system-ui, sans-serif;
+    --ink: #0b0e15; --ink2: #0f131c; --panel: #141925; --panel2: #1a2030;
+    --line: rgba(244, 231, 204, 0.1); --line2: rgba(244, 231, 204, 0.18);
+    --cream: #f4e7cc; --text: #efe7d6; --muted: #b8b0a1; --dim: #9a9284;
+    --sun: #f2771f; --amber: #f6b13b; --sun-soft: rgba(242, 119, 31, 0.14);
+    --red: #ec5b45; --green: #6fcf97; --grey: #c7c2b8;
+    --serif: "DM Serif Display", Georgia, serif;
     --sans: "Hanken Grotesk", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, monospace;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-    --needle: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --r: 14px;
+    --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+    --r: 22px; --r-sm: 14px;
+    --gutter: clamp(16px, 4vw, 40px);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
-  /* film grain: fixed, non-interactive, never on a scrolling layer */
-  body::after { content: ""; position: fixed; inset: 0; z-index: 30; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  a { color: var(--glow); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  code, .mono { font-family: var(--mono); }
-  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
-  h2 { font: 800 clamp(44px, 7vw, 92px)/0.92 var(--display); text-transform: uppercase; letter-spacing: -0.005em; margin: 0 0 20px; }
-  h2 em { font-style: normal; color: var(--amber); }
-  .lede { color: var(--muted); font-size: clamp(17px, 1.6vw, 20px); max-width: 54ch; margin: 0; }
-  .grille { background-image: radial-gradient(rgba(0,0,0,.42) 1.2px, transparent 1.6px); background-size: 7px 7px; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--ink); color: var(--text); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  body::after { content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  img { max-width: 100%; display: block; }
+  a { color: var(--amber); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  code { font-family: var(--mono); font-size: 0.92em; color: var(--amber); }
+  ::selection { background: var(--sun); color: var(--ink); }
+  .wrap { width: min(1200px, 100%); margin: 0 auto; padding: 0 var(--gutter); }
+  h2 { font: 400 clamp(40px, 6.2vw, 84px)/0.98 var(--serif); letter-spacing: -0.01em; margin: 0 0 20px; color: var(--cream); }
+  h2 em, h1 em { font-style: italic; color: var(--sun); }
+  .lede { color: var(--muted); font-size: clamp(17px, 1.5vw, 20px); max-width: 52ch; margin: 0; }
 
-  /* the tuning dial is the navigation */
-  .radio { position: fixed; inset: 0 0 auto 0; z-index: 20; background: linear-gradient(180deg, #1b130c, #140e09); border-bottom: 1px solid var(--line2); box-shadow: 0 10px 30px -18px rgba(0,0,0,.9); }
-  .radio .wrap { display: flex; align-items: center; gap: 22px; height: 66px; }
-  .logo { font: 900 26px var(--display); color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: .04em; flex: none; }
-  .logo span { color: var(--amber); }
-  .band { position: relative; flex: 1; height: 44px; border-radius: 8px; background: linear-gradient(180deg, #f6ebd3, #e6d5b2); box-shadow: inset 0 2px 6px rgba(0,0,0,.35), 0 0 0 1px #0d0906, 0 0 22px rgba(255,197,107,.12); overflow: hidden; }
-  .band::before { content: ""; position: absolute; inset: auto 8px 4px 8px; height: 9px; background: repeating-linear-gradient(90deg, rgba(31,22,13,.55) 0 1px, transparent 1px 10px); }
-  .band a { position: absolute; top: 4px; transform: translateX(-50%); font: 700 11.5px/1.2 var(--mono); color: #5a4630; text-decoration: none; letter-spacing: .04em; white-space: nowrap; transition: color 200ms ease; }
-  .band a b { display: block; font: 800 13px var(--display); color: var(--ink); letter-spacing: .06em; text-align: center; }
-  .band a.on b, .band a:hover b { color: #b5300f; }
-  .needle-track { position: absolute; inset: 0 8px; pointer-events: none; transform: translateX(calc(-100% + 0px)); }
-  .needle-track i { position: absolute; right: 0; top: 2px; bottom: 2px; width: 2px; background: #c8361a; box-shadow: 0 0 8px rgba(200,54,26,.6); }
+  /* retro sun: a disc cut by horizontal bands, from the logo's sunset */
+  .sun { position: absolute; border-radius: 50%; background: linear-gradient(180deg, var(--amber) 0%, var(--sun) 62%, #c4451b 100%); -webkit-mask: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%); mask: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%); pointer-events: none; }
+
+  .progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 30; background: linear-gradient(90deg, var(--sun), var(--amber)); transform-origin: 0 50%; transform: scaleX(0); }
   @supports (animation-timeline: scroll()) {
-    .needle-track { animation: tune linear both; animation-timeline: scroll(root); }
-    @keyframes tune { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+    .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    @keyframes grow { to { transform: scaleX(1); } }
   }
-  @supports not (animation-timeline: scroll()) { .needle-track { display: none; } }
-  .gh { flex: none; display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 999px; border: 1px solid var(--amber); color: var(--glow); text-decoration: none; font: 600 14px var(--sans); transition: transform 160ms var(--ease-out), background-color 200ms ease; }
-  .gh:hover { background: rgba(240,164,58,.1); }
-  .gh:active { transform: scale(0.97); }
-  .now { display: none; font: 500 12px var(--mono); color: var(--muted); }
 
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 999px; font: 600 15px var(--sans); text-decoration: none; border: 1px solid var(--amber); cursor: pointer; transition: transform 160ms var(--ease-out), background-color 200ms ease, box-shadow 200ms ease; white-space: nowrap; }
+  /* nav: floating glass pill */
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 25; width: min(1120px, calc(100% - 24px)); transform: translateX(-50%); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 14px; border-radius: 999px; border: 1px solid transparent; transition: background-color 300ms ease, border-color 300ms ease; }
+  .nav.solid { background: rgba(15, 19, 28, 0.72); border-color: var(--line); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--cream); text-decoration: none; font: 400 24px/1 var(--serif); }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .navlinks { display: flex; align-items: center; gap: 4px; }
+  .navlinks a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 9px 14px; border-radius: 999px; transition: color 160ms ease, background-color 160ms ease; }
+  .navlinks a:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 22px; border-radius: 999px; font: 600 15.5px var(--sans); text-decoration: none; cursor: pointer; border: 1px solid transparent; white-space: nowrap; transition: transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease; }
   .btn:active { transform: scale(0.97); }
-  .btn.solid { background: linear-gradient(180deg, #f7b552, #e0912a); color: #1c1006; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 18px -10px rgba(0,0,0,.8); }
-  .btn.solid:hover { background: linear-gradient(180deg, #ffc163, #e8992f); }
-  .btn.line { color: var(--glow); background: rgba(18,13,9,.5); }
+  .navlinks a.btn.primary, .btn.primary { background: var(--sun); color: #170a02; }
+  .navlinks a.btn.primary:hover, .btn.primary:hover { background: #ff8a33; color: #170a02; }
+  .btn.ghost { color: var(--cream); border-color: var(--line2); background: rgba(255, 255, 255, 0.02); }
+  .btn.ghost:hover { border-color: rgba(244, 231, 204, 0.36); }
+  .btn.sm { min-height: 40px; padding: 0 18px; font-size: 14.5px; }
+  .btn i { font-size: 18px; }
 
-  /* 1. the room: zoom out from the laptop as you scroll */
-  .stage { position: relative; height: 230vh; }
-  .stage .pin { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
-  .room { position: absolute; inset: 0; }
-  .room img { position: absolute; left: 0; top: 0; width: 100%; height: 178%; object-fit: cover; object-position: 33% 0%; transform-origin: 26% 23%; filter: sepia(.18) saturate(1.05); }
-  .room::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,13,9,.6) 0%, rgba(18,13,9,.12) 38%, rgba(18,13,9,.94) 100%); }
-  .hero-copy { position: absolute; inset: auto 0 8vh 0; z-index: 2; }
-  .hero-copy h1 { font: 900 clamp(58px, 10vw, 150px)/0.86 var(--display); text-transform: uppercase; margin: 0 0 20px; max-width: 11ch; }
-  .hero-copy h1 em { font-style: normal; color: var(--amber); }
-  .hero-copy p { color: #e2d4b8; font-size: clamp(17px, 1.7vw, 21px); max-width: 44ch; margin: 0 0 26px; }
+  /* hero */
+  .hero { position: relative; min-height: 100dvh; display: grid; align-items: center; padding: 120px 0 72px; overflow: hidden; }
+  .hero .sun { width: min(64vw, 860px); aspect-ratio: 1; left: 74%; top: 30%; transform: translate(-50%, -10%); opacity: 0.22; -webkit-mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), linear-gradient(180deg, #000 55%, transparent 95%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), linear-gradient(180deg, #000 55%, transparent 95%); mask-composite: intersect; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .hero-grid > * { min-width: 0; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border-radius: 999px; border: 1px solid var(--line2); background: rgba(255, 255, 255, 0.03); color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+  .pill b { background: var(--sun-soft); color: var(--amber); border-radius: 999px; padding: 3px 10px; font-weight: 600; font-size: 13px; }
+  h1 { font: 400 clamp(52px, 8.4vw, 116px)/0.94 var(--serif); letter-spacing: -0.015em; margin: 0 0 24px; color: var(--cream); padding-bottom: 4px; }
+  .hero p.sub { color: var(--muted); font-size: clamp(18px, 1.7vw, 21px); max-width: 40ch; margin: 0 0 32px; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .caption { position: absolute; inset: auto 0 11vh 0; z-index: 2; text-align: center; opacity: 0; }
-  .caption p { font: 800 clamp(34px, 5vw, 68px)/0.95 var(--display); text-transform: uppercase; margin: 0; }
-  .caption span { color: var(--amber); }
+  .poster { position: relative; justify-self: end; width: min(100%, 440px); }
+  .poster .card { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9), 0 0 0 10px rgba(255, 255, 255, 0.02); }
+  .poster img { width: 100%; height: auto; aspect-ratio: 760 / 912; object-fit: cover; }
+  .poster .tag { position: absolute; left: -18px; bottom: 34px; z-index: 2; padding: 12px 16px; border-radius: 16px; background: rgba(15, 19, 28, 0.86); border: 1px solid var(--line2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: 14px; box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8); }
+  .poster .tag b { display: block; font: 700 13px var(--mono); color: var(--red); letter-spacing: 0.06em; }
+  .poster .tag span { color: var(--muted); }
+  .poster .tag2 { left: auto; right: -14px; bottom: auto; top: 30px; }
+  .poster .tag2 b { color: var(--green); }
+
+  .in-1, .in-2, .in-3, .in-4 { opacity: 0; transform: translateY(22px); filter: blur(6px); animation: rise 900ms var(--ease-out) forwards; }
+  .in-2 { animation-delay: 90ms; } .in-3 { animation-delay: 180ms; } .in-4 { animation-delay: 270ms; }
+  @keyframes rise { to { opacity: 1; transform: none; filter: none; } }
+  .poster { opacity: 0; transform: translateY(40px) scale(0.96); animation: poster 1200ms var(--ease-out) 200ms forwards; }
+  @keyframes poster { to { opacity: 1; transform: none; } }
+  .hero .sun { animation: sunrise 1800ms var(--ease-out) forwards; }
+  @keyframes sunrise { from { transform: translate(-50%, 14%); opacity: 0; } to { transform: translate(-50%, -10%); opacity: 0.22; } }
+
+  /* ticker: the one marquee on the page */
+  .ticker { border-block: 1px solid var(--line); overflow: hidden; padding: 16px 0; mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .ticker .track { display: flex; width: max-content; animation: tick 46s linear infinite; }
+  .ticker span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font: 400 clamp(22px, 2.6vw, 34px)/1 var(--serif); color: var(--cream); white-space: nowrap; }
+  .ticker span::after { content: ""; width: 9px; height: 9px; transform: rotate(45deg); border: 2px solid var(--sun); }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* the room: the frame opens to full bleed as you scroll in */
+  .room { position: relative; }
+  .room .pin { position: relative; height: 100dvh; overflow: hidden; }
+  .room .frame { position: absolute; inset: 0; overflow: hidden; }
+  .room .frame img { width: 100%; height: 176%; object-fit: cover; object-position: 34% 0%; }
+  .room .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 14, 21, 0.2), rgba(11, 14, 21, 0.05) 28%, rgba(11, 14, 21, 0.78) 60%, rgba(11, 14, 21, 0.96)); }
+  .room .caps { position: absolute; z-index: 2; inset: auto 0 9vh 0; text-align: center; }
+  .room .caps p { margin: 0; font: 400 clamp(34px, 5.4vw, 76px)/1.04 var(--serif); color: var(--cream); }
+  .room .caps p:nth-child(3) { color: var(--sun); font-style: italic; padding-bottom: 6px; }
   @supports (animation-timeline: view()) {
-    .stage { view-timeline-name: --stage; }
-    .room img { animation: zoomout linear both; animation-timeline: --stage; animation-range: contain 0% contain 100%; }
-    .hero-copy { animation: fadeup linear both; animation-timeline: --stage; animation-range: contain 0% contain 32%; }
-    .caption { animation: capin linear both; animation-timeline: --stage; animation-range: contain 48% contain 100%; }
-    @keyframes zoomout { from { transform: scale(2.35); } to { transform: scale(1); } }
-    @keyframes fadeup { to { opacity: 0; transform: translateY(-40px); filter: blur(4px); } }
-    @keyframes capin { 0% { opacity: 0; transform: translateY(24px); } 40%, 100% { opacity: 1; transform: none; } }
+    .room { height: 260vh; view-timeline-name: --room; }
+    .room .pin { position: sticky; top: 0; }
+    .room .frame { clip-path: inset(16% 12% 16% 12% round 32px); animation: open linear both; animation-timeline: --room; animation-range: contain 0% contain 55%; }
+    .room .frame img { animation: settle linear both; animation-timeline: --room; animation-range: contain 0% contain 70%; }
+    .room .caps p { opacity: 0; animation: cap linear both; animation-timeline: --room; }
+    .room .caps p:nth-child(1) { animation-range: contain 46% contain 58%; }
+    .room .caps p:nth-child(2) { animation-range: contain 60% contain 72%; }
+    .room .caps p:nth-child(3) { animation-range: contain 74% contain 86%; }
+    @keyframes open { to { clip-path: inset(0 0 0 0 round 0); } }
+    @keyframes settle { from { transform: scale(1.28); } to { transform: scale(1); } }
+    @keyframes cap { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
   }
-  @supports not (animation-timeline: view()) { .stage { height: 100dvh; } .caption { display: none; } }
 
-  .rv { opacity: 0; transform: translateY(28px); filter: blur(6px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out), filter 700ms var(--ease-out); }
-  .rv.in { opacity: 1; transform: none; filter: none; }
-  .rv.d1 { transition-delay: 80ms; } .rv.d2 { transition-delay: 160ms; } .rv.d3 { transition-delay: 240ms; } .rv.d4 { transition-delay: 320ms; }
-  section.ch { padding: clamp(100px, 15vh, 170px) 0; position: relative; scroll-margin-top: 66px; }
+  .ch { padding: clamp(96px, 14vh, 168px) 0; position: relative; overflow-x: clip; }
+  html { overflow-x: clip; }
+  .ch.tight { padding-top: 0; }
+  /* reveal: one-shot keyframes, then .done hands transform back to hover effects */
+  .rv { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  .rv.in { animation: rise 900ms var(--ease-out) both; }
+  .rv.in.d1 { animation-delay: 80ms; } .rv.in.d2 { animation-delay: 160ms; } .rv.in.d3 { animation-delay: 240ms; } .rv.in.d4 { animation-delay: 320ms; }
+  .rv.done { opacity: 1; transform: none; filter: none; animation: none; }
 
-  /* 2. one line: phosphor terminal set into a wooden cabinet */
-  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  /* one line: terminal */
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
   .split > * { min-width: 0; }
-  .cabinet { padding: 16px; border-radius: 22px; background: linear-gradient(145deg, #3a2618, #23170e 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 90px -30px rgba(0,0,0,.9); }
-  .crt { position: relative; border-radius: 12px; background: radial-gradient(120% 120% at 50% 40%, #1f1407, #0c0803 70%); box-shadow: inset 0 0 40px rgba(0,0,0,.9), 0 0 0 1px #0a0603; overflow: hidden; }
-  .crt::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px); }
-  .crt pre { margin: 0; padding: 22px; font: 400 13.5px/1.75 var(--mono); color: #ffcf86; text-shadow: 0 0 6px rgba(255,180,80,.45); white-space: pre-wrap; word-break: break-word; min-height: 370px; }
-  .cab-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding: 0 6px; font: 500 12px var(--mono); color: var(--muted); }
-  .knobs { display: flex; gap: 10px; }
-  .knobs i { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #6b5340, #2a1d13); box-shadow: 0 2px 4px rgba(0,0,0,.6); }
-  .t-d { color: #c49a62; } .t-k { color: #ff7b5c; font-weight: 700; } .t-g { color: #9be7b3; } .t-w { color: #fff3dc; }
-  .cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: -2px; background: #ffcf86; box-shadow: 0 0 8px rgba(255,180,80,.7); animation: blink 1s steps(1) infinite; }
+  .term { border-radius: var(--r); background: linear-gradient(180deg, #121722, #0c1018); border: 1px solid var(--line2); box-shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow: hidden; }
+  .term-top { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .term-top i.dot { width: 11px; height: 11px; border-radius: 50%; background: #2b3245; }
+  .term-top span { margin-left: 8px; font: 500 12.5px var(--mono); color: var(--dim); }
+  .term pre { margin: 0; padding: 22px; font: 400 13.5px/1.8 var(--mono); color: #d8d2c4; white-space: pre-wrap; word-break: break-word; min-height: 360px; }
+  .t-w { color: #fff6e6; } .t-d { color: var(--dim); } .t-k { color: var(--red); font-weight: 700; } .t-g { color: var(--green); } .t-s { color: var(--amber); }
+  .cursor { display: inline-block; width: 8px; height: 1.15em; vertical-align: -3px; background: var(--sun); animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* 3. checks: cream dial-face panel */
-  .board { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; margin-top: 48px; }
-  .board > * { min-width: 0; }
-  .checks { background: linear-gradient(180deg, #f3e7cd, #e8d8b6); color: var(--ink); border-radius: var(--r); padding: clamp(22px, 3vw, 34px); box-shadow: inset 0 1px 0 #fff8e6, 0 30px 70px -30px rgba(0,0,0,.8); }
-  .check { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 16px 0; }
-  .check + .check { border-top: 1px solid rgba(31,22,13,.16); }
-  .box { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(31,22,13,.35); display: grid; place-items: center; transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease; }
-  .box svg { width: 14px; height: 14px; stroke: #fff6e4; stroke-width: 3; fill: none; stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset 420ms var(--ease-out) 120ms; }
-  .check.on .box { background: #c8361a; border-color: #c8361a; }
-  .check.on .box svg { stroke-dashoffset: 0; }
-  .check h3 { margin: 0 0 2px; font: 800 24px/1.05 var(--display); text-transform: uppercase; }
-  .check p { margin: 0; color: #4f3e2a; font-size: 15px; }
-  .zonecard { border-radius: var(--r); padding: clamp(22px, 3vw, 34px); background: linear-gradient(160deg, var(--wood2), var(--wood)); border: 1px solid var(--line2); display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }
-  .zonecard h3 { margin: 0; font: 800 32px/0.98 var(--display); text-transform: uppercase; }
-  .zones { display: grid; gap: 10px; }
-  .zone { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 10px; background: #160f0a; border: 1px solid var(--line); }
-  .zone b { display: inline-flex; align-items: center; gap: 10px; font: 700 15px var(--mono); letter-spacing: .08em; }
-  .zone b::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
-  .zone span { color: var(--muted); font-size: 14px; text-align: right; }
+  /* checks: bento */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 52px; }
+  .bento > * { min-width: 0; }
+  .cell { position: relative; border-radius: var(--r); padding: clamp(22px, 2.6vw, 30px); background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+  .cell.c1, .cell.c2 { grid-column: span 3; } .cell.c3, .cell.c4, .cell.c5 { grid-column: span 2; }
+  .cell .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--sun-soft); color: var(--amber); font-size: 23px; margin-bottom: 20px; }
+  .cell h3 { margin: 0 0 6px; font: 400 clamp(26px, 2.4vw, 32px)/1.05 var(--serif); color: var(--cream); }
+  .cell p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .cell .tick { position: absolute; top: 22px; right: 22px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line2); display: grid; place-items: center; transition: background-color 400ms var(--ease-out), border-color 400ms ease; }
+  .cell .tick i { font-size: 16px; color: var(--ink); opacity: 0; transform: scale(0.6); transition: opacity 300ms ease 120ms, transform 400ms var(--ease-out) 120ms; }
+  .cell.on .tick { background: var(--sun); border-color: var(--sun); }
+  .cell.on .tick i { opacity: 1; transform: none; }
+  .cell.law { background: radial-gradient(120% 100% at 100% 0%, rgba(236, 91, 69, 0.14), transparent 55%), var(--panel); }
+  .cell.sunny { background: radial-gradient(130% 120% at 0% 100%, rgba(242, 119, 31, 0.2), transparent 60%), var(--panel); }
+  .zones { display: grid; gap: 8px; margin-top: 18px; }
+  .zone { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid var(--line); font-size: 14.5px; }
+  .zone b { font: 700 13.5px var(--mono); letter-spacing: 0.08em; }
+  .zone span { color: var(--muted); text-align: right; }
   .zone.w b { color: var(--green); } .zone.g b { color: var(--grey); } .zone.k b { color: var(--red); }
-  .types { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-  .types span { border: 1px solid var(--line2); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: #e2d4b8; }
+  .types { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+  .types span { border: 1px solid var(--line2); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; color: var(--text); }
 
-  /* 4. seats: walnut panels with brass plates, 3D tilt */
-  .seats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 48px; }
+  /* seats */
+  .seats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 52px; }
   .seats > * { min-width: 0; }
-  .seat { grid-column: span 2; position: relative; padding: 24px; border-radius: var(--r); background: linear-gradient(160deg, #3a2718, #22160e 75%); border: 1px solid var(--line2); transform-style: preserve-3d; box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 50px -28px rgba(0,0,0,.9); }
-  .seat:nth-child(4) { grid-column: 2 / span 2; }
-  .seat:nth-child(5) { grid-column: 4 / span 2; }
-  .seat .glare { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 300ms ease; background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,197,107,.16), transparent 60%); }
+  .seat { grid-column: span 2; position: relative; border-radius: var(--r); padding: 26px; background: linear-gradient(170deg, var(--panel2), var(--panel) 60%); border: 1px solid var(--line); overflow: hidden; }
+  .seat:nth-child(4) { grid-column: 2 / span 2; } .seat:nth-child(5) { grid-column: 4 / span 2; }
+  .mono-mark { position: relative; width: 64px; height: 64px; display: grid; place-items: center; margin-bottom: 22px; isolation: isolate; }
+  .mono-mark .sun { inset: 0; width: 100%; height: 100%; z-index: -1; }
+  .mono-mark span { font: 400 24px var(--serif); color: var(--ink); margin-top: -8px; }
+  .seat h3 { margin: 0; font: 400 34px/1 var(--serif); color: var(--cream); }
+  .seat .pillar { margin: 8px 0 14px; font: 500 13px var(--mono); color: var(--amber); }
+  .seat .ask { margin: 0; font-size: 17px; line-height: 1.45; color: var(--text); }
+  .seat .src { margin-top: 18px; color: var(--dim); font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
+  .seat .glare { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 300ms ease; background: radial-gradient(280px circle at var(--gx, 50%) var(--gy, 50%), rgba(246, 177, 59, 0.12), transparent 60%); }
   .seat:hover .glare { opacity: 1; }
-  .plate { display: inline-block; padding: 6px 14px; border-radius: 5px; background: linear-gradient(180deg, #f6d68e, #c58a2c); color: #2a1a05; font: 900 22px var(--display); text-transform: uppercase; letter-spacing: .03em; box-shadow: 0 6px 16px -6px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.6); transform: translateZ(40px); }
-  .seat .pillar { margin: 14px 0 6px; color: var(--glow); font: 500 13px var(--mono); transform: translateZ(25px); }
-  .seat .ask { margin: 0; font-size: 16.5px; line-height: 1.45; transform: translateZ(18px); }
-  .seat .src { margin-top: 14px; color: var(--dim); font-size: 13px; transform: translateZ(10px); }
-  .footnote { color: var(--dim); font-size: 14px; margin-top: 18px; }
+  .hint { margin-top: 20px; color: var(--dim); font-size: 14px; }
 
-  /* 5. debate: analog VU meters */
-  .debate { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; margin-top: 48px; align-items: start; }
+  /* debate: split-flap scoreboard */
+  .debate { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 16px; margin-top: 52px; align-items: start; }
   .debate > * { min-width: 0; }
-  .meters { position: sticky; top: 90px; padding: 22px; border-radius: 22px; background: linear-gradient(145deg, #3a2618, #23170e 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 90px -30px rgba(0,0,0,.9); }
-  .tabs { display: flex; padding: 4px; border-radius: 999px; gap: 4px; margin-bottom: 18px; background: #140d08; box-shadow: inset 0 2px 5px rgba(0,0,0,.6); }
-  .tabs button { flex: 1; border: 0; background: transparent; color: var(--muted); font: 600 14px var(--sans); padding: 9px 12px; border-radius: 999px; cursor: pointer; transition: background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
-  .tabs button:active { transform: scale(0.97); }
-  .tabs button[aria-selected="true"] { background: linear-gradient(180deg, #f7b552, #e0912a); color: #1c1006; }
-  .vu-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .vu { border-radius: 10px; padding: 12px 10px 10px; background: radial-gradient(130% 110% at 50% 100%, #fbefd3, #ead6ae); box-shadow: inset 0 0 18px rgba(120,80,30,.35), 0 0 22px rgba(255,197,107,.18); color: var(--ink); text-align: center; }
-  .dial { position: relative; height: 62px; overflow: hidden; }
-  .scale { position: absolute; left: 50%; bottom: -60px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; background: conic-gradient(from -60deg, rgba(31,22,13,.55) 0 1deg, transparent 1deg 12deg, rgba(31,22,13,.55) 12deg 13deg, transparent 13deg 24deg, rgba(31,22,13,.55) 24deg 25deg, transparent 25deg 36deg, rgba(31,22,13,.55) 36deg 37deg, transparent 37deg 48deg, rgba(31,22,13,.55) 48deg 49deg, transparent 49deg 60deg, rgba(31,22,13,.55) 60deg 61deg, transparent 61deg 72deg, rgba(31,22,13,.55) 72deg 73deg, transparent 73deg 84deg, rgba(31,22,13,.55) 84deg 85deg, transparent 85deg 96deg, rgba(200,54,26,.8) 96deg 97deg, transparent 97deg 108deg, rgba(200,54,26,.8) 108deg 109deg, transparent 109deg 120deg, rgba(200,54,26,.8) 120deg 121deg, transparent 121deg); -webkit-mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); mask: radial-gradient(circle, transparent 50px, #000 51px, #000 59px, transparent 60px); }
-  .pointer { position: absolute; left: 50%; bottom: 0; width: 2px; height: 56px; margin-left: -1px; background: #1f160d; transform-origin: 50% 100%; transform: rotate(-60deg); transition: transform 1100ms var(--needle); }
-  .vu .val { font: 900 32px/1 var(--display); font-variant-numeric: tabular-nums; margin-top: 4px; }
-  .vu .opt { font: 700 11.5px var(--mono); letter-spacing: .06em; color: #5a4630; }
-  .vu.veto .val { color: #b5300f; }
-  .vu.top .val { color: #8a5a10; }
-  .legend { margin: 14px 4px 0; font-size: 14px; color: var(--muted); }
-  .lines { display: grid; gap: 14px; }
-  .line { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 22px; }
-  .line .who { font: 500 13px var(--mono); color: var(--glow); margin-bottom: 8px; }
-  .line p { margin: 0; font-size: 17px; line-height: 1.5; }
-  .line.moved { border-color: rgba(240,164,58,.45); background: linear-gradient(180deg, rgba(240,164,58,.06), transparent), var(--bg2); }
+  .board { position: sticky; top: 100px; border-radius: var(--r); padding: clamp(20px, 2.6vw, 28px); background: var(--panel); border: 1px solid var(--line); }
+  .seg { display: flex; padding: 4px; gap: 4px; border-radius: 999px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); margin-bottom: 22px; }
+  .seg button { flex: 1; min-height: 40px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 600 14.5px var(--sans); cursor: pointer; transition: background-color 220ms ease, color 220ms ease, transform 160ms var(--ease-out); }
+  .seg button:active { transform: scale(0.97); }
+  .seg button[aria-selected="true"] { background: var(--cream); color: var(--ink); }
+  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 14px 0; }
+  .row + .row { border-top: 1px solid var(--line); }
+  .row .lab { font-size: 15.5px; }
+  .row .lab small { display: block; color: var(--dim); font-size: 13.5px; }
+  .flaps { display: flex; gap: 4px; perspective: 400px; }
+  .flap { width: 40px; height: 54px; border-radius: 8px; display: grid; place-items: center; font: 700 30px var(--mono); color: var(--cream); background: linear-gradient(180deg, #232a3b 0 50%, #1c2231 50%); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5); position: relative; }
+  .flap::after { content: ""; position: absolute; inset: 50% 0 auto 0; height: 1px; background: rgba(0, 0, 0, 0.55); }
+  .flap.dot { width: 14px; background: none; box-shadow: none; }
+  .flap.dot::after { display: none; }
+  .flap.go { animation: flip 460ms var(--ease-io); }
+  @keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(-90deg); } 100% { transform: rotateX(0); } }
+  .row.veto .flap:not(.dot) { color: var(--red); }
+  .row.top .flap:not(.dot) { color: var(--amber); }
+  .board .note { margin: 16px 0 0; color: var(--dim); font-size: 14px; }
+  .quotes { display: grid; gap: 12px; }
+  .q { border-radius: var(--r-sm); padding: 20px 22px; background: var(--ink2); border: 1px solid var(--line); }
+  .q.moved { border-color: rgba(242, 119, 31, 0.4); background: linear-gradient(180deg, rgba(242, 119, 31, 0.06), transparent 70%), var(--ink2); }
+  .q .who { display: flex; align-items: center; gap: 8px; font: 500 13px var(--mono); color: var(--amber); margin-bottom: 8px; }
+  .q p { margin: 0; font-size: 17px; line-height: 1.5; }
 
-  /* 6. verdict */
-  .verdict-wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px, 5vw, 64px); align-items: center; margin-top: 48px; }
-  .verdict-wrap > * { min-width: 0; }
-  .paper { position: relative; background: linear-gradient(180deg, #f6ecd6, #ecdcbc); color: var(--ink); border-radius: 4px; padding: clamp(24px, 3.4vw, 40px); box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); }
-  .paper.rv.in { transform: rotate(-1.2deg); }
-  .paper .hd { font: 700 12px var(--mono); letter-spacing: .16em; color: #6d5a40; }
-  .paper h3 { font: 900 clamp(46px, 5.4vw, 72px)/0.9 var(--display); text-transform: uppercase; margin: 8px 0 14px; }
+  /* verdict */
+  .verdict { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 72px); align-items: center; margin-top: 52px; }
+  .verdict > * { min-width: 0; }
+  .paper { position: relative; border-radius: 6px; padding: clamp(24px, 3.4vw, 42px); background: linear-gradient(180deg, #f8eedb, #ecdcbb); color: #1d150c; box-shadow: 0 60px 120px -40px rgba(0, 0, 0, 0.95); }
+  .paper.rv.in { animation-name: risetilt; }
+  .paper.rv.done { transform: rotate(-1.4deg); }
+  @keyframes risetilt { to { opacity: 1; transform: rotate(-1.4deg); filter: none; } }
+  .paper .hd { display: flex; align-items: center; gap: 10px; font: 700 12px var(--mono); letter-spacing: 0.16em; color: #6d5a40; }
+  .paper .hd img { width: 26px; height: 26px; border-radius: 6px; }
+  .paper h3 { font: 400 clamp(44px, 5.4vw, 72px)/0.95 var(--serif); margin: 12px 0 16px; }
   .paper p { margin: 0 0 12px; font-size: 16px; }
   .paper .meta { font: 500 13px var(--mono); color: #574632; }
-  .stamp { position: absolute; right: 22px; top: 18px; border: 3px solid #c8361a; color: #c8361a; font: 900 28px var(--display); letter-spacing: .06em; padding: 2px 12px; border-radius: 6px; transform: rotate(-9deg) scale(1.7); opacity: 0; mix-blend-mode: multiply; }
-  .paper.in .stamp { animation: stamp 520ms var(--ease-out) 450ms forwards; }
-  @keyframes stamp { 0% { opacity: 0; transform: rotate(-16deg) scale(1.7); } 60% { opacity: 1; transform: rotate(-8deg) scale(0.94); } 100% { opacity: .92; transform: rotate(-9deg) scale(1); } }
-  .take { display: grid; gap: 24px; }
-  .take h3 { margin: 0 0 4px; font: 800 28px/1 var(--display); text-transform: uppercase; }
-  .take p { margin: 0; color: var(--muted); }
+  .paper a { color: #8a4a12; font-weight: 600; }
+  .stamp { position: absolute; right: 22px; top: 20px; padding: 3px 12px; border: 3px solid #c8361a; border-radius: 6px; color: #c8361a; font: 700 22px var(--mono); letter-spacing: 0.08em; opacity: 0; transform: rotate(-9deg) scale(1.8); mix-blend-mode: multiply; }
+  .paper.in .stamp { animation: stamp 560ms var(--ease-out) 500ms forwards; }
+  @keyframes stamp { 0% { opacity: 0; transform: rotate(-16deg) scale(1.8); } 60% { opacity: 1; transform: rotate(-8deg) scale(0.94); } 100% { opacity: 0.9; transform: rotate(-9deg) scale(1); } }
+  .gets { display: grid; gap: 14px; }
+  .get { display: grid; grid-template-columns: 46px 1fr; gap: 16px; align-items: start; }
+  .get .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--sun-soft); color: var(--amber); font-size: 22px; }
+  .get h3 { margin: 2px 0 2px; font: 400 26px/1.1 var(--serif); color: var(--cream); }
+  .get p { margin: 0; color: var(--muted); font-size: 15.5px; }
 
-  /* 7. install */
-  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 44px; }
+  /* install */
+  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 48px; }
   .install > * { min-width: 0; }
-  .way { background: linear-gradient(160deg, var(--wood2), var(--wood)); border: 1px solid var(--line2); border-radius: var(--r); padding: 26px; }
-  .way.main { border-color: rgba(240,164,58,.55); }
-  .way h3 { margin: 0 0 6px; font: 800 28px/1 var(--display); text-transform: uppercase; }
-  .way p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
-  .cmd { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0d0905; border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px 11px 14px; font: 500 14px var(--mono); color: #ffcf86; margin-bottom: 8px; }
-  .cmd span { overflow-x: auto; white-space: nowrap; min-width: 0; }
-  .cmd button { flex: none; background: #241810; color: var(--muted); border: 1px solid var(--line2); border-radius: 8px; padding: 5px 10px; font: 500 12px var(--sans); cursor: pointer; transition: color 160ms ease, transform 160ms var(--ease-out); }
-  .cmd button:hover { color: var(--text); }
-  .cmd button:active { transform: scale(0.95); }
-  .limits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; margin-top: 40px; }
-  .limits div { padding: 18px 0; border-top: 1px solid var(--line); }
-  .limits b { display: block; font: 800 22px var(--display); text-transform: uppercase; margin-bottom: 2px; }
+  .way { border-radius: var(--r); padding: clamp(22px, 2.6vw, 30px); background: var(--panel); border: 1px solid var(--line); }
+  .way.main { border-color: rgba(242, 119, 31, 0.45); background: radial-gradient(120% 120% at 0% 0%, rgba(242, 119, 31, 0.13), transparent 55%), var(--panel); }
+  .way .label { display: inline-flex; align-items: center; gap: 6px; font: 600 13px var(--sans); color: var(--amber); margin-bottom: 10px; }
+  .way h3 { margin: 0 0 6px; font: 400 30px/1.05 var(--serif); color: var(--cream); }
+  .way p { margin: 0 0 18px; color: var(--muted); font-size: 15.5px; }
+  .cmd { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; margin-bottom: 8px; border-radius: 12px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line); font: 500 14px var(--mono); color: var(--cream); }
+  .cmd span { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .cmd span::-webkit-scrollbar { display: none; }
+  .cmd button { flex: none; display: grid; place-items: center; width: 40px; height: 36px; border-radius: 9px; border: 1px solid var(--line2); background: var(--panel2); color: var(--muted); cursor: pointer; font-size: 17px; transition: color 160ms ease, transform 160ms var(--ease-out); }
+  .cmd button:hover { color: var(--cream); }
+  .cmd button:active { transform: scale(0.94); }
+  .cmd button.ok { color: var(--green); }
+  .limits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 44px; }
+  .limits div { padding-top: 18px; border-top: 1px solid var(--line2); }
+  .limits b { display: block; font: 400 22px/1.1 var(--serif); color: var(--cream); margin-bottom: 6px; }
   .limits span { color: var(--muted); font-size: 15px; }
 
-  .closer { text-align: center; padding: clamp(120px, 18vh, 200px) 0; background: radial-gradient(55% 70% at 50% 100%, rgba(240,164,58,.18), transparent 70%); }
-  .closer h2 { max-width: 13ch; margin: 0 auto 28px; }
-  .closer .actions { justify-content: center; }
-  footer { border-top: 1px solid var(--line); padding: 26px 0 36px; color: var(--dim); font-size: 14px; }
+  /* closer */
+  .closer { position: relative; overflow: hidden; padding: clamp(110px, 18vh, 200px) 0 clamp(80px, 12vh, 140px); text-align: center; }
+  .closer .sun { width: min(96vw, 900px); aspect-ratio: 1; left: 50%; top: 2%; transform: translateX(-50%); opacity: 0.2; -webkit-mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), radial-gradient(closest-side, #000 60%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), radial-gradient(closest-side, #000 60%, transparent); mask-composite: intersect; }
+  .closer .logo-art { width: 104px; height: 104px; border-radius: 26px; margin: 0 auto 30px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8); }
+  .closer h2 { position: relative; max-width: 14ch; margin: 0 auto 30px; }
+  .closer .actions { position: relative; justify-content: center; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 calc(32px + env(safe-area-inset-bottom)); color: var(--dim); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  footer a { color: var(--muted); }
 
-  @media (max-width: 900px) {
-    .split, .board, .debate, .verdict-wrap, .install { grid-template-columns: 1fr; }
-    .seats { grid-template-columns: 1fr 1fr; }
-    .seat, .seat:nth-child(4) { grid-column: auto; }
-    .seat:nth-child(5) { grid-column: 1 / -1; }
-    .meters { position: static; }
-    .limits { grid-template-columns: 1fr; }
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr 0.8fr; }
+    .cell.c3, .cell.c4 { grid-column: span 3; } .cell.c5 { grid-column: span 6; }
+    .limits { grid-template-columns: 1fr 1fr; }
+    .limits div { padding-bottom: 18px; }
   }
-  @media (max-width: 720px) {
-    .band { display: none; }
-    .now { display: block; flex: 1; text-align: right; }
+  @media (max-width: 860px) {
+    .navlinks a.hide-sm { display: none; }
+    .hero { padding-top: 110px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .poster { justify-self: center; width: min(86%, 380px); margin-top: 8px; }
+    .hero .sun { left: 50%; top: 46%; width: min(120vw, 640px); }
+    .split, .debate, .verdict, .install { grid-template-columns: 1fr; }
+    .board { position: static; }
+    .bento .cell { grid-column: span 6; }
+    .seats { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 18px; scrollbar-width: none; }
+    .seats::-webkit-scrollbar { display: none; }
+    .seat { flex: 0 0 min(78vw, 330px); scroll-snap-align: start; }
+    .seat.rv { opacity: 1; transform: none; filter: none; }
   }
   @media (max-width: 560px) {
-    .seats { grid-template-columns: 1fr; }
-    .crt pre { font-size: 12.5px; min-height: 0; }
-    .gh { display: none; }
+    body { font-size: 16px; }
+    .nav { top: 10px; padding-left: 10px; }
+    .brand { font-size: 21px; }
+    .brand img { width: 30px; height: 30px; }
+    .actions .btn { flex: 1 1 auto; }
+    .poster .tag { left: 50%; bottom: -18px; transform: translateX(-50%); white-space: nowrap; padding: 10px 14px; font-size: 13px; }
+    .poster .tag2 { display: none; }
+    .term pre { font-size: 12.5px; padding: 18px; min-height: 0; }
+    .flap { width: 34px; height: 46px; font-size: 25px; }
+    .limits { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
-    .rv { opacity: 1; transform: none; filter: none; }
-    .stage { height: 100dvh; }
-    .room img { transform: none; }
-    .hero-copy { opacity: 1; transform: none; filter: none; }
-    .caption, .needle-track { display: none; }
-    .stamp { opacity: .92; transform: rotate(-9deg); }
+    .rv, .in-1, .in-2, .in-3, .in-4, .poster { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .room { height: auto !important; }
+    .room .pin { position: relative !important; }
+    .room .frame { clip-path: none !important; }
+    .room .caps p { opacity: 1 !important; }
+    .hero .sun { opacity: 0.22; transform: translate(-50%, -10%); }
+    .stamp { opacity: 0.9; transform: rotate(-9deg); }
+    .ticker .track { flex-wrap: wrap; width: auto; }
   }
 </style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
 
-<header class="radio" id="nav">
-  <div class="wrap">
-    <a class="logo" href="#top">Baithak<span>.</span></a>
-    <nav class="band" aria-label="Sections">
-      <div class="needle-track" aria-hidden="true"><i></i></div>
-      <a href="#top" style="left:6%"><b>88.4</b>room</a>
-      <a href="#run" style="left:22%"><b>91.2</b>brief</a>
-      <a href="#checks" style="left:38%"><b>94.6</b>checks</a>
-      <a href="#seats" style="left:54%"><b>98.3</b>council</a>
-      <a href="#debate" style="left:70%"><b>101.7</b>debate</a>
-      <a href="#verdict" style="left:84%"><b>104.5</b>verdict</a>
-      <a href="#install" style="left:96%"><b>107.1</b>tune in</a>
-    </nav>
-    <span class="now" id="now">88.4 · the room</span>
-    <a class="gh" href="https://github.com/cipher-cmd/Baithak">GitHub</a>
-  </div>
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Baithak home"><img src="web-app-manifest-192x192.png" alt="" width="34" height="34">Baithak</a>
+  <nav class="navlinks" aria-label="Main">
+    <a class="hide-sm" href="#how">How it works</a>
+    <a class="hide-sm" href="#council">The council</a>
+    <a class="hide-sm" href="#verdict">Verdict</a>
+    <a class="btn primary sm" href="#install">Install free</a>
+  </nav>
 </header>
 
-<div class="stage" id="top" data-station="88.4 · the room">
-  <div class="pin">
-    <div class="room"><img src="banner.png" alt="A founder at a laptop typing /baithak, facing a round table with five empty council chairs and nameplates, cups of chai, a unit-economics notebook, a UPI payment and a stamped verdict" fetchpriority="high"></div>
-    <div class="hero-copy">
-      <div class="wrap">
-        <h1>Bring your idea to the <em>baithak.</em></h1>
-        <p>Five AI advisors built from Indian founders. They check who pays and whether it's legal, then argue it out.</p>
-        <div class="actions">
-          <a class="btn solid" href="#install">Install free</a>
-          <a class="btn line" href="#verdict">See a real verdict</a>
+<main id="top">
+  <section class="hero">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="pill in-1"><b>Open source</b> A Claude Code skill, free forever</div>
+        <h1 class="in-2">Bring your idea to the <em>baithak.</em></h1>
+        <p class="sub in-3">Five AI advisors built from Indian founders. They check who pays and what's legal, then argue it out.</p>
+        <div class="actions in-4">
+          <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>Install free</a>
+          <a class="btn ghost" href="#verdict">See a real verdict</a>
+        </div>
+      </div>
+      <div class="poster">
+        <div class="card"><img src="logo.jpg" alt="Baithak logo: five leather chairs around a round table before India Gate at sunset" width="760" height="912" fetchpriority="high"></div>
+        <div class="tag"><b>BLACK</b><span>vetoed by the law file</span></div>
+        <div class="tag tag2"><b>GO</b><span>with 3 conditions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="Idea types Baithak covers">
+    <div class="track">
+      <span>SaaS</span><span>Kirana tech</span><span>D2C brands</span><span>Cloud kitchens</span><span>Clinics</span><span>Coaching</span><span>Manufacturing</span><span>Marketplaces</span><span>Fintech</span><span>Agencies</span><span>Proptech</span><span>Edtech</span>
+      <span aria-hidden="true">SaaS</span><span aria-hidden="true">Kirana tech</span><span aria-hidden="true">D2C brands</span><span aria-hidden="true">Cloud kitchens</span><span aria-hidden="true">Clinics</span><span aria-hidden="true">Coaching</span><span aria-hidden="true">Manufacturing</span><span aria-hidden="true">Marketplaces</span><span aria-hidden="true">Fintech</span><span aria-hidden="true">Agencies</span><span aria-hidden="true">Proptech</span><span aria-hidden="true">Edtech</span>
+    </div>
+  </div>
+
+  <section class="room" aria-label="The room">
+    <div class="pin">
+      <div class="frame"><img src="banner.png" alt="A founder at a laptop typing /baithak, facing five empty chairs with nameplates around a table with chai, a notebook of unit economics and a stamped verdict" loading="lazy"></div>
+      <div class="caps"><div class="wrap"><p>Five chairs.</p><p>One table.</p><p>Your idea in the middle.</p></div></div>
+    </div>
+  </section>
+
+  <section class="ch" id="how">
+    <div class="wrap split">
+      <div>
+        <h2 class="rv">It starts with <em>one line.</em></h2>
+        <p class="lede rv d1">Type your idea the way you'd tell a friend: who pays, what they do today, your budget, which way you lean. The Chair fills the gaps and tells you what it assumed.</p>
+      </div>
+      <div class="term rv d2">
+        <div class="term-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>claude · ~/my-idea</span></div>
+        <pre id="term" aria-label="Replay of a real Baithak run"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch tight" id="checks">
+    <div class="wrap">
+      <h2 class="rv">Before anyone argues, the Chair <em>checks India.</em></h2>
+      <p class="lede rv d1">The checks US validators skip. In India they decide most outcomes.</p>
+      <div class="bento" id="bento">
+        <article class="cell c1 sunny rv"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p></article>
+        <article class="cell c2 law rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-scales"></i></div><h3>The legal zone</h3><p>Cited only from 24 dated, sourced law files.</p>
+          <div class="zones"><div class="zone w"><b>WHITE</b><span>known path, build</span></div><div class="zone g"><b>GRAY</b><span>build with a compliance switch</span></div><div class="zone k"><b>BLACK</b><span>vetoed, find the legal route</span></div></div></article>
+        <article class="cell c3 rv"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-squares-four"></i></div><h3>What kind of business</h3><p>Eight types, each with its own tests.</p>
+          <div class="types"><span>SaaS</span><span>D2C</span><span>Services</span><span>Hardware</span><span>+4 more</span></div></article>
+        <article class="cell c4 rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-currency-inr"></i></div><h3>Where it gets stuck</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></article>
+        <article class="cell c5 rv d2"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-trend-up"></i></div><h3>What breaks at scale</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch tight" id="council">
+    <div class="wrap">
+      <h2 class="rv">Five chairs fill. <em>Each sees a different risk.</em></h2>
+      <p class="lede rv d1">Each advisor is built from one founder's public interviews, talks and letters. Every quote is verbatim and checked by a script. They are simulations, not the people.</p>
+      <div class="seats">
+        <article class="seat rv"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>NK</span></div><h3>Nithin</h3><div class="pillar">trust · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src"><i class="ph ph-books"></i>9 public sources</div></article>
+        <article class="seat rv d1"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>KS</span></div><h3>Kunal</h3><div class="pillar">consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src"><i class="ph ph-books"></i>10 public sources</div></article>
+        <article class="seat rv d2"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>SV</span></div><h3>Vembu</h3><div class="pillar">frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
+        <article class="seat rv d1"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>GM</span></div><h3>Girish</h3><div class="pillar">B2B SaaS · global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
+        <article class="seat rv d2"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>DG</span></div><h3>Deepinder</h3><div class="pillar">habit · operations</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src"><i class="ph ph-books"></i>13 public sources</div></article>
+      </div>
+      <p class="hint rv">Each question is that seat's lens, written by Baithak. Seat the whole table, tick only the ones you want, or ask one: <code>/baithak ask nithin …</code></p>
+    </div>
+  </section>
+
+  <section class="ch tight" id="debate">
+    <div class="wrap">
+      <h2 class="rv">Then they argue, <em>and change their minds.</em></h2>
+      <p class="lede rv d1">From a real run: a ₹49-entry fantasy cricket app for Tier-2 students. Flip between rounds.</p>
+      <div class="debate">
+        <div class="board rv d1">
+          <div class="seg" role="tablist" aria-label="Round">
+            <button role="tab" aria-selected="true" data-round="1">Opening</button>
+            <button role="tab" aria-selected="false" data-round="2">After debate</button>
+          </div>
+          <div class="row veto"><div class="lab">A · Paid contests<small>BLACK zone, vetoed</small></div><div class="flaps" data-r1="1.6" data-r2="1.3"></div></div>
+          <div class="row"><div class="lab">B · Free-to-play<small>GRAY zone</small></div><div class="flaps" data-r1="4.4" data-r2="4.1"></div></div>
+          <div class="row top"><div class="lab">C · Don't build yet<small>test first</small></div><div class="flaps" data-r1="5.1" data-r2="5.3"></div></div>
+          <p class="note">Weighted council score out of 10.</p>
+        </div>
+        <div class="quotes">
+          <div class="q rv"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
+          <div class="q rv d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers."</p></div>
+          <div class="q moved rv d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
+          <div class="q moved rv d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
+          <div class="q moved rv d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
         </div>
       </div>
     </div>
-    <div class="caption"><div class="wrap"><p>Five chairs. One table.<br><span>Your idea in the middle.</span></p></div></div>
-  </div>
-</div>
+  </section>
 
-<main>
-<section class="ch" id="run" data-station="91.2 · the brief">
-  <div class="wrap split">
-    <div>
-      <h2 class="rv">It starts with <em>one line.</em></h2>
-      <p class="lede rv d1">Type your idea the way you'd tell a friend. Who pays, what they do today, your budget, which way you're leaning. The Chair fills the gaps and says what it assumed.</p>
-    </div>
-    <div class="cabinet rv d2">
-      <div class="crt"><pre id="term" aria-live="polite" aria-label="Replay of a real Baithak run"></pre></div>
-      <div class="cab-foot"><span>replay of a real run</span><span class="knobs" aria-hidden="true"><i></i><i></i></span></div>
-    </div>
-  </div>
-</section>
-
-<section class="ch" id="checks" data-station="94.6 · the checks">
-  <div class="wrap">
-    <h2 class="rv">First, the Chair <em>checks India.</em></h2>
-    <p class="lede rv d1">US validators skip this part. Here it decides most outcomes.</p>
-    <div class="board">
-      <div class="checks rv d1" id="checklist">
-        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>Who actually pays</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p></div></div>
-        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>What kind of business</h3><p>Eight types, each with its own tests. A pickle brand is not judged like a SaaS tool.</p></div></div>
-        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>Where it gets stuck</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></div></div>
-        <div class="check"><div class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></div><div><h3>What breaks at scale</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></div></div>
-      </div>
-      <div class="zonecard grille rv d2">
-        <div>
-          <h3>Then the legal zone. From 24 dated, sourced law files.</h3>
-          <div class="types"><span>SaaS</span><span>Consumer apps</span><span>Marketplaces</span><span>D2C and food</span><span>Manufacturing</span><span>Services</span><span>Local shops</span><span>Fintech, health, edtech</span></div>
+  <section class="ch tight" id="verdict">
+    <div class="wrap">
+      <h2 class="rv">The verdict <em>lands.</em></h2>
+      <div class="verdict">
+        <div class="paper rv">
+          <div class="stamp" aria-hidden="true">BLACK</div>
+          <div class="hd"><img src="web-app-manifest-192x192.png" alt="" width="26" height="26">BAITHAK · VERDICT</div>
+          <h3>Don't do it.</h3>
+          <p><b>The call:</b> don't build the paid-entry app; it's an online money game and is vetoed. Build nothing yet. Run a no-code WhatsApp college league and pitch sponsors; reopen the free version only if the gates are met.</p>
+          <p class="meta">A 1.3 · B 4.1 · C 5.3 · legal zone A BLACK, B GRAY</p>
+          <p><b>7-day test, under ₹5,000:</b> one WhatsApp group per college and a shared scoreboard. Pass mark: 40% submit a team for match two without being chased.</p>
+          <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket">Read every round →</a></p>
         </div>
-        <div class="zones">
-          <div class="zone w"><b>WHITE</b><span>known path, build</span></div>
-          <div class="zone g"><b>GRAY</b><span>build with a compliance switch</span></div>
-          <div class="zone k"><b>BLACK</b><span>vetoed, find the legal route</span></div>
+        <div class="gets">
+          <div class="get rv d1"><div class="ic"><i class="ph ph-prohibit"></i></div><div><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div></div>
+          <div class="get rv d2"><div class="ic"><i class="ph ph-flask"></i></div><div><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div></div>
+          <div class="get rv d3"><div class="ic"><i class="ph ph-door-open"></i></div><div><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="ch" id="seats" data-station="98.3 · the council">
-  <div class="wrap">
-    <h2 class="rv">Five chairs fill. <em>Five frequencies.</em></h2>
-    <p class="lede rv d1">Every advisor is built from one founder's public interviews, talks and letters. Every quote is verbatim and checked by a script. They are simulations, not the people.</p>
-    <div class="seats">
-      <article class="seat rv"><div class="glare"></div><span class="plate">Nithin</span><div class="pillar">trust · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src">Built from 9 public sources</div></article>
-      <article class="seat rv d1"><div class="glare"></div><span class="plate">Kunal</span><div class="pillar">consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src">Built from 10 public sources</div></article>
-      <article class="seat rv d2"><div class="glare"></div><span class="plate">Vembu</span><div class="pillar">frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src">Built from 11 public sources</div></article>
-      <article class="seat rv d1"><div class="glare"></div><span class="plate">Girish</span><div class="pillar">B2B SaaS · global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src">Built from 11 public sources</div></article>
-      <article class="seat rv d2"><div class="glare"></div><span class="plate">Deepinder</span><div class="pillar">habit · operations</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src">Built from 13 public sources</div></article>
-    </div>
-    <p class="footnote rv">Each question is that seat's lens, written by Baithak. Seat the whole table, tick only the ones you want, or ask one: <code>/baithak ask nithin …</code></p>
-  </div>
-</section>
-
-<section class="ch" id="debate" data-station="101.7 · the debate">
-  <div class="wrap">
-    <h2 class="rv">They argue. <em>Needles move.</em></h2>
-    <p class="lede rv d1">From the real run: a ₹49-entry fantasy cricket app for Tier-2 students. Switch rounds and watch the council change its mind.</p>
-    <div class="debate">
-      <div class="meters rv d1">
-        <div class="tabs" role="tablist">
-          <button role="tab" aria-selected="true" data-round="1">Opening</button>
-          <button role="tab" aria-selected="false" data-round="2">After debate</button>
+  <section class="ch tight" id="install">
+    <div class="wrap">
+      <h2 class="rv">Pull up <em>a chair.</em></h2>
+      <p class="lede rv d1">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
+      <div class="install">
+        <div class="way main rv d1">
+          <div class="label"><i class="ph ph-star-four"></i>Recommended</div>
+          <h3>Claude Code plugin</h3>
+          <p>Inside Claude Code, two commands.</p>
+          <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
+          <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
-        <div class="vu-row">
-          <div class="vu veto"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="1.6" data-r2="1.3"></div></div><div class="val">1.6</div><div class="opt">A · PAID</div></div>
-          <div class="vu"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="4.4" data-r2="4.1"></div></div><div class="val">4.4</div><div class="opt">B · FREE</div></div>
-          <div class="vu top"><div class="dial"><div class="scale"></div><div class="pointer" data-r1="5.1" data-r2="5.3"></div></div><div class="val">5.1</div><div class="opt">C · WAIT</div></div>
+        <div class="way rv d2">
+          <div class="label"><i class="ph ph-package"></i>Any project</div>
+          <h3>Skills CLI</h3>
+          <p>In your project folder, then start with <code>--quick</code>.</p>
+          <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
+          <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick " aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
-        <p class="legend">Weighted council score out of 10. A is BLACK zone and vetoed whatever it scores.</p>
       </div>
-      <div class="lines">
-        <div class="line rv"><div class="who">Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
-        <div class="line rv d1"><div class="who">Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers." <span class="mono" style="color:var(--dim);font-size:13px">(S007)</span></p></div>
-        <div class="line moved rv d2"><div class="who">Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
-        <div class="line moved rv d3"><div class="who">Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
-        <div class="line moved rv d4"><div class="who">Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
+      <div class="limits">
+        <div class="rv"><b>Not legal advice</b><span>The zone says what to check. GRAY and BLACK always end with "verify with a lawyer".</span></div>
+        <div class="rv d1"><b>Sources on every law</b><span>Each file is dated and lists what is still unverified.</span></div>
+        <div class="rv d2"><b>Simulations, labelled</b><span>Not endorsed by the people. No faces, no voices. Anyone can opt out.</span></div>
+        <div class="rv d3"><b>Free, MIT</b><span>A fork of Roast Room, rebuilt for India.</span></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="ch" id="verdict" data-station="104.5 · the verdict">
-  <div class="wrap">
-    <h2 class="rv">The verdict <em>lands.</em></h2>
-    <div class="verdict-wrap">
-      <div class="paper rv">
-        <div class="stamp" aria-hidden="true">BLACK</div>
-        <div class="hd">BAITHAK · VERDICT</div>
-        <h3>Don't do it</h3>
-        <p><b>The call:</b> don't build the paid-entry app; it's an online money game and is vetoed. Build nothing yet. Run a no-code WhatsApp college league and pitch sponsors; reopen the free version only if the gates are met.</p>
-        <p class="meta">A 1.3 · B 4.1 · C 5.3 · legal zone A BLACK, B GRAY</p>
-        <p><b>7-day test, under ₹5,000:</b> one WhatsApp group per college and a shared scoreboard. Pass mark: 40% submit a team for match two without being chased.</p>
-        <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket" style="color:#7a4c0e">Read every round →</a></p>
-      </div>
-      <div class="take">
-        <div class="rv d1"><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div>
-        <div class="rv d2"><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div>
-        <div class="rv d3"><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div>
+  <section class="closer">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="wrap">
+      <img class="logo-art rv" src="web-app-manifest-192x192.png" alt="" width="104" height="104">
+      <h2 class="rv d1">Your next idea deserves a <em>baithak.</em></h2>
+      <div class="actions rv d2">
+        <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>Install free</a>
+        <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>Star on GitHub</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="ch" id="install" data-station="107.1 · tune in">
-  <div class="wrap">
-    <h2 class="rv">Tune <em>in.</em></h2>
-    <p class="lede rv d1">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
-    <div class="install">
-      <div class="way main rv d1">
-        <h3>Claude Code plugin</h3>
-        <p>Inside Claude Code. Recommended.</p>
-        <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak">Copy</button></div>
-        <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak">Copy</button></div>
-      </div>
-      <div class="way rv d2">
-        <h3>Skills CLI</h3>
-        <p>In your project folder, then start with <code>--quick</code>.</p>
-        <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak">Copy</button></div>
-        <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick ">Copy</button></div>
-      </div>
-    </div>
-    <div class="limits">
-      <div class="rv"><b>Not legal advice</b><span>The zone tells you what to check. GRAY and BLACK always end with "verify with a lawyer".</span></div>
-      <div class="rv d1"><b>Sources on every law</b><span>Each file is dated and lists what is still unverified. Lawyers and CAs can fix them by pull request.</span></div>
-      <div class="rv"><b>Simulations, labelled</b><span>Built from public statements, not endorsed by the people. No faces, no voices. Anyone named can opt out.</span></div>
-      <div class="rv d1"><b>Free and open source</b><span>MIT licence. A fork of Roast Room, rebuilt for India.</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="closer">
-  <div class="wrap">
-    <h2 class="rv">Your next idea deserves a <em>baithak.</em></h2>
-    <div class="actions rv d1">
-      <a class="btn solid" href="#install">Install free</a>
-      <a class="btn line" href="https://github.com/cipher-cmd/Baithak">Star on GitHub</a>
-    </div>
-  </div>
-</section>
+  </section>
 </main>
 
 <footer>
@@ -432,116 +508,105 @@
 <script>
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function once(el, fn, th) { new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: th || 0.4 }).observe(el); }
 
-  // reveal on enter, once
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  var nav = document.getElementById('nav');
+  new IntersectionObserver(function (e) { nav.classList.toggle('solid', !e[0].isIntersecting); }, { rootMargin: '-80px 0px 0px 0px' }).observe(document.querySelector('.hero .actions'));
+
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      el.addEventListener('animationend', function done(ev) { if (ev.target !== el) return; el.classList.add('done'); el.removeEventListener('animationend', done); });
+      el.classList.add('in');
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
 
-  // the dial lights the station you are on (works without scroll-timeline support too)
-  var links = {}; document.querySelectorAll('.band a').forEach(function (a) { links[a.getAttribute('href')] = a; });
-  var now = document.getElementById('now');
-  var so = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      Object.keys(links).forEach(function (k) { links[k].classList.toggle('on', k === '#' + en.target.id); });
-      now.textContent = en.target.dataset.station;
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('[data-station]').forEach(function (s) { so.observe(s); });
+  var cells = document.querySelectorAll('.cell');
+  once(document.getElementById('bento'), function () {
+    cells.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, reduce ? 0 : 500 + i * 380); });
+  }, 0.25);
 
-  // the Chair ticks the checklist one item at a time
-  var checks = document.querySelectorAll('.check');
-  new IntersectionObserver(function (e, o) {
-    if (!e[0].isIntersecting) return;
-    o.disconnect();
-    checks.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, reduce ? 0 : 350 + i * 420); });
-  }, { threshold: 0.45 }).observe(document.getElementById('checklist'));
-
-  // phosphor terminal: replay of the real fantasy-cricket run
-  var lines = [
-    ['', '> '], ['w', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.\n\n'],
-    ['d', 'Chair   '], ['', 'type: consumer app + regulated sector\n'],
-    ['d', 'Chair   '], ['', 'who pays: India 2 (students)\n'],
-    ['d', 'Chair   '], ['', 'legal zone A: '], ['k', 'BLACK'], ['d', '  [laws/online-gaming-act-2025.md]\n'],
-    ['d', 'Chair   '], ['', 'seating Nithin, Kunal, Deepinder, Vembu\n\n'],
-    ['d', 'Round 1 '], ['', 'four cards in. split: B vs C\n'],
-    ['d', 'Round 2 '], ['', 'every seat moved after the debate\n\n'],
-    ['g', '✓ '], ['', '18 quotes verified, 3 law citations verified\n'],
-    ['', 'Verdict '], ['k', "DON'T DO IT"], ['', '  (paid entry vetoed)\n'],
-    ['d', 'saved to sessions/…-fantasy-cricket/verdict.md\n']
+  var L = [
+    ['t-s', '> '], ['t-w', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.\n\n'],
+    ['t-d', 'Chair   '], ['', 'type: consumer app + regulated sector\n'],
+    ['t-d', 'Chair   '], ['', 'who pays: India 2 (students)\n'],
+    ['t-d', 'Chair   '], ['', 'legal zone A: '], ['t-k', 'BLACK'], ['t-d', '  [laws/online-gaming-act-2025.md]\n'],
+    ['t-d', 'Chair   '], ['', 'seating Nithin, Kunal, Deepinder, Vembu\n\n'],
+    ['t-d', 'Round 1 '], ['', 'four cards in. split: B vs C\n'],
+    ['t-d', 'Round 2 '], ['', 'every seat moved after the debate\n\n'],
+    ['t-g', '✓ '], ['', '18 quotes verified, 3 law citations verified\n'],
+    ['t-s', 'Verdict '], ['t-k', "DON'T DO IT"], ['', '  (paid entry vetoed)\n'],
+    ['t-d', 'saved to sessions/…-fantasy-cricket/verdict.md\n']
   ];
   var term = document.getElementById('term');
-  var map = { w: 't-w', d: 't-d', k: 't-k', g: 't-g' };
-  function renderAll() {
-    term.textContent = '';
-    lines.forEach(function (l) { var s = document.createElement('span'); s.className = map[l[0]] || ''; s.textContent = l[1]; term.appendChild(s); });
-  }
-  function type() {
-    term.textContent = '';
+  function add(cls, txt) { var s = document.createElement('span'); s.className = cls; s.textContent = txt; term.appendChild(s); return s; }
+  once(term, function () {
+    if (reduce) { L.forEach(function (l) { add(l[0], l[1]); }); return; }
     var cur = document.createElement('span'); cur.className = 'cursor';
     var li = 0, ci = 0, span = null;
     (function step() {
-      if (li >= lines.length) { term.appendChild(cur); return; }
-      if (!span) { span = document.createElement('span'); span.className = map[lines[li][0]] || ''; term.appendChild(span); }
-      var text = lines[li][1], fast = li > 1;
+      if (li >= L.length) { term.appendChild(cur); return; }
+      if (!span) span = add(L[li][0], '');
+      var t = L[li][1], fast = li > 1;
       ci += fast ? 3 : 1;
-      span.textContent = text.slice(0, ci);
+      span.textContent = t.slice(0, ci);
       term.appendChild(cur);
-      if (ci >= text.length) { li++; ci = 0; span = null; setTimeout(step, text.slice(-1) === '\n' ? (fast ? 260 : 500) : 40); }
-      else setTimeout(step, fast ? 12 : 26);
+      if (ci >= t.length) { li++; ci = 0; span = null; setTimeout(step, t.slice(-1) === '\n' ? (fast ? 240 : 520) : 40); }
+      else setTimeout(step, fast ? 11 : 24);
     })();
-  }
-  new IntersectionObserver(function (e, o) {
-    if (!e[0].isIntersecting) return;
-    o.disconnect();
-    reduce ? renderAll() : type();
-  }, { threshold: 0.4 }).observe(term);
+  });
 
-  // VU meters: needle angle maps 0..10 onto -60..+60 degrees
-  var pointers = document.querySelectorAll('.pointer');
+  var groups = document.querySelectorAll('.flaps');
+  groups.forEach(function (g) {
+    g.dataset.r1.split('').forEach(function (ch) {
+      var f = document.createElement('span'); f.className = 'flap' + (ch === '.' ? ' dot' : ''); f.textContent = ch; g.appendChild(f);
+    });
+  });
   function setRound(r) {
-    document.querySelectorAll('.tabs button').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.round === r)); });
-    pointers.forEach(function (p) {
-      var v = parseFloat(p.dataset['r' + r]);
-      p.style.transform = 'rotate(' + (-60 + v * 12) + 'deg)';
-      p.closest('.vu').querySelector('.val').textContent = v.toFixed(1);
+    document.querySelectorAll('.seg button').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.round === r)); });
+    groups.forEach(function (g, gi) {
+      var target = g.dataset['r' + r].split('');
+      g.querySelectorAll('.flap').forEach(function (f, i) {
+        if (f.textContent === target[i]) return;
+        if (reduce) { f.textContent = target[i]; return; }
+        setTimeout(function () {
+          f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+          setTimeout(function () { f.textContent = target[i]; }, 230);
+        }, gi * 120 + i * 70);
+      });
     });
   }
-  document.querySelectorAll('.tabs button').forEach(function (b) { b.addEventListener('click', function () { setRound(b.dataset.round); }); });
-  var meters = document.querySelector('.meters');
-  new IntersectionObserver(function (e, o) {
-    if (!e[0].isIntersecting) return;
-    o.disconnect();
-    setRound('1');
-    setTimeout(function () { setRound('2'); }, reduce ? 0 : 2200);
-  }, { threshold: 0.6 }).observe(meters);
+  document.querySelectorAll('.seg button').forEach(function (b) { b.addEventListener('click', function () { setRound(b.dataset.round); }); });
+  once(document.querySelector('.board'), function () { setTimeout(function () { setRound('2'); }, reduce ? 0 : 1800); }, 0.6);
 
-  // 3D tilt with a soft spring follow, fine pointers only
-  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('.seat').forEach(function (card) {
-      var tx = 0, ty = 0, x = 0, y = 0, raf = null;
-      function loop() {
-        x += (tx - x) * 0.12; y += (ty - y) * 0.12;
-        var moving = Math.abs(tx - x) > 0.01 || Math.abs(ty - y) > 0.01;
-        // perspective only while tilted, so plates sit flush at rest
-        card.style.transform = (!moving && tx === 0 && ty === 0) ? '' : 'perspective(900px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
-        raf = moving ? requestAnimationFrame(loop) : null;
-      }
-      card.addEventListener('pointermove', function (ev) {
-        var r = card.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
-        tx = (px - 0.5) * 14; ty = (0.5 - py) * 12;
-        card.style.setProperty('--gx', (px * 100) + '%'); card.style.setProperty('--gy', (py * 100) + '%');
-        if (!raf) raf = requestAnimationFrame(loop);
-      });
-      card.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+  function tilt(el, max) {
+    var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+    function loop() {
+      x += (tx - x) * 0.1; y += (ty - y) * 0.1;
+      var moving = Math.abs(tx - x) > 0.01 || Math.abs(ty - y) > 0.01;
+      el.style.transform = (!moving && !tx && !ty) ? '' : 'perspective(1000px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
+      raf = moving ? requestAnimationFrame(loop) : null;
+    }
+    el.addEventListener('pointermove', function (ev) {
+      var r = el.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+      tx = (px - 0.5) * max; ty = (0.5 - py) * max;
+      el.style.setProperty('--gx', px * 100 + '%'); el.style.setProperty('--gy', py * 100 + '%');
+      if (!raf) raf = requestAnimationFrame(loop);
     });
+    el.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+  }
+  if (!reduce && fine) {
+    tilt(document.querySelector('.poster .card'), 10);
+    document.querySelectorAll('.seat').forEach(function (s) { tilt(s, 12); });
   }
 
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1400); };
+      var ic = b.querySelector('i');
+      var done = function () { b.classList.add('ok'); ic.className = 'ph ph-check'; setTimeout(function () { b.classList.remove('ok'); ic.className = 'ph ph-copy'; }, 1400); };
       navigator.clipboard ? navigator.clipboard.writeText(b.dataset.copy).then(done, done) : done();
     });
   });

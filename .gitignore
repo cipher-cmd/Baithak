@@ -36,3 +36,7 @@ Baithak_*.png
 /WORKPLAN.md
 /docs/memory/
 /vendor/
+
+# Source asset folders kept locally
+/favicon/
+/.impeccable/
