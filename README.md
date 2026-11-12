@@ -1,4 +1,4 @@
-<!-- Banner goes here: docs/banner.png. No faces or likenesses of real people (see Important). -->
+![Baithak: bring an idea to the Indian council](docs/banner.png)
 
 # Baithak
 
