@@ -1825,12 +1825,12 @@
   // chapter selector: desktop rail + mobile chip share one "current chapter" state
   var rail = document.getElementById('rail'), chip = document.getElementById('chip'), chList = document.getElementById('chapters');
   var rbs = [].slice.call(rail.querySelectorAll('button')), sls = [].slice.call(chList.querySelectorAll('a'));
-  var ids = rbs.map(function (b) { return b.dataset.to; }), cur = -1, sayT, bar = document.querySelector('.progress');
+  var ids = rbs.map(function (b) { return b.dataset.to; }), curCh = -1, sayT, bar = document.querySelector('.progress');
   var stepBar = !(window.CSS && CSS.supports('animation-timeline: scroll()'));
   var cnum = chip.querySelector('b'), ctit = chip.querySelector('.chip-t');
   function setCur(i) {
-    if (i < 0 || i === cur) return;
-    var first = cur === -1; cur = i;
+    if (i < 0 || i === curCh) return;
+    var first = curCh === -1; curCh = i;
     rail.style.setProperty('--i', i);
     rbs.forEach(function (b, k) { b.classList.toggle('done', k < i); if (k === i) b.setAttribute('aria-current', 'location'); else b.removeAttribute('aria-current'); });
     sls.forEach(function (a, k) { if (k === i) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
@@ -2070,7 +2070,7 @@
       await sleep(3200, id);
       while (!termVisible) await sleep(400, id);
       play((n + 1) % SCENES.length);
-    } catch (e) { /* superseded by a newer run */ }
+    } catch (e) { if (e !== 'x') console.error(e); /* x = superseded by a newer run */ }
   }
   tabs.forEach(function (b) { b.addEventListener('click', function () { play(+b.dataset.scene); }); });
   document.getElementById('replay').addEventListener('click', function () { play(scene); });
