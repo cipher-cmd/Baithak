@@ -4,6 +4,10 @@ description: Use when a founder wants an idea, product, startup, SaaS, or busine
 argument-hint: "[the idea or decision] [--quick] [--all] [--seats nithin,kunal,...] | ask <seat> [question] | board"
 ---
 
+## Where things are
+
+**Skill folder** means the folder that holds this SKILL.md (Claude Code shows it as the skill's base directory when the skill loads; in a plugin install it sits under the plugin's install path). Every path in this skill (`roster.json`, `seats/`, `brains/`, `laws/`, `references/`, `scripts/`) is relative to the skill folder. Sessions are saved under `sessions/` in the user's current project folder. Give sub-agents absolute paths.
+
 ## What this does
 
 Baithak runs a council meeting on one idea or decision for the Indian market. Each seat is a sub-agent that reasons and talks the way one Indian founder does, grounded in a brain compiled from that person's public interviews, posts, talks, and podcasts. The seats argue across three rounds: open, debate, vote. You act as the **Chair**: you never argue a side, you run the room, run the India checks, keep the score, and write the verdict.
@@ -36,7 +40,7 @@ If `roster.json` has no seats, say so in one line: "No seats built yet. Run `/ne
 
 1. `--seats a,b,c` or `--all` wins. `--quick` then picks four from those seats.
 2. Otherwise `"board"` in `roster.json` decides: `"ask"` (recommend and confirm), `"auto"` (recommend and seat without asking, say who and why in one line), or `"default"` (seat the `"default"` list).
-3. Never seat more than nine. Every seat must have `.claude/agents/council-<key>.md` and a brain folder; skip and name any that do not.
+3. Never seat more than nine. Every seat must have `seats/council-<key>.md` and a brain folder; skip and name any that do not.
 
 ### Recommend a board
 
@@ -91,7 +95,7 @@ Mark every number that is a rule of thumb rather than a sourced fact as `(rule o
 
 ## Step 4: Round 1, opening positions
 
-Spawn every seat in **one message**, in parallel, foreground, `subagent_type: council-<seat>`, with the Round 1 prompt. If a `council-*` type is not registered in this session, use `general-purpose` with the fallback lines from `round-prompts.md`.
+Spawn every seat in **one message**, in parallel, foreground, as `subagent_type: general-purpose` with `model: sonnet`, using the Round 1 prompt from `round-prompts.md` (it starts by telling the agent to read its seat file).
 
 Save the cards verbatim to `round-1.md`, one `## <Seat>` heading per card (the seat's `short` name from `roster.json`). Send a card back once if it is missing scores or a stance. Then add `## Chair notes`:
 
@@ -114,8 +118,8 @@ Spawn every seat with the Round 3 prompt. Save to `round-3.md` with a `## Chair`
 ## Step 8: Verify, then verdict
 
 1. Run both checks (use `python3` if `python` is missing):
-   - `python .claude/skills/baithak/scripts/check_quotes.py <session folder>`: every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict and say so in the Chair notes.
-   - `python .claude/skills/baithak/scripts/check_laws.py <session folder>`: every `[laws/...]` citation must exist and be verified within 6 months. Remove any citation it rejects, or mark it "may be stale".
+   - `python <skill folder>/scripts/check_quotes.py <session folder>`: every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict and say so in the Chair notes.
+   - `python <skill folder>/scripts/check_laws.py <session folder>`: every `[laws/...]` citation must exist and be verified within 6 months. Remove any citation it rejects, or mark it "may be stale".
    If Python is not installed, check by hand: search the brain folders for each quote's exact words, and confirm each cited law file exists.
 2. Compute the numbers from the last round's cards per `scoring.md`, apply the overrides, and write `verdict.md` from `report-template.md`.
 3. Show the user a short verdict in chat, under 220 words:
@@ -151,7 +155,7 @@ To build a new advisor, use `/newseat`.
 
 ## Without sub-agents
 
-Run the same protocol sequentially yourself. For each seat, read `.claude/agents/council-<seat>.md` and its brain, write that seat's card, then clear your head before the next seat. Rounds 2 and 3 work the same way with the prior cards in view.
+Run the same protocol sequentially yourself. For each seat, read `seats/council-<seat>.md` and its brain, write that seat's card, then clear your head before the next seat. Rounds 2 and 3 work the same way with the prior cards in view.
 
 ## Files
 
@@ -159,4 +163,4 @@ Run the same protocol sequentially yourself. For each seat, read `.claude/agents
 - `laws/`: one file per Indian law or circular, each with a source and a `last_verified` date.
 - `scripts/check_quotes.py` and `scripts/check_laws.py`: the two verifiers.
 - `roster.json`: every seat and the default board.
-- Agents: `.claude/agents/council-<key>.md`, one per seat.
+- `seats/council-<key>.md`: one seat file per advisor (the instructions each seat sub-agent follows).

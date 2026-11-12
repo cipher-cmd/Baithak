@@ -9,7 +9,7 @@ argument-hint: "[full name] [--quick | --deep] [--pillar \"...\"] [--default]"
 Adds one seat to Baithak. A seat is three things, and this skill makes all three:
 
 1. **A brain**: `.claude/skills/baithak/brains/<slug>/`, eight files compiled from the person's public work, every quote verbatim with a source id.
-2. **An agent**: `.claude/agents/council-<key>.md`, the sub-agent that reasons and talks like them from that brain.
+2. **An agent**: `.claude/skills/baithak/seats/council-<key>.md`, the sub-agent that reasons and talks like them from that brain.
 3. **A roster entry**: one line in `.claude/skills/baithak/roster.json`, so `/baithak` knows the seat exists.
 
 Baithak never makes portraits, photos, cartoons, or voice clones of a real person. Indian courts protect a person's name, image, voice and likeness ("personality rights"), and likeness is the core of those orders. The seat is text only, built from verbatim, sourced quotes.
@@ -131,7 +131,7 @@ Fix until it passes: every quote verbatim, every id right. Read `_hot.md` once m
 
 ## Step 6: Write the agent
 
-Write `.claude/agents/council-<key>.md` from `references/agent-template.md`. Fill every bracket from the brain: the lens (five or six questions this person asks of any decision), how they talk (from `voice.md`), how they debate (name their natural opponents among the seats in `roster.json` and what they concede, from "where this lens misfires"), and the never-list. The description names the pillar, the source count and what the brain is built from, and the trigger phrases ("what would [name] say").
+Write `.claude/skills/baithak/seats/council-<key>.md` from `references/agent-template.md`. Fill every bracket from the brain: the lens (five or six questions this person asks of any decision), how they talk (from `voice.md`), how they debate (name their natural opponents among the seats in `roster.json` and what they concede, from "where this lens misfires"), and the never-list. The description names the pillar, the source count and what the brain is built from, and the trigger phrases ("what would [name] say").
 
 ## Step 7: Register the seat
 
@@ -145,11 +145,11 @@ It refuses if the agent file or a brain file is missing. `--default` adds the se
 
 ## Step 8: Label the seat
 
-Open `.claude/agents/council-<key>.md` and confirm the first paragraph says the seat is a simulation built from public statements, is not the person, and is not affiliated with or endorsed by them. The template already says this; do not remove it.
+Open `.claude/skills/baithak/seats/council-<key>.md` and confirm the first paragraph says the seat is a simulation built from public statements, is not the person, and is not affiliated with or endorsed by them. The template already says this; do not remove it.
 
 ## Step 9: Test the seat
 
-New agent files load when Claude Code starts, so test with the fallback the council itself uses: spawn `general-purpose` with `Read .claude/agents/council-<key>.md and follow it as your instructions for this whole task. Only read files; do not write anything.` followed by the single-seat consult prompt from `.claude/skills/baithak/references/round-prompts.md`, on a short sample decision in the seat's pillar. Then check its answer:
+Test it the way the council runs every seat: spawn `general-purpose` with `Read .claude/skills/baithak/seats/council-<key>.md and follow it as your instructions for this whole task. Only read files; do not write anything.` followed by the single-seat consult prompt from `.claude/skills/baithak/references/round-prompts.md`, on a short sample decision in the seat's pillar. Then check its answer:
 
 - It sounds like the person (compare with `voice.md`), speaks in the first person, and never claims to be them.
 - It names frameworks with source ids, and every quote passes `check_quotes.mjs` (save the answer to `<build>/test-consult.md` and run the checker on it).

@@ -1,0 +1,11 @@
+{
+  "name": "baithak",
+  "version": "1.0.0",
+  "description": "A council of AI advisors built from Indian founders' public statements. India checks, eight idea types, a WHITE/GRAY/BLACK legal gate from dated law files, and a scored verdict.",
+  "author": { "name": "cipher-cmd" },
+  "homepage": "https://github.com/cipher-cmd/Baithak",
+  "repository": "https://github.com/cipher-cmd/Baithak",
+  "license": "MIT",
+  "keywords": ["india", "startup", "idea-validation", "council", "advisors", "legal"],
+  "skills": ["./.claude/skills/baithak"]
+}

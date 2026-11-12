@@ -12,7 +12,7 @@ One file per Indian law, rule, or regulator direction that Baithak may cite. The
    Never write a fact from memory.
 3. Copy the frontmatter below exactly. `last_verified` is the date you checked the sources (YYYY-MM-DD). `zone_trigger` is BLACK, GRAY, or WHITE.
 4. Keep the body under 300 words, in plain English.
-5. Run `python .claude/skills/baithak/scripts/check_laws.py --lint` after editing. It must print `lint ok`.
+5. Run `python scripts/check_laws.py --lint` (from the skill folder; in this repo `python .claude/skills/baithak/scripts/check_laws.py --lint`) after editing. It must print `lint ok`.
 
 ## Template
 

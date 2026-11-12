@@ -36,7 +36,7 @@ if (!/^[a-z][a-z0-9]{1,15}$/.test(seat.key)) fail("--key must be 2 to 16 lowerca
 if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(seat.slug)) fail("--slug must look like first-last");
 seat.initials ||= seat.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 3).toUpperCase();
 
-const agent = path.join(ROOT, ".claude", "agents", `council-${seat.key}.md`);
+const agent = path.join(SKILL, "seats", `council-${seat.key}.md`);
 if (!fs.existsSync(agent)) fail(`missing agent file ${path.relative(ROOT, agent)}`);
 const brain = path.join(SKILL, "brains", seat.slug);
 const missing = BRAIN_FILES.filter((f) => !fs.existsSync(path.join(brain, f)));
