@@ -87,7 +87,10 @@
   .navlinks { display: flex; gap: 26px; margin-left: auto; }
   .navlinks a { position: relative; text-decoration: none; font-size: 14px; font-weight: 700; color: #3b3e42; }
   .navlinks a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--yellow2); transform: scaleX(0); transform-origin: right; transition: transform 260ms var(--ease-out); }
-  .navlinks a:hover::after, .navlinks a.cur::after { transform: scaleX(1); transform-origin: left; }
+  .navlinks a { transition: color 200ms ease; }
+  .navlinks a:hover::after, .navlinks a[aria-current]::after { transform: scaleX(1); transform-origin: left; }
+  .navlinks a[aria-current] { color: var(--ink); }
+  .navlinks a[aria-current]::after { height: 3px; bottom: -6px; border-radius: 2px; background: var(--yellow); box-shadow: 0 0 0 1px var(--ink); }
   .navactions { display: flex; gap: 10px; }
 
   /* hero */
@@ -285,7 +288,7 @@
   .tool-row[data-direction="right"] .tool-track {
     animation: toolScrollRight 48s linear infinite;
   }
-  .toolchain-marquee:hover .tool-track,
+  .toolchain-marquee[data-off="true"] .tool-track,
   .toolchain-marquee[data-paused="true"] .tool-track {
     animation-play-state: paused !important;
   }
@@ -305,6 +308,10 @@
     align-items: center;
     gap: 12px;
   }
+  .toolchain-marquee::before, .toolchain-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; z-index: 2; width: 16vw; pointer-events: none; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  .toolchain-marquee::before { left: 0; -webkit-mask-image: linear-gradient(90deg, #000, transparent); mask-image: linear-gradient(90deg, #000, transparent); }
+  .toolchain-marquee::after { right: 0; -webkit-mask-image: linear-gradient(270deg, #000, transparent); mask-image: linear-gradient(270deg, #000, transparent); }
+  @media (prefers-reduced-motion: reduce) { .marquee-toggle { display: none !important; } }
   .tool-badge {
     display: inline-flex !important;
     align-items: center;
@@ -445,6 +452,18 @@
     }
   }
 
+  .room picture { display: contents; }
+  @media (max-width: 700px) {
+    .room { display: block; height: auto; min-height: 0; max-height: none; }
+    .room .pin { display: block; height: auto; }
+    .room .frame { position: relative; inset: auto; }
+    .room .frame img { height: auto; aspect-ratio: 900 / 492; object-position: center; filter: none; animation: none; transform: none; }
+    .room .frame::after { background: linear-gradient(180deg, transparent 72%, rgba(15, 16, 19, 0.85) 94%, #0f1013); }
+    .room .caps { margin: -10px auto 0; padding: 0 var(--gutter) 44px; text-align: left; }
+    .room .caps p { font-size: 34px; }
+    .room .caps p:nth-child(3) { font-size: 40px; }
+  }
+
   /* one line: terminal */
   .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
   .split > * { min-width: 0; }
@@ -551,8 +570,11 @@
   .t-window-content {
     background: #111215;
     padding: 22px 24px;
-    min-height: 380px;
+    height: 380px;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #33363b transparent;
+    overscroll-behavior: contain;
   }
   .term pre {
     margin: 0;
@@ -803,6 +825,14 @@
   .row.veto .let { color: var(--red); }
   .row.top .flap:not(.dot) { color: var(--yellow); }
   .board .foot { margin: 10px 0 0; font: 500 11.5px var(--mono); color: var(--dim); }
+  .board .how { margin: -6px 0 16px; font-size: 14.5px; color: var(--muted); }
+  .seg button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.15; min-height: 48px; }
+  .seg button small { font: 600 10.5px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
+  .rhead { display: flex; justify-content: space-between; padding: 0 2px 8px; font: 600 11px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+  .pick { display: inline-block; margin-left: 6px; padding: 2px 7px; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--yellow); font: 700 10.5px var(--mono); font-style: normal; letter-spacing: 0.04em; vertical-align: 2px; }
+  .dl { display: inline-flex; align-items: center; gap: 2px; margin-left: 6px; font: 700 11.5px var(--mono); opacity: 0; transform: translateY(4px); transition: opacity 300ms ease, transform 400ms var(--ease-out); }
+  .dl.on { opacity: 1; transform: none; }
+  .dl.up { color: var(--green); } .dl.down { color: var(--red); }
   .quotes { display: grid; gap: 12px; }
   .q { background: var(--paper); border-color: var(--line); border-width: 1px; }
   .q.moved { border: 1.5px solid var(--ink); background: linear-gradient(90deg, rgba(255, 201, 60, 0.35), transparent 60%), var(--paper); }
@@ -934,9 +964,9 @@
   }
 
   /* press + ripple: everything clickable answers back */
-  .btn, .seg button, .cmd button, .ttab, .replay, .sound, .rail button { position: relative; overflow: hidden; }
+  .btn, .seg button, .cmd button, .ttab, .replay, .sound { position: relative; overflow: hidden; }
   .card:active { transform: scale(0.985); transition-duration: 120ms; }
-  .seg button:active, .ttab:active, .replay:active, .sound:active, .rail button:active { transform: scale(0.95); }
+  .seg button:active, .ttab:active, .replay:active, .sound:active { transform: scale(0.95); }
   .ripple { position: absolute; border-radius: 50%; pointer-events: none; background: currentColor; opacity: 0.28; transform: scale(0.1); animation: ripple 650ms var(--ease-out) forwards; }
   @keyframes ripple { to { transform: scale(1); opacity: 0; } }
 
@@ -950,17 +980,18 @@
   .sound[aria-pressed="true"] .bars i:nth-child(2) { animation-delay: -300ms; } .sound[aria-pressed="true"] .bars i:nth-child(3) { animation-delay: -600ms; }
   @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
 
-  /* chapter rail (desktop): one yellow thumb slides to the chapter in view; the label flags out on change */
-  .rail { position: fixed; right: 18px; top: 50%; z-index: 45; display: none; flex-direction: column; gap: 2px; padding: 5px; border: 1.5px solid var(--ink); border-radius: 13px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); transform: translate(calc(100% + 28px), -50%); transition: transform 700ms var(--ease-out); }
-  .rail.on { transform: translate(0, -50%); }
-  .rail-thumb { position: absolute; left: 5px; top: 5px; width: 34px; height: 28px; box-sizing: border-box; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--yellow); transform: translateY(calc(var(--i, 0) * 30px)); transition: transform 560ms cubic-bezier(0.34, 1.32, 0.5, 1); pointer-events: none; }
-  .rail button { position: relative; z-index: 1; overflow: visible; display: grid; place-items: center; width: 34px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; color: var(--dim); font: 600 11px/1 var(--mono); font-variant-numeric: tabular-nums; transition: color 300ms ease; }
-  .rail button.done, .rail button[aria-current] { color: var(--ink); }
-  .rail button[aria-current] { font-weight: 800; }
-  .rail button:hover { color: var(--ink); }
-  .rail button:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
-  .rail button span { position: absolute; right: calc(100% + 16px); top: 50%; white-space: nowrap; padding: 6px 11px; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--yellow); color: var(--ink); font: 700 12px var(--mono); letter-spacing: 0.04em; box-shadow: 2px 2px 0 var(--ink); opacity: 0; transform: translate(10px, -50%); pointer-events: none; transition: opacity 180ms ease, transform 260ms var(--ease-out); }
-  .rail button:hover span, .rail button:focus-visible span, .rail.say button[aria-current] span { opacity: 1; transform: translate(0, -50%); }
+  /* chapter rail (desktop): quiet ticks; the current one is longer; labels only on hover */
+  .rail { position: fixed; right: 12px; top: 50%; z-index: 45; display: none; flex-direction: column; padding: 4px 0; opacity: 0; transform: translate(12px, -50%); transition: opacity 500ms ease, transform 600ms var(--ease-out); --tk: #9a9ea2; --tk-on: var(--ink); --tk-done: #5e6267; }
+  .rail.on { opacity: 1; transform: translate(0, -50%); }
+  .rail.ondark { --tk: rgba(255, 255, 255, 0.28); --tk-on: var(--yellow); --tk-done: rgba(255, 255, 255, 0.6); }
+  .rail button { position: relative; display: flex; justify-content: flex-end; align-items: center; width: 34px; height: 20px; padding: 0 2px 0 0; border: 0; background: transparent; cursor: pointer; }
+  .rail button::before { content: ""; width: 10px; height: 2px; border-radius: 2px; background: var(--tk); transition: width 420ms var(--ease-out), height 200ms ease, background-color 300ms ease; }
+  .rail button.done::before { background: var(--tk-done); }
+  .rail button[aria-current]::before { width: 24px; height: 3px; background: var(--tk-on); }
+  .rail button:hover::before { width: 18px; background: var(--tk-on); }
+  .rail button:focus-visible { outline: 2px solid var(--yellow2); outline-offset: 2px; border-radius: 4px; }
+  .rail button span { position: absolute; right: calc(100% + 8px); top: 50%; white-space: nowrap; padding: 4px 9px; border-radius: 6px; background: var(--ink); color: var(--paper); font: 600 11.5px var(--mono); letter-spacing: 0.03em; opacity: 0; transform: translate(6px, -50%); pointer-events: none; transition: opacity 160ms ease, transform 220ms var(--ease-out); }
+  .rail button:hover span, .rail button:focus-visible span { opacity: 1; transform: translate(0, -50%); }
   @media (min-width: 1100px) { .rail { display: flex; } }
 
   /* chapter chip (below 1100px): shows where you are, opens a native popover list */
@@ -1032,7 +1063,8 @@
     .install .way:last-child { grid-column: auto; }
     .trust div { padding-bottom: 16px; }
     .bento .cell, .bento .cell.wide { grid-column: span 6; }
-    .t-window-content { padding: 14px 16px; min-height: 0; }
+    .t-window-content { padding: 14px 16px; height: 300px; }
+    .ttab i { display: none; }
     .term pre { font-size: 12px; }
     .flap { width: 32px; height: 44px; font-size: 23px; }
     .row { grid-template-columns: 22px 1fr auto; gap: 8px; }
@@ -1048,7 +1080,7 @@
     .rv, .in-1, .in-2, .in-3, .in-4, .in-5, .art, .hterm { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
     mark { background-size: 100% 100% !important; }
     .sp .wi { transform: none !important; }
-    .rail, .rail-thumb, .chip, .chsheet { transition: none !important; }
+    .rail, .chip, .chsheet { transition: none !important; }
     .draw { stroke-dashoffset: 0 !important; }
     .fillin { fill-opacity: 1 !important; }
     .sundisc { opacity: 0.95 !important; transform: none !important; }
@@ -1270,7 +1302,7 @@
 
   <section class="room" aria-label="The room">
     <div class="pin">
-      <div class="frame"><img src="banner.png" alt="A founder at a laptop typing /baithak, facing five empty chairs with nameplates around a table with chai, a notebook of unit economics and a stamped verdict" loading="lazy"></div>
+      <div class="frame"><picture><source media="(max-width: 700px)" srcset="room-mobile.jpg" width="900" height="492"><img src="banner.png" alt="A founder at a laptop typing /baithak, facing five empty chairs with nameplates around a table with chai, a notebook of unit economics and a stamped verdict" loading="lazy"></picture></div>
       <div class="caps"><div class="wrap"><p>Five chairs.</p><p>One table.</p><p>Your idea in the middle.</p></div></div>
     </div>
   </section>
@@ -1519,13 +1551,15 @@
         <div class="card board rv fl d1">
           <div class="tag">THE IDEA UNDER REVIEW</div>
           <h3>Students pay ₹49 per contest and win cash.</h3>
+          <p class="how">The council scored three ways forward, out of 10. Switch rounds to see how the debate moved each score.</p>
           <div class="seg" role="tablist" aria-label="Round">
-            <button role="tab" aria-selected="true" data-round="1">Opening</button>
-            <button role="tab" aria-selected="false" data-round="2">After debate</button>
+            <button role="tab" aria-selected="true" data-round="1"><small>Round 1</small>Opening views</button>
+            <button role="tab" aria-selected="false" data-round="2"><small>Round 2</small>After debate</button>
           </div>
+          <div class="rhead" aria-hidden="true"><span>Option</span><span>Score / 10</span></div>
           <div class="row veto"><span class="let">A</span><div class="lab">Paid contests<small>BLACK zone, vetoed</small></div><div class="flaps" data-r1="1.6" data-r2="1.3"></div></div>
           <div class="row"><span class="let">B</span><div class="lab">Free-to-play<small>GRAY zone, gates apply</small></div><div class="flaps" data-r1="4.4" data-r2="4.1"></div></div>
-          <div class="row top"><span class="let">C</span><div class="lab">Don't build yet<small>test first</small></div><div class="flaps" data-r1="5.1" data-r2="5.3"></div></div>
+          <div class="row top"><span class="let">C</span><div class="lab">Don't build yet <em class="pick">Council's pick</em><small>test first</small></div><div class="flaps" data-r1="5.1" data-r2="5.3"></div></div>
           <p class="foot">Weighted council score out of 10</p>
         </div>
         <div class="quotes">
@@ -1645,16 +1679,15 @@
 </main>
 
 <nav class="rail" id="rail" aria-label="Chapters">
-  <span class="rail-thumb" aria-hidden="true"></span>
-  <button data-to="story" aria-label="01 The idea"><span>The idea</span>01</button>
-  <button data-to="method" aria-label="02 The method"><span>The method</span>02</button>
-  <button data-to="checks" aria-label="03 India checks"><span>India checks</span>03</button>
-  <button data-to="types" aria-label="04 Idea types"><span>Idea types</span>04</button>
-  <button data-to="council" aria-label="05 The council"><span>The council</span>05</button>
-  <button data-to="sample" aria-label="06 A real run"><span>A real run</span>06</button>
-  <button data-to="verdict" aria-label="07 The verdict"><span>The verdict</span>07</button>
-  <button data-to="evidence" aria-label="08 Evidence"><span>Evidence</span>08</button>
-  <button data-to="install" aria-label="09 Install"><span>Install</span>09</button>
+  <button data-to="story" aria-label="01 The idea"><span>01 The idea</span></button>
+  <button data-to="method" aria-label="02 The method"><span>02 The method</span></button>
+  <button data-to="checks" aria-label="03 India checks"><span>03 India checks</span></button>
+  <button data-to="types" aria-label="04 Idea types"><span>04 Idea types</span></button>
+  <button data-to="council" aria-label="05 The council"><span>05 The council</span></button>
+  <button data-to="sample" aria-label="06 A real run"><span>06 A real run</span></button>
+  <button data-to="verdict" aria-label="07 The verdict"><span>07 The verdict</span></button>
+  <button data-to="evidence" aria-label="08 Evidence"><span>08 Evidence</span></button>
+  <button data-to="install" aria-label="09 Install"><span>09 Install</span></button>
 </nav>
 <button class="chip" id="chip" popovertarget="chapters" aria-expanded="false" aria-label="Chapters"><b>01</b><span class="chip-t">The idea</span><span class="chip-n">/ 09</span><i class="ph ph-caret-up" aria-hidden="true"></i></button>
 <div class="chsheet" id="chapters" popover aria-label="Chapters">
@@ -1814,18 +1847,15 @@
   }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
 
-  // nav: underline the chapter in view
-  var links = {};
-  document.querySelectorAll('.navlinks a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
-  var spy = new IntersectionObserver(function (es) {
-    es.forEach(function (en) { var a = links[en.target.id]; if (a) a.classList.toggle('cur', en.isIntersecting); });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
 
   // chapter selector: desktop rail + mobile chip share one "current chapter" state
   var rail = document.getElementById('rail'), chip = document.getElementById('chip'), chList = document.getElementById('chapters');
   var rbs = [].slice.call(rail.querySelectorAll('button')), sls = [].slice.call(chList.querySelectorAll('a'));
-  var ids = rbs.map(function (b) { return b.dataset.to; }), curCh = -1, sayT, bar = document.querySelector('.progress');
+  var ids = rbs.map(function (b) { return b.dataset.to; }), curCh = -1, bar = document.querySelector('.progress');
+  // every chapter maps to the nav link that covers it, so one link is always underlined
+  var NAVOF = { story: 'method', method: 'method', checks: 'checks', types: 'checks', council: 'council', sample: 'sample', verdict: 'sample', evidence: 'sample', install: 'install' };
+  var navA = [].slice.call(document.querySelectorAll('.navlinks a'));
+  function markNav(id) { navA.forEach(function (a) { if (id && a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); }); }
   var stepBar = !(window.CSS && CSS.supports('animation-timeline: scroll()'));
   var cnum = chip.querySelector('b'), ctit = chip.querySelector('.chip-t');
   function setCur(i) {
@@ -1837,16 +1867,17 @@
     cnum.textContent = String(i + 1).padStart(2, '0'); ctit.textContent = sls[i].lastChild.textContent;
     if (!reduce && !first && chip.animate) [cnum, ctit].forEach(function (el, k) { el.animate([{ transform: 'translateY(70%)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 380, delay: k * 50, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }); });
     if (stepBar) bar.style.setProperty('--p', (i + 1) / ids.length);
-    if (!first && rail.classList.contains('on')) { rail.classList.add('say'); clearTimeout(sayT); sayT = setTimeout(function () { rail.classList.remove('say'); }, 1400); }
+    rail.classList.toggle('ondark', document.getElementById(ids[i]).classList.contains('dark'));
+    if (past) markNav(NAVOF[ids[i]]);
   }
+  var past = false, atEnd = false;
   setCur(0);
   rbs.forEach(function (b, k) { b.addEventListener('click', function () { document.getElementById(ids[k]).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }); });
   sls.forEach(function (a) { a.addEventListener('click', function () { if (chList.hidePopover) chList.hidePopover(); }); });
   if (chList.showPopover) chList.addEventListener('toggle', function (e) { chip.setAttribute('aria-expanded', String(e.newState === 'open')); });
   else chip.hidden = true; // ponytail: no popover support means no mobile selector; the top nav still works
   // show both after the hero, hide over the footer
-  var past = false, atEnd = false;
-  function showSel() { var on = past && !atEnd; rail.classList.toggle('on', on); chip.classList.toggle('on', on); if (!on && chList.hidePopover && chList.matches(':popover-open')) chList.hidePopover(); }
+  function showSel() { var on = past && !atEnd; rail.classList.toggle('on', on); chip.classList.toggle('on', on); markNav(past ? NAVOF[ids[curCh]] : null); if (!on && chList.hidePopover && chList.matches(':popover-open')) chList.hidePopover(); }
   new IntersectionObserver(function (e) { past = !e[0].isIntersecting; showSel(); }, { threshold: 0.2 }).observe(document.querySelector('.hero'));
   new IntersectionObserver(function (e) { atEnd = e[0].isIntersecting; showSel(); }).observe(document.querySelector('footer'));
   var rspy = new IntersectionObserver(function (es) {
@@ -1883,9 +1914,10 @@
     });
   });
 
-  // marquee pause / play control toggle
+  // marquee pause / play control toggle; tracks also sleep while off screen
   var marqueeToggle = document.getElementById('marqueeToggle');
   var marqueeEl = document.getElementById('toolchainMarquee');
+  if (marqueeEl) new IntersectionObserver(function (e) { marqueeEl.setAttribute('data-off', String(!e[0].isIntersecting)); }).observe(marqueeEl);
   if (marqueeToggle && marqueeEl) {
     marqueeToggle.addEventListener('click', function () {
       var isPaused = marqueeEl.getAttribute('data-paused') === 'true';
@@ -2010,6 +2042,8 @@
     ]
   ];
   var term = document.getElementById('term'), tprog = document.getElementById('tprog');
+  // keep the newest line in view inside the fixed-height window
+  new MutationObserver(function () { var w = term.parentNode; w.scrollTop = w.scrollHeight; }).observe(term, { childList: true, subtree: true, characterData: true });
   var tabs = document.querySelectorAll('.ttab'), tind = document.querySelector('.tind');
   var runId = 0, scene = 0, termSeen = false, termVisible = false;
   var FR = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
@@ -2088,7 +2122,15 @@
       var f = document.createElement('span'); f.className = 'flap' + (ch === '.' ? ' dot' : ''); f.textContent = ch; g.appendChild(f);
     });
   });
+  groups.forEach(function (g) {
+    var d = Math.round((parseFloat(g.dataset.r2) - parseFloat(g.dataset.r1)) * 10) / 10, el = document.createElement('span');
+    el.className = 'dl ' + (d > 0 ? 'up' : 'down');
+    el.innerHTML = '<i class="ph ph-caret-' + (d > 0 ? 'up' : 'down') + '"></i>' + Math.abs(d).toFixed(1);
+    el.setAttribute('aria-label', (d > 0 ? 'up ' : 'down ') + Math.abs(d).toFixed(1) + ' after the debate');
+    g.parentNode.querySelector('.lab small').appendChild(el);
+  });
   function setRound(r) {
+    document.querySelectorAll('.dl').forEach(function (el) { el.classList.toggle('on', r === '2'); });
     document.querySelectorAll('.seg button').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.round === r)); });
     groups.forEach(function (g, gi) {
       var target = g.dataset['r' + r].split('');
@@ -2103,7 +2145,7 @@
     });
   }
   document.querySelectorAll('.seg button').forEach(function (b) { b.addEventListener('click', function () { setRound(b.dataset.round); }); });
-  once(document.querySelector('.board'), function () { setTimeout(function () { setRound('2'); }, reduce ? 0 : 1800); }, 0.6);
+  once(document.querySelector('.board'), function () { setTimeout(function () { setRound('2'); }, reduce ? 0 : 2600); }, 0.6);
 
   var sheet = document.querySelector('.sheet');
   once(sheet, function () { setTimeout(function () { sfx('thud'); }, reduce ? 0 : 1050); }, 0.4);
