@@ -58,7 +58,19 @@ All five are seed depth (about 65,000 to 125,000 words each). They will get deep
 
 On recent Claude Code versions this also works in one step: `/plugin install baithak --marketplace cipher-cmd/Baithak`. Plugin skills are namespaced, so the command is `/baithak:baithak`; asking "run a baithak on my idea" also triggers it.
 
-**Option 2: clone the repo.** Use this if you want to build new advisors or edit the law files.
+**Option 2: one command with the skills CLI.** In your project folder:
+
+```bash
+npx skills add cipher-cmd/Baithak
+```
+
+Then open Claude Code and run `/baithak` with your idea:
+
+```
+/baithak I want to build a B2B SaaS tool that automates GST reconciliation for tier-3 textile manufacturers.
+```
+
+**Option 3: clone the repo.** Use this if you want to build new advisors or edit the law files.
 
 ```bash
 git clone https://github.com/cipher-cmd/Baithak.git
