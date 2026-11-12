@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Baithak: the Indian council for your next idea</title>
+<title>Baithak: the Indian founder council</title>
 <meta name="description" content="Bring an idea for India. Five AI advisors check who pays and whether it's legal, argue it out, and hand you a verdict, a 7-day test under ₹5,000, and the point to walk away. Free and open source.">
 <meta property="og:title" content="Baithak: bring your idea to the Indian council">
 <meta property="og:description" content="India checks, 8 idea types, a WHITE/GRAY/BLACK legal gate from 24 sourced law files, and a scored verdict. A free Claude Code skill.">
@@ -11,118 +11,186 @@
 <meta property="og:url" content="https://cipher-cmd.github.io/Baithak/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b0e15">
+<meta name="theme-color" content="#f5f5f2">
 <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="preload" as="image" href="logo.jpg">
 <style>
   :root {
-    --ink: #0b0e15; --ink2: #0f131c; --panel: #141925; --panel2: #1a2030;
-    --line: rgba(244, 231, 204, 0.1); --line2: rgba(244, 231, 204, 0.18);
-    --cream: #f4e7cc; --text: #efe7d6; --muted: #b8b0a1; --dim: #9a9284;
-    --sun: #f2771f; --amber: #f6b13b; --sun-soft: rgba(242, 119, 31, 0.14);
-    --red: #ec5b45; --green: #6fcf97; --grey: #c7c2b8;
-    --serif: "DM Serif Display", Georgia, serif;
+    --bg: #e8e9e9; --paper: #f5f5f2; --paper2: #eceeed; --paper3: #e1e3e3;
+    --ink: #1f2125; --graphite: #2a2c30; --graphite2: #33363a; --muted: #5e6267; --dim: #676b70;
+    --line: #b8bbbd; --line2: #cfd1d2;
+    --yellow: #ffc93c; --yellow2: #f4b817; --red: #b8341f; --green: #3f8a5a;
     --sans: "Hanken Grotesk", system-ui, sans-serif;
+    --serif: "DM Serif Display", Georgia, serif;
     --mono: "JetBrains Mono", ui-monospace, monospace;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
-    --r: 22px; --r-sm: 14px;
+    --r: 16px;
     --gutter: clamp(16px, 4vw, 40px);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--ink); color: var(--text); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
-  body::after { content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  body::after { content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   img { max-width: 100%; display: block; }
-  a { color: var(--amber); text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  code { font-family: var(--mono); font-size: 0.92em; color: var(--amber); }
-  ::selection { background: var(--sun); color: var(--ink); }
-  .wrap { width: min(1200px, 100%); margin: 0 auto; padding: 0 var(--gutter); }
-  h2 { font: 400 clamp(40px, 6.2vw, 84px)/0.98 var(--serif); letter-spacing: -0.01em; margin: 0 0 20px; color: var(--cream); }
-  h2 em, h1 em { font-style: italic; color: var(--sun); }
-  .lede { color: var(--muted); font-size: clamp(17px, 1.5vw, 20px); max-width: 52ch; margin: 0; }
+  a { color: inherit; }
+  code { font-family: var(--mono); font-size: 0.88em; background: rgba(0, 0, 0, 0.06); padding: 1px 6px; border-radius: 5px; }
+  ::selection { background: var(--yellow); color: var(--ink); }
+  .wrap { width: min(1240px, 100%); margin: 0 auto; padding: 0 var(--gutter); }
 
-  /* retro sun: a disc cut by horizontal bands, from the logo's sunset */
-  .sun { position: absolute; border-radius: 50%; background: linear-gradient(180deg, var(--amber) 0%, var(--sun) 62%, #c4451b 100%); -webkit-mask: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%); mask: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%); pointer-events: none; }
+  /* type */
+  .eyebrow { display: flex; align-items: center; gap: 14px; font: 700 11.5px/1.2 var(--mono); letter-spacing: 0.19em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .eyebrow .n { color: var(--ink); background: var(--yellow); padding: 3px 7px; border-radius: 4px; letter-spacing: 0.08em; }
+  .eyebrow::after { content: ""; width: 74px; height: 1px; background: currentColor; opacity: 0.6; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { font: 900 clamp(52px, 7.4vw, 104px)/0.94 var(--sans); letter-spacing: -0.06em; margin: 0 0 26px; }
+  h2 { font: 850 clamp(40px, 5.2vw, 72px)/0.98 var(--sans); font-weight: 800; letter-spacing: -0.05em; margin: 0 0 18px; }
+  h3 { font: 800 20px/1.15 var(--sans); letter-spacing: -0.025em; margin: 0 0 8px; }
+  .lede { color: var(--muted); font-size: clamp(17px, 1.5vw, 20px); max-width: 50ch; margin: 0; }
+  .serif { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.01em; }
 
-  .progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 30; background: linear-gradient(90deg, var(--sun), var(--amber)); transform-origin: 0 50%; transform: scaleX(0); }
+  /* marker highlight: sweeps in when its heading reveals */
+  mark { color: var(--ink); padding: 0 0.08em; border-radius: 6px; background: linear-gradient(var(--yellow), var(--yellow)) no-repeat 0 0 / 0% 100%; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .in mark, .on mark { animation: sweep 900ms var(--ease-io) 350ms forwards; }
+  @keyframes sweep { to { background-size: 100% 100%; } }
+  .dark mark { color: var(--ink); }
+
+  .progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 70; background: var(--yellow); transform-origin: 0 50%; transform: scaleX(0); }
   @supports (animation-timeline: scroll()) {
     .progress { animation: grow linear both; animation-timeline: scroll(root); }
     @keyframes grow { to { transform: scaleX(1); } }
   }
 
-  /* nav: floating glass pill */
-  .nav { position: fixed; top: 14px; left: 50%; z-index: 25; width: min(1120px, calc(100% - 24px)); transform: translateX(-50%); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 14px; border-radius: 999px; border: 1px solid transparent; transition: background-color 300ms ease, border-color 300ms ease; }
-  .nav.solid { background: rgba(15, 19, 28, 0.72); border-color: var(--line); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); }
-  .brand { display: flex; align-items: center; gap: 10px; color: var(--cream); text-decoration: none; font: 400 24px/1 var(--serif); }
-  .brand img { width: 34px; height: 34px; border-radius: 9px; }
-  .navlinks { display: flex; align-items: center; gap: 4px; }
-  .navlinks a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 9px 14px; border-radius: 999px; transition: color 160ms ease, background-color 160ms ease; }
-  .navlinks a:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 22px; border-radius: 999px; font: 600 15.5px var(--sans); text-decoration: none; cursor: pointer; border: 1px solid transparent; white-space: nowrap; transition: transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease; }
-  .btn:active { transform: scale(0.97); }
-  .navlinks a.btn.primary, .btn.primary { background: var(--sun); color: #170a02; }
-  .navlinks a.btn.primary:hover, .btn.primary:hover { background: #ff8a33; color: #170a02; }
-  .btn.ghost { color: var(--cream); border-color: var(--line2); background: rgba(255, 255, 255, 0.02); }
-  .btn.ghost:hover { border-color: rgba(244, 231, 204, 0.36); }
-  .btn.sm { min-height: 40px; padding: 0 18px; font-size: 14.5px; }
+  /* buttons: hard offset shadow, press in on hover */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 0 20px; border: 1.5px solid var(--ink); border-radius: 10px; text-decoration: none; color: var(--ink); font: 800 15px var(--sans); background: var(--paper); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; white-space: nowrap; transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 200ms ease; }
+  .btn:hover { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+  .btn.primary { background: var(--yellow); }
+  .btn.inv { background: var(--ink); color: var(--paper); }
+  .btn.sm { min-height: 40px; padding: 0 14px; font-size: 13.5px; box-shadow: 3px 3px 0 var(--ink); }
   .btn i { font-size: 18px; }
+  .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow2); outline-offset: 3px; }
+
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 50; height: 72px; display: flex; align-items: center; background: rgba(245, 245, 242, 0.86); border-bottom: 1px solid var(--line2); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; font: 900 24px/1 var(--sans); letter-spacing: -0.05em; }
+  .brand .dot { color: var(--yellow2); }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .navlinks { display: flex; gap: 26px; margin-left: auto; }
+  .navlinks a { position: relative; text-decoration: none; font-size: 14px; font-weight: 700; color: #3b3e42; }
+  .navlinks a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--yellow2); transform: scaleX(0); transform-origin: right; transition: transform 260ms var(--ease-out); }
+  .navlinks a:hover::after, .navlinks a.cur::after { transform: scaleX(1); transform-origin: left; }
+  .navactions { display: flex; gap: 10px; }
 
   /* hero */
-  .hero { position: relative; min-height: 100dvh; display: grid; align-items: center; padding: 120px 0 72px; overflow: hidden; }
-  .hero .sun { width: min(64vw, 860px); aspect-ratio: 1; left: 74%; top: 30%; transform: translate(-50%, -10%); opacity: 0.22; -webkit-mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), linear-gradient(180deg, #000 55%, transparent 95%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), linear-gradient(180deg, #000 55%, transparent 95%); mask-composite: intersect; }
-  .hero-grid { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .hero { position: relative; padding: clamp(48px, 8vh, 88px) 0 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
   .hero-grid > * { min-width: 0; }
-  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border-radius: 999px; border: 1px solid var(--line2); background: rgba(255, 255, 255, 0.03); color: var(--muted); font-size: 14px; margin-bottom: 26px; }
-  .pill b { background: var(--sun-soft); color: var(--amber); border-radius: 999px; padding: 3px 10px; font-weight: 600; font-size: 13px; }
-  h1 { font: 400 clamp(52px, 8.4vw, 116px)/0.94 var(--serif); letter-spacing: -0.015em; margin: 0 0 24px; color: var(--cream); padding-bottom: 4px; }
-  .hero p.sub { color: var(--muted); font-size: clamp(18px, 1.7vw, 21px); max-width: 40ch; margin: 0 0 32px; }
-  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .poster { position: relative; justify-self: end; width: min(100%, 440px); }
-  .poster .card { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9), 0 0 0 10px rgba(255, 255, 255, 0.02); }
-  .poster img { width: 100%; height: auto; aspect-ratio: 760 / 912; object-fit: cover; }
-  .poster .tag { position: absolute; left: -18px; bottom: 34px; z-index: 2; padding: 12px 16px; border-radius: 16px; background: rgba(15, 19, 28, 0.86); border: 1px solid var(--line2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: 14px; box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8); }
-  .poster .tag b { display: block; font: 700 13px var(--mono); color: var(--red); letter-spacing: 0.06em; }
-  .poster .tag span { color: var(--muted); }
-  .poster .tag2 { left: auto; right: -14px; bottom: auto; top: 30px; }
-  .poster .tag2 b { color: var(--green); }
-
-  .in-1, .in-2, .in-3, .in-4 { opacity: 0; transform: translateY(22px); filter: blur(6px); animation: rise 900ms var(--ease-out) forwards; }
-  .in-2 { animation-delay: 90ms; } .in-3 { animation-delay: 180ms; } .in-4 { animation-delay: 270ms; }
+  .hero .desc { font-size: clamp(18px, 1.6vw, 20.5px); color: var(--muted); max-width: 33em; margin: 0 0 30px; }
+  .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 28px; font: 500 12.5px var(--mono); color: var(--muted); }
+  .hero-note b { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(63, 138, 90, 0.5); }
+  @keyframes ping { 70% { box-shadow: 0 0 0 9px rgba(63, 138, 90, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 138, 90, 0); } }
+  .in-1, .in-2, .in-3, .in-4, .in-5 { opacity: 0; transform: translateY(22px); filter: blur(6px); animation: rise 900ms var(--ease-out) forwards; }
+  .in-2 { animation-delay: 90ms; } .in-3 { animation-delay: 180ms; } .in-4 { animation-delay: 270ms; } .in-5 { animation-delay: 360ms; }
   @keyframes rise { to { opacity: 1; transform: none; filter: none; } }
-  .poster { opacity: 0; transform: translateY(40px) scale(0.96); animation: poster 1200ms var(--ease-out) 200ms forwards; }
-  @keyframes poster { to { opacity: 1; transform: none; } }
-  .hero .sun { animation: sunrise 1800ms var(--ease-out) forwards; }
-  @keyframes sunrise { from { transform: translate(-50%, 14%); opacity: 0; } to { transform: translate(-50%, -10%); opacity: 0.22; } }
+  h1.in-2 mark { animation: sweep 900ms var(--ease-io) 700ms forwards; }
 
-  /* ticker: the one marquee on the page */
-  .ticker { border-block: 1px solid var(--line); overflow: hidden; padding: 16px 0; mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .art { position: relative; border: 1.5px solid var(--ink); border-radius: 22px; background: linear-gradient(135deg, #f8f8f5, #dcdedf); box-shadow: 8px 8px 0 var(--ink); overflow: hidden; opacity: 0; transform: translateY(30px) rotate(1deg); animation: artin 1100ms var(--ease-out) 150ms forwards; }
+  @keyframes artin { to { opacity: 1; transform: none; } }
+  .art .grid { position: absolute; inset: 0; background-image: radial-gradient(#8a8e92 0.8px, transparent 0.8px); background-size: 14px 14px; opacity: 0.28; -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); }
+  .art .label { position: relative; display: flex; justify-content: space-between; padding: 20px 22px 0; font: 500 11.5px var(--mono); letter-spacing: 0.14em; color: #666a6f; }
+  .art svg { position: relative; display: block; width: 100%; height: auto; padding: 0 16px; }
+  .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1800ms var(--ease-io) var(--dd, 0ms) forwards; }
+  .fillin { fill-opacity: 0; animation: fillin 900ms ease var(--fd, 0ms) forwards; }
+  .draw.fillin { animation: draw 1800ms var(--ease-io) var(--dd, 0ms) forwards, fillin 900ms ease var(--fd, 0ms) forwards; }
+  .d-a { --dd: 400ms; } .d-b { --dd: 900ms; } .d-c { --dd: 1300ms; } .d-d { --dd: 1700ms; }
+  .f-b { --fd: 1700ms; } .f-c { --fd: 2100ms; } .f-d { --fd: 2500ms; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fillin { to { fill-opacity: 1; } }
+  .sundisc { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(40%); opacity: 0; animation: sunup 1600ms var(--ease-out) 200ms forwards; }
+  @keyframes sunup { to { transform: none; opacity: 0.95; } }
+  .ring { transform-box: fill-box; transform-origin: center; animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .chair { fill: #f5f5f2; transition: fill 500ms ease; }
+  .chair.on { fill: var(--yellow); }
+  .steam { stroke-dasharray: 6 10; animation: steam 2.4s linear infinite; }
+  @keyframes steam { to { stroke-dashoffset: -32; } }
+
+  .hterm { position: relative; margin: -64px 18px 18px auto; width: min(80%, 420px); background: #25272b; color: #e8e9e9; border: 1px solid #55595d; border-radius: 13px; box-shadow: 0 18px 40px rgba(21, 23, 25, 0.35); overflow: hidden; opacity: 0; transform: translateY(24px); animation: rise 900ms var(--ease-out) 1200ms forwards; }
+  .tbar { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 13px; border-bottom: 1px solid #45484d; font: 500 11.5px var(--mono); color: #b8bdc1; letter-spacing: 0.06em; }
+  .tbar i { width: 9px; height: 9px; border-radius: 50%; background: #ed7656; }
+  .tbar i:nth-child(2) { background: var(--yellow); } .tbar i:nth-child(3) { background: #75b975; }
+  .tbar span { margin-left: auto; }
+  .hterm .body { padding: 14px 16px 16px; font: 12.5px/1.95 var(--mono); }
+  .ty { color: var(--yellow); } .tm { color: #aeb2b6; }
+  .cl { display: flex; gap: 10px; align-items: center; color: #8c9095; transition: color 300ms ease; }
+  .cl .bx { flex: none; display: grid; place-items: center; width: 15px; height: 15px; border: 1px solid #777; border-radius: 4px; font-size: 11px; color: var(--ink); transition: background-color 300ms ease, border-color 300ms ease; }
+  .cl .bx i { opacity: 0; transform: scale(0.4); transition: opacity 250ms ease, transform 350ms var(--ease-out); }
+  .cl.ok { color: #eef0f0; } .cl.ok .bx { background: var(--yellow); border-color: var(--yellow); } .cl.ok .bx i { opacity: 1; transform: none; }
+  .cl.run .bx { border-color: var(--yellow); animation: pulse 900ms ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 3px rgba(255, 201, 60, 0.25); } }
+  .hterm .vd { margin-top: 4px; color: var(--yellow); font-weight: 700; opacity: 0; transition: opacity 400ms ease; }
+  .hterm .vd.on { opacity: 1; }
+
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: clamp(40px, 6vh, 64px); border-block: 1px solid var(--line); background: #e1e2e2; }
+  .stat { display: flex; align-items: center; gap: 14px; padding: 20px 18px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat .ic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--paper); font-size: 20px; box-shadow: 2px 2px 0 var(--ink); }
+  .stat strong { display: block; font: 900 22px/1.05 var(--sans); letter-spacing: -0.04em; }
+  .stat span { display: block; margin-top: 5px; font: 500 11.5px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  /* ticker */
+  .ticker { background: var(--ink); color: var(--paper); overflow: hidden; padding: 18px 0; transform: rotate(-1.2deg); margin: 34px -2vw 0; border-block: 2px solid var(--ink); }
   .ticker .track { display: flex; width: max-content; animation: tick 46s linear infinite; }
-  .ticker span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font: 400 clamp(22px, 2.6vw, 34px)/1 var(--serif); color: var(--cream); white-space: nowrap; }
-  .ticker span::after { content: ""; width: 9px; height: 9px; transform: rotate(45deg); border: 2px solid var(--sun); }
+  .ticker span { display: inline-flex; align-items: center; gap: 24px; padding-right: 24px; font: 800 clamp(22px, 2.6vw, 34px)/1 var(--sans); letter-spacing: -0.03em; white-space: nowrap; }
+  .ticker span:nth-child(3n+2) { font: 400 italic clamp(24px, 2.8vw, 36px)/1 var(--serif); color: var(--yellow); }
+  .ticker span::after { content: ""; width: 10px; height: 10px; transform: rotate(45deg); background: var(--yellow); }
   @keyframes tick { to { transform: translateX(-50%); } }
   .ticker:hover .track { animation-play-state: paused; }
 
-  /* the room: the frame opens to full bleed as you scroll in */
-  .room { position: relative; }
+  /* chapters */
+  .ch { position: relative; padding: clamp(88px, 13vh, 150px) 0; }
+  .ch.paper { background: var(--paper); border-block: 1px solid var(--line2); }
+  .ch.dark { background: var(--graphite); color: #f1f1ed; }
+  .ch.dark::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, 0.13) 0.8px, transparent 0.8px); background-size: 14px 14px; pointer-events: none; }
+  .ch.dark .wrap { position: relative; }
+  .ch.dark .eyebrow { color: #b9bdc0; }
+  .ch.dark .lede { color: #b9bdc0; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: clamp(36px, 5vw, 56px); }
+  .head > div { max-width: 700px; }
+  .head > p { max-width: 430px; margin: 0 0 6px; }
+  .rv { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  .rv.in { animation: rise 900ms var(--ease-out) both; }
+  .rv.in.d1 { animation-delay: 80ms; } .rv.in.d2 { animation-delay: 160ms; } .rv.in.d3 { animation-delay: 240ms; } .rv.in.d4 { animation-delay: 320ms; } .rv.in.d5 { animation-delay: 400ms; } .rv.in.d6 { animation-delay: 480ms; } .rv.in.d7 { animation-delay: 560ms; }
+  .rv.done { opacity: 1; transform: none; filter: none; animation: none; }
+
+  /* cards: lift on hover, shadow grows */
+  .card { position: relative; border: 1.5px solid var(--ink); border-radius: var(--r); background: var(--paper2); padding: clamp(20px, 2.4vw, 28px); box-shadow: 0 0 0 var(--ink); transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), background-color 300ms ease; }
+  @media (hover: hover) { .card.lift:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); } }
+  .kick { font: 600 11.5px var(--mono); letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+  .card p { margin: 0; font-size: 15px; color: var(--muted); }
+
+  /* room */
+  .room { position: relative; background: var(--bg); }
   .room .pin { position: relative; height: 100dvh; overflow: hidden; }
-  .room .frame { position: absolute; inset: 0; overflow: hidden; }
+  .room .frame { position: absolute; inset: 0; overflow: hidden; background: var(--ink); }
   .room .frame img { width: 100%; height: 176%; object-fit: cover; object-position: 34% 0%; }
-  .room .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 14, 21, 0.2), rgba(11, 14, 21, 0.05) 28%, rgba(11, 14, 21, 0.78) 60%, rgba(11, 14, 21, 0.96)); }
+  .room .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 21, 24, 0.15), rgba(20, 21, 24, 0.05) 28%, rgba(20, 21, 24, 0.78) 60%, rgba(20, 21, 24, 0.95)); }
   .room .caps { position: absolute; z-index: 2; inset: auto 0 9vh 0; text-align: center; }
-  .room .caps p { margin: 0; font: 400 clamp(34px, 5.4vw, 76px)/1.04 var(--serif); color: var(--cream); }
-  .room .caps p:nth-child(3) { color: var(--sun); font-style: italic; padding-bottom: 6px; }
+  .room .caps p { margin: 0; font: 900 clamp(36px, 5.6vw, 80px)/1.02 var(--sans); letter-spacing: -0.05em; color: #f5f5f2; }
+  .room .caps p:nth-child(3) { font: 400 italic clamp(40px, 6vw, 86px)/1.1 var(--serif); color: var(--yellow); letter-spacing: -0.01em; }
   @supports (animation-timeline: view()) {
     .room { height: 260vh; view-timeline-name: --room; }
     .room .pin { position: sticky; top: 0; }
-    .room .frame { clip-path: inset(16% 12% 16% 12% round 32px); animation: open linear both; animation-timeline: --room; animation-range: contain 0% contain 55%; }
+    .room .frame { clip-path: inset(18% 14% 18% 14% round 22px); animation: open linear both; animation-timeline: --room; animation-range: contain 0% contain 55%; }
     .room .frame img { animation: settle linear both; animation-timeline: --room; animation-range: contain 0% contain 70%; }
     .room .caps p { opacity: 0; animation: cap linear both; animation-timeline: --room; }
     .room .caps p:nth-child(1) { animation-range: contain 46% contain 58%; }
@@ -133,186 +201,251 @@
     @keyframes cap { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
   }
 
-  .ch { padding: clamp(96px, 14vh, 168px) 0; position: relative; overflow-x: clip; }
-  html { overflow-x: clip; }
-  .ch.tight { padding-top: 0; }
-  /* reveal: one-shot keyframes, then .done hands transform back to hover effects */
-  .rv { opacity: 0; transform: translateY(28px); filter: blur(6px); }
-  .rv.in { animation: rise 900ms var(--ease-out) both; }
-  .rv.in.d1 { animation-delay: 80ms; } .rv.in.d2 { animation-delay: 160ms; } .rv.in.d3 { animation-delay: 240ms; } .rv.in.d4 { animation-delay: 320ms; }
-  .rv.done { opacity: 1; transform: none; filter: none; animation: none; }
-
   /* one line: terminal */
   .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
   .split > * { min-width: 0; }
-  .term { border-radius: var(--r); background: linear-gradient(180deg, #121722, #0c1018); border: 1px solid var(--line2); box-shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow: hidden; }
-  .term-top { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
-  .term-top i.dot { width: 11px; height: 11px; border-radius: 50%; background: #2b3245; }
-  .term-top span { margin-left: 8px; font: 500 12.5px var(--mono); color: var(--dim); }
-  .term pre { margin: 0; padding: 22px; font: 400 13.5px/1.8 var(--mono); color: #d8d2c4; white-space: pre-wrap; word-break: break-word; min-height: 360px; }
-  .t-w { color: #fff6e6; } .t-d { color: var(--dim); } .t-k { color: var(--red); font-weight: 700; } .t-g { color: var(--green); } .t-s { color: var(--amber); }
-  .cursor { display: inline-block; width: 8px; height: 1.15em; vertical-align: -3px; background: var(--sun); animation: blink 1s steps(1) infinite; }
+  .term { border: 1.5px solid var(--ink); border-radius: var(--r); background: #25272b; color: #e6e7e7; box-shadow: 8px 8px 0 var(--ink); overflow: hidden; }
+  .term .tbar { height: 40px; }
+  .term pre { margin: 0; padding: 22px; font: 400 13.5px/1.85 var(--mono); color: #d8dadb; white-space: pre-wrap; word-break: break-word; min-height: 380px; }
+  .t-w { color: #fff; } .t-d { color: #9da2a6; } .t-k { color: #ff7a63; font-weight: 700; } .t-g { color: #8fd39f; } .t-s { color: var(--yellow); }
+  .cursor { display: inline-block; width: 8px; height: 1.15em; vertical-align: -3px; background: var(--yellow); animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
+  .asks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .asks span { border: 1.5px solid var(--ink); border-radius: 999px; padding: 6px 13px; font: 600 13px var(--sans); background: var(--paper); }
+
+  /* method */
+  .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .steps::before { content: ""; position: absolute; left: 3%; right: 3%; top: 46px; height: 2px; background: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 14px); transform: scaleX(0); transform-origin: left; transition: transform 1600ms var(--ease-io); }
+  .steps.go::before { transform: scaleX(1); }
+  .step { min-height: 220px; background: var(--paper2); }
+  .step .no { display: inline-grid; place-items: center; width: 56px; height: 56px; margin-bottom: 26px; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--paper); font: 700 19px var(--mono); letter-spacing: -0.06em; transition: background-color 400ms ease; }
+  .step.hot { background: var(--yellow); box-shadow: 5px 5px 0 var(--ink); }
+  .step.hot .no { background: var(--ink); color: var(--yellow); }
+  .step.hot p { color: #4a3d14; }
 
   /* checks: bento */
-  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 52px; }
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
   .bento > * { min-width: 0; }
-  .cell { position: relative; border-radius: var(--r); padding: clamp(22px, 2.6vw, 30px); background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
-  .cell.c1, .cell.c2 { grid-column: span 3; } .cell.c3, .cell.c4, .cell.c5 { grid-column: span 2; }
-  .cell .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--sun-soft); color: var(--amber); font-size: 23px; margin-bottom: 20px; }
-  .cell h3 { margin: 0 0 6px; font: 400 clamp(26px, 2.4vw, 32px)/1.05 var(--serif); color: var(--cream); }
-  .cell p { margin: 0; color: var(--muted); font-size: 15.5px; }
-  .cell .tick { position: absolute; top: 22px; right: 22px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line2); display: grid; place-items: center; transition: background-color 400ms var(--ease-out), border-color 400ms ease; }
-  .cell .tick i { font-size: 16px; color: var(--ink); opacity: 0; transform: scale(0.6); transition: opacity 300ms ease 120ms, transform 400ms var(--ease-out) 120ms; }
-  .cell.on .tick { background: var(--sun); border-color: var(--sun); }
+  .cell { grid-column: span 2; overflow: hidden; }
+  .cell.wide { grid-column: span 3; }
+  .cell .tick { position: absolute; top: 20px; right: 20px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; transition: background-color 400ms var(--ease-out), border-color 400ms ease; }
+  .cell .tick i { font-size: 16px; opacity: 0; transform: scale(0.5) rotate(-30deg); transition: opacity 300ms ease 100ms, transform 450ms var(--ease-out) 100ms; }
+  .cell.on { background: var(--paper); }
+  .cell.on .tick { background: var(--yellow); border-color: var(--ink); }
   .cell.on .tick i { opacity: 1; transform: none; }
-  .cell.law { background: radial-gradient(120% 100% at 100% 0%, rgba(236, 91, 69, 0.14), transparent 55%), var(--panel); }
-  .cell.sunny { background: radial-gradient(130% 120% at 0% 100%, rgba(242, 119, 31, 0.2), transparent 60%), var(--panel); }
-  .zones { display: grid; gap: 8px; margin-top: 18px; }
-  .zone { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid var(--line); font-size: 14.5px; }
-  .zone b { font: 700 13.5px var(--mono); letter-spacing: 0.08em; }
-  .zone span { color: var(--muted); text-align: right; }
-  .zone.w b { color: var(--green); } .zone.g b { color: var(--grey); } .zone.k b { color: var(--red); }
-  .types { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
-  .types span { border: 1px solid var(--line2); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; color: var(--text); }
+  .cell .ic { width: 46px; height: 46px; border: 1.5px solid var(--ink); border-radius: 12px; display: grid; place-items: center; font-size: 22px; background: var(--paper); margin-bottom: 20px; }
+  .cell h3 { font-size: 22px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+  .chips span { border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; font: 500 11.5px var(--mono); color: #4e5257; background: var(--paper); }
+  .zones { display: grid; gap: 8px; margin-top: 16px; }
+  .zone { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line2); border-radius: 10px; background: var(--paper); font-size: 14px; color: var(--muted); transform: translateX(14px); opacity: 0; transition: transform 600ms var(--ease-out), opacity 500ms ease; }
+  .cell.on .zone { transform: none; opacity: 1; }
+  .cell.on .zone:nth-child(2) { transition-delay: 120ms; } .cell.on .zone:nth-child(3) { transition-delay: 240ms; } .cell.on .zone:nth-child(4) { transition-delay: 360ms; }
+  .zone b { font: 700 11.5px var(--mono); letter-spacing: 0.08em; padding: 4px 8px; border-radius: 5px; }
+  .z-w { background: #dcead6; color: #28472f; } .z-g { background: #dedfe1; color: #41454a; } .z-k { background: var(--ink); color: #f3f3f0; } .z-u { background: #fff1cc; color: #6b5310; }
 
-  /* seats */
-  .seats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 52px; }
+  .rings { display: block; width: 100%; height: auto; margin-top: 22px; }
+  .rings text { font: 600 12px var(--mono); letter-spacing: 0.12em; fill: #3b3e42; text-anchor: middle; }
+  .rings text:last-child { text-anchor: end; fill: var(--muted); }
+  .rings .rg { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0.4); opacity: 0; transition: transform 900ms var(--ease-out), opacity 500ms ease; }
+  .cell.on .rings .rg { transform: none; opacity: 1; }
+  .cell.on .rings .r2 { transition-delay: 150ms; } .cell.on .rings .r1 { transition-delay: 300ms; }
+
+  /* types */
+  .types { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .type { min-height: 160px; background: var(--paper); }
+  .type .num { display: flex; justify-content: space-between; align-items: center; font: 500 11.5px var(--mono); color: var(--dim); letter-spacing: 0.1em; margin-bottom: 18px; }
+  .type .num i { font-size: 22px; color: var(--ink); transition: transform 400ms var(--ease-out); }
+  .type:hover .num i { transform: rotate(-12deg) scale(1.15); }
+  .type h3 { font-size: 18px; }
+  .type p { font-size: 13.5px; }
+  .type.reg { background: var(--ink); color: var(--paper); }
+  .type.reg p, .type.reg .num { color: #b9bdc0; } .type.reg .num i { color: var(--yellow); }
+
+  /* council */
+  .table-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: center; margin-bottom: clamp(40px, 5vw, 60px); }
+  .table-wrap > * { min-width: 0; }
+  .top-table { width: min(100%, 420px); justify-self: center; overflow: visible; }
+  .top-table .seatc { fill: var(--graphite2); stroke: #7d8186; stroke-width: 1.5; transition: fill 500ms ease, stroke 500ms ease; }
+  .top-table .seatt { fill: #9da2a6; font: 700 14px var(--mono); transition: fill 500ms ease; }
+  .top-table g.on .seatc { fill: var(--yellow); stroke: var(--yellow); }
+  .top-table g.on .seatt { fill: var(--ink); }
+  .top-table .you { fill: none; stroke: var(--yellow); stroke-width: 1.5; stroke-dasharray: 4 6; }
+  .top-table .tbl { fill: #3a3d42; stroke: #6c7075; stroke-width: 1.5; }
+  .top-table .orbit { fill: none; stroke: rgba(255, 255, 255, 0.12); stroke-dasharray: 2 8; transform-origin: 210px 210px; animation: spin 80s linear infinite; }
+  .seats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
   .seats > * { min-width: 0; }
-  .seat { grid-column: span 2; position: relative; border-radius: var(--r); padding: 26px; background: linear-gradient(170deg, var(--panel2), var(--panel) 60%); border: 1px solid var(--line); overflow: hidden; }
-  .seat:nth-child(4) { grid-column: 2 / span 2; } .seat:nth-child(5) { grid-column: 4 / span 2; }
-  .mono-mark { position: relative; width: 64px; height: 64px; display: grid; place-items: center; margin-bottom: 22px; isolation: isolate; }
-  .mono-mark .sun { inset: 0; width: 100%; height: 100%; z-index: -1; }
-  .mono-mark span { font: 400 24px var(--serif); color: var(--ink); margin-top: -8px; }
-  .seat h3 { margin: 0; font: 400 34px/1 var(--serif); color: var(--cream); }
-  .seat .pillar { margin: 8px 0 14px; font: 500 13px var(--mono); color: var(--amber); }
-  .seat .ask { margin: 0; font-size: 17px; line-height: 1.45; color: var(--text); }
-  .seat .src { margin-top: 18px; color: var(--dim); font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
-  .seat .glare { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 300ms ease; background: radial-gradient(280px circle at var(--gx, 50%) var(--gy, 50%), rgba(246, 177, 59, 0.12), transparent 60%); }
+  .seat { position: relative; border: 1px solid #55595e; border-radius: 14px; background: var(--graphite2); padding: 22px 18px; overflow: hidden; transition: border-color 300ms ease; }
+  .seat:hover { border-color: var(--yellow); }
+  .seat .sh { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; font: 500 11.5px var(--mono); color: #c5c8ca; letter-spacing: 0.08em; }
+  .seat .ini { width: 42px; height: 42px; display: grid; place-items: center; border: 1.5px solid var(--yellow); border-radius: 50%; font: 700 13px var(--mono); color: var(--yellow); }
+  .seat h3 { font-size: 22px; color: #fff; }
+  .seat .pillar { min-height: 34px; font: 600 11.5px var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--yellow); }
+  .seat .ask { margin: 12px 0 18px; font: 400 italic 18px/1.35 var(--serif); color: #e6e7e7; }
+  .seat .src { border-top: 1px solid #565a5e; padding-top: 11px; display: flex; gap: 6px; align-items: center; font: 500 12px var(--mono); color: #aeb3b6; }
+  .seat .glare { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 300ms ease; background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 201, 60, 0.14), transparent 60%); }
   .seat:hover .glare { opacity: 1; }
-  .hint { margin-top: 20px; color: var(--dim); font-size: 14px; }
+  .note { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; padding: 15px 18px; border: 1px solid #55595e; border-radius: 12px; font-size: 14px; color: #c5c8ca; }
+  .note strong { color: var(--yellow); white-space: nowrap; }
 
-  /* debate: split-flap scoreboard */
-  .debate { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 16px; margin-top: 52px; align-items: start; }
+  /* debate */
+  .debate { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 18px; align-items: start; }
   .debate > * { min-width: 0; }
-  .board { position: sticky; top: 100px; border-radius: var(--r); padding: clamp(20px, 2.6vw, 28px); background: var(--panel); border: 1px solid var(--line); }
-  .seg { display: flex; padding: 4px; gap: 4px; border-radius: 999px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); margin-bottom: 22px; }
-  .seg button { flex: 1; min-height: 40px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 600 14.5px var(--sans); cursor: pointer; transition: background-color 220ms ease, color 220ms ease, transform 160ms var(--ease-out); }
-  .seg button:active { transform: scale(0.97); }
-  .seg button[aria-selected="true"] { background: var(--cream); color: var(--ink); }
-  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 14px 0; }
-  .row + .row { border-top: 1px solid var(--line); }
-  .row .lab { font-size: 15.5px; }
-  .row .lab small { display: block; color: var(--dim); font-size: 13.5px; }
+  .board { position: sticky; top: 96px; background: var(--paper); box-shadow: 6px 6px 0 var(--ink); }
+  .board .tag { font: 600 11.5px var(--mono); letter-spacing: 0.14em; color: var(--dim); }
+  .board h3 { font-size: 24px; margin: 10px 0 18px; }
+  .seg { display: flex; gap: 4px; padding: 4px; border: 1.5px solid var(--ink); border-radius: 12px; background: var(--paper2); margin-bottom: 14px; }
+  .seg button { flex: 1; min-height: 40px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: 700 14px var(--sans); cursor: pointer; transition: background-color 220ms ease, color 220ms ease; }
+  .seg button[aria-selected="true"] { background: var(--ink); color: var(--yellow); }
+  .row { display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line2); }
+  .row .let { font: 700 14px var(--mono); }
+  .row .lab { font-size: 15px; font-weight: 700; }
+  .row .lab small { display: block; font-weight: 400; color: var(--dim); font-size: 13px; }
   .flaps { display: flex; gap: 4px; perspective: 400px; }
-  .flap { width: 40px; height: 54px; border-radius: 8px; display: grid; place-items: center; font: 700 30px var(--mono); color: var(--cream); background: linear-gradient(180deg, #232a3b 0 50%, #1c2231 50%); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5); position: relative; }
-  .flap::after { content: ""; position: absolute; inset: 50% 0 auto 0; height: 1px; background: rgba(0, 0, 0, 0.55); }
-  .flap.dot { width: 14px; background: none; box-shadow: none; }
+  .flap { position: relative; width: 38px; height: 52px; display: grid; place-items: center; border-radius: 7px; font: 700 28px var(--mono); color: #f1f1ed; background: linear-gradient(180deg, #33363b 0 50%, #2a2c30 50%); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5); }
+  .flap::after { content: ""; position: absolute; inset: 50% 0 auto 0; height: 1px; background: rgba(0, 0, 0, 0.6); }
+  .flap.dot { width: 12px; background: none; box-shadow: none; color: var(--ink); }
   .flap.dot::after { display: none; }
   .flap.go { animation: flip 460ms var(--ease-io); }
   @keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(-90deg); } 100% { transform: rotateX(0); } }
-  .row.veto .flap:not(.dot) { color: var(--red); }
-  .row.top .flap:not(.dot) { color: var(--amber); }
-  .board .note { margin: 16px 0 0; color: var(--dim); font-size: 14px; }
+  .row.veto .let, .row.veto .flap:not(.dot) { color: #ff7a63; }
+  .row.veto .let { color: var(--red); }
+  .row.top .flap:not(.dot) { color: var(--yellow); }
+  .board .foot { margin: 10px 0 0; font: 500 11.5px var(--mono); color: var(--dim); }
   .quotes { display: grid; gap: 12px; }
-  .q { border-radius: var(--r-sm); padding: 20px 22px; background: var(--ink2); border: 1px solid var(--line); }
-  .q.moved { border-color: rgba(242, 119, 31, 0.4); background: linear-gradient(180deg, rgba(242, 119, 31, 0.06), transparent 70%), var(--ink2); }
-  .q .who { display: flex; align-items: center; gap: 8px; font: 500 13px var(--mono); color: var(--amber); margin-bottom: 8px; }
-  .q p { margin: 0; font-size: 17px; line-height: 1.5; }
+  .q { background: var(--paper); border-color: var(--line); border-width: 1px; }
+  .q.moved { border: 1.5px solid var(--ink); background: linear-gradient(90deg, rgba(255, 201, 60, 0.35), transparent 60%), var(--paper); }
+  .q .who { display: flex; align-items: center; gap: 8px; font: 600 11.5px var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .q.moved .who { color: var(--ink); }
+  .q p { margin: 0; font: 400 italic 21px/1.35 var(--serif); color: var(--ink); }
 
   /* verdict */
-  .verdict { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 72px); align-items: center; margin-top: 52px; }
+  .verdict { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
   .verdict > * { min-width: 0; }
-  .paper { position: relative; border-radius: 6px; padding: clamp(24px, 3.4vw, 42px); background: linear-gradient(180deg, #f8eedb, #ecdcbb); color: #1d150c; box-shadow: 0 60px 120px -40px rgba(0, 0, 0, 0.95); }
-  .paper.rv.in { animation-name: risetilt; }
-  .paper.rv.done { transform: rotate(-1.4deg); }
-  @keyframes risetilt { to { opacity: 1; transform: rotate(-1.4deg); filter: none; } }
-  .paper .hd { display: flex; align-items: center; gap: 10px; font: 700 12px var(--mono); letter-spacing: 0.16em; color: #6d5a40; }
-  .paper .hd img { width: 26px; height: 26px; border-radius: 6px; }
-  .paper h3 { font: 400 clamp(44px, 5.4vw, 72px)/0.95 var(--serif); margin: 12px 0 16px; }
-  .paper p { margin: 0 0 12px; font-size: 16px; }
-  .paper .meta { font: 500 13px var(--mono); color: #574632; }
-  .paper a { color: #8a4a12; font-weight: 600; }
-  .stamp { position: absolute; right: 22px; top: 20px; padding: 3px 12px; border: 3px solid #c8361a; border-radius: 6px; color: #c8361a; font: 700 22px var(--mono); letter-spacing: 0.08em; opacity: 0; transform: rotate(-9deg) scale(1.8); mix-blend-mode: multiply; }
-  .paper.in .stamp { animation: stamp 560ms var(--ease-out) 500ms forwards; }
-  @keyframes stamp { 0% { opacity: 0; transform: rotate(-16deg) scale(1.8); } 60% { opacity: 1; transform: rotate(-8deg) scale(0.94); } 100% { opacity: 0.9; transform: rotate(-9deg) scale(1); } }
-  .gets { display: grid; gap: 14px; }
-  .get { display: grid; grid-template-columns: 46px 1fr; gap: 16px; align-items: start; }
-  .get .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--sun-soft); color: var(--amber); font-size: 22px; }
-  .get h3 { margin: 2px 0 2px; font: 400 26px/1.1 var(--serif); color: var(--cream); }
-  .get p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .sheet { position: relative; border: 1.5px solid var(--ink); border-radius: 6px; padding: clamp(24px, 3.4vw, 42px); background: #fbfaf5; background-image: repeating-linear-gradient(180deg, transparent 0 31px, rgba(0, 0, 0, 0.05) 31px 32px); box-shadow: 10px 10px 0 var(--ink); }
+  .sheet.rv.in { animation-name: risetilt; }
+  .sheet.rv.done { transform: rotate(-1.2deg); }
+  @keyframes risetilt { to { opacity: 1; transform: rotate(-1.2deg); filter: none; } }
+  .sheet .hd { display: flex; align-items: center; gap: 10px; font: 700 11.5px var(--mono); letter-spacing: 0.16em; color: var(--muted); }
+  .sheet .hd img { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--ink); }
+  .sheet h3 { font: 400 clamp(46px, 5.6vw, 76px)/0.95 var(--serif); letter-spacing: -0.01em; margin: 14px 0 18px; }
+  .sheet p { margin: 0 0 12px; font-size: 16px; }
+  .sheet .meta { font: 500 13px var(--mono); color: var(--muted); }
+  .sheet a { font-weight: 800; text-decoration-color: var(--yellow2); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+  .stamp { position: absolute; right: 22px; top: 20px; padding: 4px 12px; border: 3px solid var(--red); border-radius: 6px; color: var(--red); font: 700 22px var(--mono); letter-spacing: 0.08em; opacity: 0; transform: rotate(-9deg) scale(1.8); mix-blend-mode: multiply; }
+  .sheet.in .stamp { animation: stamp 560ms var(--ease-out) 600ms forwards; }
+  @keyframes stamp { 0% { opacity: 0; transform: rotate(-16deg) scale(1.8); } 60% { opacity: 1; transform: rotate(-8deg) scale(0.94); } 100% { opacity: 0.92; transform: rotate(-9deg) scale(1); } }
+  .gets { display: grid; gap: 12px; }
+  .get { display: grid; grid-template-columns: 50px 1fr; gap: 16px; align-items: start; background: var(--paper); }
+  .get .ic { width: 50px; height: 50px; display: grid; place-items: center; border: 1.5px solid var(--ink); border-radius: 12px; background: var(--yellow); font-size: 23px; }
+  .get h3 { margin: 4px 0 4px; }
+
+  /* evidence */
+  .ev { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .ev .card { background: var(--paper); }
+  .ev .card.ink { background: var(--ink); color: #f3f3ef; }
+  .ev .card.ink p { color: #bfc2c3; }
+  .ev .big { font: 900 clamp(46px, 5vw, 64px)/1 var(--sans); letter-spacing: -0.06em; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+  .ev .card.ink .big { color: var(--yellow); }
+  .trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 28px; margin-top: 40px; }
+  .trust div { padding-top: 16px; border-top: 1.5px solid var(--ink); font-size: 14.5px; color: var(--muted); }
+  .trust b { display: block; margin-bottom: 5px; color: var(--ink); font-size: 15.5px; }
+  .dark .trust div { border-color: #55595d; color: #b9bdc0; }
+  .dark .trust b { color: #f3f3ef; }
 
   /* install */
-  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 48px; }
+  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .install .way:last-child { grid-column: span 2; }
   .install > * { min-width: 0; }
-  .way { border-radius: var(--r); padding: clamp(22px, 2.6vw, 30px); background: var(--panel); border: 1px solid var(--line); }
-  .way.main { border-color: rgba(242, 119, 31, 0.45); background: radial-gradient(120% 120% at 0% 0%, rgba(242, 119, 31, 0.13), transparent 55%), var(--panel); }
-  .way .label { display: inline-flex; align-items: center; gap: 6px; font: 600 13px var(--sans); color: var(--amber); margin-bottom: 10px; }
-  .way h3 { margin: 0 0 6px; font: 400 30px/1.05 var(--serif); color: var(--cream); }
-  .way p { margin: 0 0 18px; color: var(--muted); font-size: 15.5px; }
-  .cmd { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; margin-bottom: 8px; border-radius: 12px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line); font: 500 14px var(--mono); color: var(--cream); }
+  .way { border: 1px solid #55595c; border-radius: var(--r); background: var(--graphite2); padding: clamp(22px, 2.4vw, 28px); }
+  .way.main { border: 1.5px solid var(--yellow); box-shadow: 6px 6px 0 var(--yellow); }
+  .way .lab { display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px var(--mono); letter-spacing: 0.13em; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+  .way h3 { color: #fff; font-size: 22px; }
+  .way p { margin: 0 0 16px; color: #b9bdc0; font-size: 14.5px; }
+  .way code { background: rgba(255, 255, 255, 0.08); color: var(--yellow); }
+  .cmd { display: flex; align-items: center; gap: 10px; padding: 7px 7px 7px 14px; margin-bottom: 8px; border: 1px solid #4d5155; border-radius: 10px; background: #1f2124; font: 500 13px var(--mono); color: var(--yellow); }
   .cmd span { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
   .cmd span::-webkit-scrollbar { display: none; }
-  .cmd button { flex: none; display: grid; place-items: center; width: 40px; height: 36px; border-radius: 9px; border: 1px solid var(--line2); background: var(--panel2); color: var(--muted); cursor: pointer; font-size: 17px; transition: color 160ms ease, transform 160ms var(--ease-out); }
-  .cmd button:hover { color: var(--cream); }
-  .cmd button:active { transform: scale(0.94); }
-  .cmd button.ok { color: var(--green); }
-  .limits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 44px; }
-  .limits div { padding-top: 18px; border-top: 1px solid var(--line2); }
-  .limits b { display: block; font: 400 22px/1.1 var(--serif); color: var(--cream); margin-bottom: 6px; }
-  .limits span { color: var(--muted); font-size: 15px; }
+  .cmd button { flex: none; display: grid; place-items: center; width: 38px; height: 34px; border: 1px solid #66696d; border-radius: 8px; background: #383b3f; color: #e8e9e9; cursor: pointer; font-size: 16px; transition: color 160ms ease, transform 160ms var(--ease-out), background-color 160ms ease; }
+  .cmd button:hover { background: #45484d; }
+  .cmd button:active { transform: scale(0.92); }
+  .cmd button.ok { background: var(--yellow); color: var(--ink); }
 
   /* closer */
-  .closer { position: relative; overflow: hidden; padding: clamp(110px, 18vh, 200px) 0 clamp(80px, 12vh, 140px); text-align: center; }
-  .closer .sun { width: min(96vw, 900px); aspect-ratio: 1; left: 50%; top: 2%; transform: translateX(-50%); opacity: 0.2; -webkit-mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), radial-gradient(closest-side, #000 60%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 0 52%, transparent 52% 56%, #000 56% 64%, transparent 64% 68.5%, #000 68.5% 75%, transparent 75% 80%, #000 80% 85%, transparent 85% 90.5%, #000 90.5% 94%, transparent 94%), radial-gradient(closest-side, #000 60%, transparent); mask-composite: intersect; }
-  .closer .logo-art { width: 104px; height: 104px; border-radius: 26px; margin: 0 auto 30px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8); }
-  .closer h2 { position: relative; max-width: 14ch; margin: 0 auto 30px; }
-  .closer .actions { position: relative; justify-content: center; }
-  footer { border-top: 1px solid var(--line); padding: 28px 0 calc(32px + env(safe-area-inset-bottom)); color: var(--dim); font-size: 14px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-  footer a { color: var(--muted); }
+  .closer { background: var(--yellow); border-block: 1.5px solid var(--ink); padding: clamp(80px, 13vh, 140px) 0; overflow: hidden; position: relative; }
+  .closer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
+  .closer h2 { font-size: clamp(44px, 6.4vw, 92px); margin: 0 0 14px; }
+  .closer h2 .serif { font-weight: 400; }
+  .closer p { margin: 0; color: #4a3d14; font-size: 19px; max-width: 44ch; }
+  .closer .btn.inv { box-shadow: 4px 4px 0 #8a6b19; }
+  .closer .btn { box-shadow: 4px 4px 0 var(--ink); }
+  .closer .big-b { position: absolute; right: -2vw; bottom: -6vw; font: 900 clamp(160px, 30vw, 420px)/0.8 var(--sans); letter-spacing: -0.08em; color: rgba(0, 0, 0, 0.06); pointer-events: none; user-select: none; }
+  footer { background: var(--ink); color: #c9cbcc; padding: 30px 0 calc(30px + env(safe-area-inset-bottom)); font-size: 13.5px; }
+  footer .top { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer .brand { color: #f3f3ef; font-size: 21px; }
+  footer .brand img { width: 30px; height: 30px; border-color: #f3f3ef; box-shadow: 2px 2px 0 var(--yellow); }
+  footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  footer a { color: #d3d5d6; text-decoration: none; }
+  footer a:hover { color: var(--yellow); }
+  footer .legal { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 22px; padding-top: 16px; border-top: 1px solid #45484c; font: 500 12px var(--mono); color: #969b9e; }
 
-  @media (max-width: 1024px) {
-    .hero-grid { grid-template-columns: 1fr 0.8fr; }
-    .cell.c3, .cell.c4 { grid-column: span 3; } .cell.c5 { grid-column: span 6; }
-    .limits { grid-template-columns: 1fr 1fr; }
-    .limits div { padding-bottom: 18px; }
+  @media (max-width: 1100px) {
+    .seats { grid-template-columns: repeat(3, 1fr); }
+    .ev { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 860px) {
-    .navlinks a.hide-sm { display: none; }
-    .hero { padding-top: 110px; }
-    .hero-grid { grid-template-columns: 1fr; }
-    .poster { justify-self: center; width: min(86%, 380px); margin-top: 8px; }
-    .hero .sun { left: 50%; top: 46%; width: min(120vw, 640px); }
-    .split, .debate, .verdict, .install { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .navlinks { display: none; }
+    .hero-grid, .split, .debate, .verdict, .table-wrap { grid-template-columns: 1fr; }
+    .head { display: block; }
+    .head > p { margin-top: 16px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2n) { border-right: 0; }
+    .stat { border-bottom: 1px solid var(--line); }
+    .stat:last-child { grid-column: span 2; border-bottom: 0; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .bento .cell, .bento .cell.wide { grid-column: span 3; }
+    .bento .cell.full-sm { grid-column: span 6; }
+    .types { grid-template-columns: 1fr 1fr; }
     .board { position: static; }
-    .bento .cell { grid-column: span 6; }
     .seats { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 18px; scrollbar-width: none; }
     .seats::-webkit-scrollbar { display: none; }
-    .seat { flex: 0 0 min(78vw, 330px); scroll-snap-align: start; }
+    .seat { flex: 0 0 min(76vw, 300px); scroll-snap-align: start; }
     .seat.rv { opacity: 1; transform: none; filter: none; }
+    .closer .wrap { grid-template-columns: 1fr; align-items: start; }
   }
-  @media (max-width: 560px) {
+  @media (max-width: 600px) {
     body { font-size: 16px; }
-    .nav { top: 10px; padding-left: 10px; }
+    .nav { height: 64px; }
+    .navactions .btn.gh { display: none; }
     .brand { font-size: 21px; }
-    .brand img { width: 30px; height: 30px; }
     .actions .btn { flex: 1 1 auto; }
-    .poster .tag { left: 50%; bottom: -18px; transform: translateX(-50%); white-space: nowrap; padding: 10px 14px; font-size: 13px; }
-    .poster .tag2 { display: none; }
+    .art .label span:last-child { display: none; }
+    .hterm { width: auto; margin: -28px 12px 12px; }
+    .steps, .types, .ev, .install, .trust { grid-template-columns: 1fr; }
+    .install .way:last-child { grid-column: auto; }
+    .trust div { padding-bottom: 16px; }
+    .bento .cell, .bento .cell.wide { grid-column: span 6; }
     .term pre { font-size: 12.5px; padding: 18px; min-height: 0; }
-    .flap { width: 34px; height: 46px; font-size: 25px; }
-    .limits { grid-template-columns: 1fr; }
+    .flap { width: 32px; height: 44px; font-size: 23px; }
+    .row { grid-template-columns: 22px 1fr auto; gap: 8px; }
+    .ticker { margin-top: 26px; }
+    .note { flex-direction: column; gap: 6px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
-    .rv, .in-1, .in-2, .in-3, .in-4, .poster { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .rv, .in-1, .in-2, .in-3, .in-4, .in-5, .art, .hterm { opacity: 1 !important; transform: none !important; filter: none !important; }
+    mark { background-size: 100% 100% !important; }
+    .draw { stroke-dashoffset: 0 !important; }
+    .fillin { fill-opacity: 1 !important; }
+    .sundisc { opacity: 0.95 !important; transform: none !important; }
     .room { height: auto !important; }
     .room .pin { position: relative !important; }
     .room .frame { clip-path: none !important; }
     .room .caps p { opacity: 1 !important; }
-    .hero .sun { opacity: 0.22; transform: translate(-50%, -10%); }
-    .stamp { opacity: 0.9; transform: rotate(-9deg); }
+    .stamp { opacity: 0.92; transform: rotate(-9deg); }
+    .zone, .rings .rg { opacity: 1; transform: none; }
+    .steps::before { transform: none; }
     .ticker .track { flex-wrap: wrap; width: auto; }
   }
 </style>
@@ -320,43 +453,93 @@
 <body>
 <div class="progress" aria-hidden="true"></div>
 
-<header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Baithak home"><img src="web-app-manifest-192x192.png" alt="" width="34" height="34">Baithak</a>
-  <nav class="navlinks" aria-label="Main">
-    <a class="hide-sm" href="#how">How it works</a>
-    <a class="hide-sm" href="#council">The council</a>
-    <a class="hide-sm" href="#verdict">Verdict</a>
-    <a class="btn primary sm" href="#install">Install free</a>
-  </nav>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Baithak home"><img src="web-app-manifest-192x192.png" alt="" width="36" height="36"><span>Baithak<span class="dot">.</span></span></a>
+    <nav class="navlinks" aria-label="Main">
+      <a href="#method">How it works</a>
+      <a href="#checks">India checks</a>
+      <a href="#council">The council</a>
+      <a href="#sample">A real run</a>
+      <a href="#install">Install</a>
+    </nav>
+    <div class="navactions">
+      <a class="btn sm gh" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>GitHub</a>
+      <a class="btn sm primary" href="#install">Install free</a>
+    </div>
+  </div>
 </header>
 
 <main id="top">
   <section class="hero">
-    <div class="sun" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
-      <div>
-        <div class="pill in-1"><b>Open source</b> A Claude Code skill, free forever</div>
-        <h1 class="in-2">Bring your idea to the <em>baithak.</em></h1>
-        <p class="sub in-3">Five AI advisors built from Indian founders. They check who pays and what's legal, then argue it out.</p>
-        <div class="actions in-4">
-          <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>Install free</a>
-          <a class="btn ghost" href="#verdict">See a real verdict</a>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow in-1">The Indian founder council</div>
+          <h1 class="in-2">Bring your idea to the <mark>Baithak.</mark></h1>
+          <p class="desc in-3">Five AI advisors built from Indian founders. The Chair checks who pays, where it gets stuck, what breaks at scale and what is legal. Then the council argues it out and hands you a verdict.</p>
+          <div class="actions in-4">
+            <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>/baithak --quick</a>
+            <a class="btn" href="#sample">See a real verdict<i class="ph ph-arrow-down-right"></i></a>
+          </div>
+          <div class="hero-note in-5"><b></b>Open source · Runs inside Claude Code · No API key</div>
+        </div>
+
+        <div class="art" aria-hidden="true">
+          <div class="grid"></div>
+          <div class="label"><span>BAITHAK / THE COUNCIL ROOM</span><span>EST. 2026</span></div>
+          <svg viewBox="0 0 620 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="sundisc" cx="305" cy="170" r="122" fill="#FFC93C"/>
+            <circle class="ring" cx="305" cy="170" r="138" stroke="#25272B" stroke-width="1.5" stroke-dasharray="3 9"/>
+            <path class="draw d-a fillin f-b" pathLength="1" d="M87 296 Q150 241 205 273 Q257 236 305 271 Q355 229 411 271 Q465 242 529 298 L529 334 L87 334Z" fill="#D0D2D2" stroke="#65696D" stroke-width="2"/>
+            <path class="draw d-a fillin f-b" pathLength="1" d="M259 264 V167 H351 V264 M244 167 H366 L356 149 H254Z M253 147 H357 L348 129 H262Z M267 127 H343 L336 113 H274Z" fill="#D9DADC" stroke="#2B2D31" stroke-width="4" stroke-linejoin="round"/>
+            <path class="draw d-b fillin f-c" pathLength="1" d="M281 264 V218 Q305 180 329 218 V264" fill="#FFC93C" stroke="#2B2D31" stroke-width="4"/>
+            <path class="draw d-b" pathLength="1" d="M277 211 Q305 176 333 211 M238 266 H372 M250 276 H360" stroke="#2B2D31" stroke-width="3"/>
+            <path class="draw d-b fillin f-c" pathLength="1" d="M65 345 C165 313 446 313 545 345 L504 378 C406 403 202 403 106 378Z" fill="#D9DADC" stroke="#2B2D31" stroke-width="3"/>
+            <ellipse class="draw d-c fillin f-c" pathLength="1" cx="305" cy="346" rx="240" ry="31" fill="#F5F5F2" stroke="#2B2D31" stroke-width="3"/>
+            <ellipse class="draw d-d" pathLength="1" cx="305" cy="346" rx="218" ry="18" stroke="#8A8E92" stroke-width="1.5"/>
+            <path class="draw d-c fillin f-d" pathLength="1" d="M260 379 V418 Q305 432 350 418 V379" fill="#C4C7C8" stroke="#2B2D31" stroke-width="3"/>
+            <g stroke="#2B2D31" stroke-width="3" id="heroChairs">
+              <path class="chair draw d-c" pathLength="1" d="M115 330 V290 Q115 274 133 274 H158 Q176 274 176 290 V329 M108 331 H184 L175 346 H117Z"/>
+              <path class="chair draw d-c" pathLength="1" d="M211 311 V271 Q211 254 229 254 H250 Q268 254 268 271 V311 M204 312 H275 L266 327 H213Z"/>
+              <path class="chair draw d-c" pathLength="1" d="M343 311 V271 Q343 254 361 254 H382 Q400 254 400 271 V311 M336 312 H407 L398 327 H345Z"/>
+              <path class="chair draw d-c" pathLength="1" d="M436 330 V290 Q436 274 454 274 H479 Q497 274 497 290 V329 M429 331 H505 L496 346 H438Z"/>
+            </g>
+            <path class="draw d-d" pathLength="1" d="M300 344 h14 v-10 h-14z M314 336 q6 0 6 4 q0 4 -6 4" stroke="#2B2D31" stroke-width="2"/>
+            <path class="steam" d="M304 330 q-4 -6 0 -12 q4 -6 0 -12 M310 330 q-4 -6 0 -12 q4 -6 0 -12" stroke="#65696D" stroke-width="1.5"/>
+            <path d="M0 430 H620" stroke="#9DA1A4" stroke-width="1" stroke-dasharray="4 5"/>
+          </svg>
+          <div class="hterm">
+            <div class="tbar"><i></i><i></i><i></i><span>BAITHAK · LIVE RUN</span></div>
+            <div class="body">
+              <div class="ty">$ /baithak --quick</div>
+              <div class="tm">Chair is reading the brief</div>
+              <div class="cl" data-step><span class="bx"><i class="ph ph-check"></i></span>Who actually pays</div>
+              <div class="cl" data-step><span class="bx"><i class="ph ph-check"></i></span>India friction filters</div>
+              <div class="cl" data-step><span class="bx"><i class="ph ph-check"></i></span>Legal zone from the law files</div>
+              <div class="cl" data-step><span class="bx"><i class="ph ph-check"></i></span>Council debate, round 1 and 2</div>
+              <div class="vd">→ verdict ready</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="poster">
-        <div class="card"><img src="logo.jpg" alt="Baithak logo: five leather chairs around a round table before India Gate at sunset" width="760" height="912" fetchpriority="high"></div>
-        <div class="tag"><b>BLACK</b><span>vetoed by the law file</span></div>
-        <div class="tag tag2"><b>GO</b><span>with 3 conditions</span></div>
+
+      <div class="stats" id="stats">
+        <div class="stat"><i class="ic ph ph-armchair"></i><div><strong data-count="5">5</strong><span>Founder seats</span></div></div>
+        <div class="stat"><i class="ic ph ph-squares-four"></i><div><strong data-count="8">8</strong><span>Idea types</span></div></div>
+        <div class="stat"><i class="ic ph ph-scales"></i><div><strong data-count="24">24</strong><span>Dated law files</span></div></div>
+        <div class="stat"><i class="ic ph ph-arrows-clockwise"></i><div><strong>2 or 3</strong><span>Rounds of debate</span></div></div>
+        <div class="stat"><i class="ic ph ph-currency-inr"></i><div><strong>Under ₹5,000</strong><span>Your 7-day test</span></div></div>
+      </div>
+    </div>
+
+    <div class="ticker" aria-label="Idea types Baithak covers">
+      <div class="track">
+        <span>SaaS</span><span>Kirana tech</span><span>D2C brands</span><span>Cloud kitchens</span><span>Clinics</span><span>Coaching</span><span>Manufacturing</span><span>Marketplaces</span><span>Fintech</span><span>Agencies</span><span>Proptech</span><span>Edtech</span>
+        <span aria-hidden="true">SaaS</span><span aria-hidden="true">Kirana tech</span><span aria-hidden="true">D2C brands</span><span aria-hidden="true">Cloud kitchens</span><span aria-hidden="true">Clinics</span><span aria-hidden="true">Coaching</span><span aria-hidden="true">Manufacturing</span><span aria-hidden="true">Marketplaces</span><span aria-hidden="true">Fintech</span><span aria-hidden="true">Agencies</span><span aria-hidden="true">Proptech</span><span aria-hidden="true">Edtech</span>
       </div>
     </div>
   </section>
-
-  <div class="ticker" aria-label="Idea types Baithak covers">
-    <div class="track">
-      <span>SaaS</span><span>Kirana tech</span><span>D2C brands</span><span>Cloud kitchens</span><span>Clinics</span><span>Coaching</span><span>Manufacturing</span><span>Marketplaces</span><span>Fintech</span><span>Agencies</span><span>Proptech</span><span>Edtech</span>
-      <span aria-hidden="true">SaaS</span><span aria-hidden="true">Kirana tech</span><span aria-hidden="true">D2C brands</span><span aria-hidden="true">Cloud kitchens</span><span aria-hidden="true">Clinics</span><span aria-hidden="true">Coaching</span><span aria-hidden="true">Manufacturing</span><span aria-hidden="true">Marketplaces</span><span aria-hidden="true">Fintech</span><span aria-hidden="true">Agencies</span><span aria-hidden="true">Proptech</span><span aria-hidden="true">Edtech</span>
-    </div>
-  </div>
 
   <section class="room" aria-label="The room">
     <div class="pin">
@@ -365,81 +548,163 @@
     </div>
   </section>
 
-  <section class="ch" id="how">
+  <section class="ch" id="story">
     <div class="wrap split">
       <div>
-        <h2 class="rv">It starts with <em>one line.</em></h2>
-        <p class="lede rv d1">Type your idea the way you'd tell a friend: who pays, what they do today, your budget, which way you lean. The Chair fills the gaps and tells you what it assumed.</p>
+        <div class="eyebrow rv"><span class="n">01</span>The idea</div>
+        <h2 class="rv d1">It starts with <mark>one line.</mark></h2>
+        <p class="lede rv d2">Type your idea the way you'd tell a friend. The Chair fills the gaps and tells you what it assumed.</p>
+        <div class="asks rv d3"><span>Who pays?</span><span>What do they do today?</span><span>Your budget</span><span>Which way you lean</span></div>
       </div>
       <div class="term rv d2">
-        <div class="term-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>claude · ~/my-idea</span></div>
+        <div class="tbar"><i></i><i></i><i></i><span>claude · ~/my-idea</span></div>
         <pre id="term" aria-label="Replay of a real Baithak run"></pre>
       </div>
     </div>
   </section>
 
-  <section class="ch tight" id="checks">
+  <section class="ch paper" id="method">
     <div class="wrap">
-      <h2 class="rv">Before anyone argues, the Chair <em>checks India.</em></h2>
-      <p class="lede rv d1">The checks US validators skip. In India they decide most outcomes.</p>
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">02</span>The method</div>
+          <h2 class="rv d1">Idea in. India check. <mark>Clear call out.</mark></h2>
+        </div>
+        <p class="lede rv d2">Not a score from a generic prompt. The Chair states its assumptions and runs the checks before any advisor speaks.</p>
+      </div>
+      <div class="steps" id="steps">
+        <article class="card step lift rv"><div class="no">01</div><h3>The Chair checks India</h3><p>Who pays, what kind of business it is, where it gets stuck, what breaks at scale, and the legal zone.</p></article>
+        <article class="card step lift rv d1"><div class="no">02</div><h3>You choose the council</h3><p>The recommended board, the seats you pick, one advisor alone, or all five.</p></article>
+        <article class="card step lift rv d2"><div class="no">03</div><h3>They argue it out</h3><p>Opening views, a debate, revised positions. Every round is saved.</p></article>
+        <article class="card step hot rv d3"><div class="no">04</div><h3>You get a decision</h3><p>A scored verdict, the strongest objection, a 7-day test under ₹5,000 and a point to walk away.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="checks">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">03</span>Before the debate</div>
+          <h2 class="rv d1">First, the Chair <mark>checks India.</mark></h2>
+        </div>
+        <p class="lede rv d2">The checks US validators skip. In India they decide most outcomes. Watch them tick.</p>
+      </div>
       <div class="bento" id="bento">
-        <article class="cell c1 sunny rv"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p></article>
-        <article class="cell c2 law rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-scales"></i></div><h3>The legal zone</h3><p>Cited only from 24 dated, sourced law files.</p>
-          <div class="zones"><div class="zone w"><b>WHITE</b><span>known path, build</span></div><div class="zone g"><b>GRAY</b><span>build with a compliance switch</span></div><div class="zone k"><b>BLACK</b><span>vetoed, find the legal route</span></div></div></article>
-        <article class="cell c3 rv"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-squares-four"></i></div><h3>What kind of business</h3><p>Eight types, each with its own tests.</p>
-          <div class="types"><span>SaaS</span><span>D2C</span><span>Services</span><span>Hardware</span><span>+4 more</span></div></article>
-        <article class="cell c4 rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-currency-inr"></i></div><h3>Where it gets stuck</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></article>
-        <article class="cell c5 rv d2"><div class="tick"><i class="ph ph-check"></i></div><div class="ic"><i class="ph ph-trend-up"></i></div><h3>What breaks at scale</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></article>
+        <article class="card cell wide rv"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">01 / Customer</div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays?</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p><div class="chips"><span>India 1</span><span>India 2</span><span>India 3</span><span>Global</span></div>
+          <svg class="rings" viewBox="0 0 520 170" aria-hidden="true">
+            <path pathLength="1" d="M60 170 A200 200 0 0 1 460 170" stroke="#b8bbbd" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
+            <path class="rg r3" pathLength="1" d="M110 170 A150 150 0 0 1 410 170" fill="#eceeed" stroke="#1f2125" stroke-width="1.5"/>
+            <path class="rg r2" pathLength="1" d="M170 170 A90 90 0 0 1 350 170" fill="#ffe7a6" stroke="#1f2125" stroke-width="1.5"/>
+            <path class="rg r1" pathLength="1" d="M222 170 A38 38 0 0 1 298 170" fill="#ffc93c" stroke="#1f2125" stroke-width="1.5"/>
+            <text x="260" y="162" text-anchor="middle">INDIA 1</text><text x="260" y="112">INDIA 2</text><text x="260" y="50">INDIA 3</text>
+            <text x="516" y="22" text-anchor="end">GLOBAL →</text>
+          </svg></article>
+        <article class="card cell wide rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">05 / Legal zone</div><div class="ic"><i class="ph ph-scales"></i></div><h3>WHITE, GRAY, BLACK or UNMAPPED</h3><p>Cited only from 24 dated, sourced law files.</p>
+          <div class="zones"><div class="zone"><span>Known path, build</span><b class="z-w">WHITE</b></div><div class="zone"><span>Build with a compliance switch</span><b class="z-g">GRAY</b></div><div class="zone"><span>Vetoed, find the legal route</span><b class="z-k">BLACK</b></div><div class="zone"><span>Not covered, ask the regulator</span><b class="z-u">UNMAPPED</b></div></div></article>
+        <article class="card cell rv"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">02 / Business model</div><div class="ic"><i class="ph ph-squares-four"></i></div><h3>What kind of business?</h3><p>A pickle brand is not judged like a SaaS tool.</p></article>
+        <article class="card cell rv d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">03 / Friction</div><div class="ic"><i class="ph ph-currency-inr"></i></div><h3>Where does it get stuck?</h3><p>The ₹12k employee test, the CA gatekeeper, UPI collection, public rails like ONDC.</p></article>
+        <article class="card cell full-sm rv d2"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">04 / Scale</div><div class="ic"><i class="ph ph-trend-up"></i></div><h3>What breaks at 10,000?</h3><p>The metro bubble, USD costs on INR revenue, human ops, pin-code and language walls.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="ch tight" id="council">
+  <section class="ch paper" id="types">
     <div class="wrap">
-      <h2 class="rv">Five chairs fill. <em>Each sees a different risk.</em></h2>
-      <p class="lede rv d1">Each advisor is built from one founder's public interviews, talks and letters. Every quote is verbatim and checked by a script. They are simulations, not the people.</p>
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">04</span>The playbook</div>
+          <h2 class="rv d1">Eight idea types. <mark>Different tests.</mark></h2>
+        </div>
+        <p class="lede rv d2">One checklist does not fit every business. Regulated sectors get an extra legal bar on top of their type.</p>
+      </div>
+      <div class="types">
+        <article class="card type lift rv"><div class="num">TYPE 01<i class="ph ph-code"></i></div><h3>Software and SaaS</h3><p>Margins after cloud and AI, payback, global pricing.</p></article>
+        <article class="card type lift rv d1"><div class="num">TYPE 02<i class="ph ph-device-mobile"></i></div><h3>Consumer app and content</h3><p>Habit, retention, revenue per user.</p></article>
+        <article class="card type lift rv d2"><div class="num">TYPE 03<i class="ph ph-storefront"></i></div><h3>Marketplace</h3><p>Liquidity, off-platform leakage, take rate.</p></article>
+        <article class="card type lift rv d3"><div class="num">TYPE 04<i class="ph ph-package"></i></div><h3>Physical product and D2C</h3><p>Margins, channel stack, working capital, COD returns.</p></article>
+        <article class="card type lift rv"><div class="num">TYPE 05<i class="ph ph-factory"></i></div><h3>Manufacturing and hardware</h3><p>Capex, utilisation, import dependence, certification time.</p></article>
+        <article class="card type lift rv d1"><div class="num">TYPE 06<i class="ph ph-handshake"></i></div><h3>Service business</h3><p>Founder dependence, utilisation, productisation.</p></article>
+        <article class="card type lift rv d2"><div class="num">TYPE 07<i class="ph ph-map-pin"></i></div><h3>Local business</h3><p>Rent share, break-even orders, commissions.</p></article>
+        <article class="card type reg lift rv d3"><div class="num">TYPE 08<i class="ph ph-shield-check"></i></div><h3>Regulated sector</h3><p>Fintech, health, education, real estate, insurance. Stricter legal checks on top.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch dark" id="council">
+    <div class="wrap">
+      <div class="table-wrap">
+        <div>
+          <div class="eyebrow rv"><span class="n">05</span>Five seats, five lenses</div>
+          <h2 class="rv d1">Five chairs fill. <mark>Each sees a different risk.</mark></h2>
+          <p class="lede rv d2">Each advisor is built from one founder's public interviews, talks and letters. Every attributed quote is verbatim, linked to a source and checked by a script.</p>
+        </div>
+        <svg class="top-table rv d2" id="topTable" viewBox="0 0 420 420" aria-hidden="true">
+          <circle class="orbit" cx="210" cy="210" r="190"/>
+          <circle class="tbl" cx="210" cy="210" r="92"/>
+          <text x="210" y="205" text-anchor="middle" fill="#d3d5d6" style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.14em">YOUR IDEA</text>
+          <text x="210" y="226" text-anchor="middle" fill="#FFC93C" style="font:400 italic 18px 'DM Serif Display',serif">on the table</text>
+          <g><circle class="seatc" cx="210" cy="62" r="30"/><text class="seatt" x="210" y="67" text-anchor="middle">NK</text></g>
+          <g><circle class="seatc" cx="351" cy="164" r="30"/><text class="seatt" x="351" y="169" text-anchor="middle">KS</text></g>
+          <g><circle class="seatc" cx="297" cy="330" r="30"/><text class="seatt" x="297" y="335" text-anchor="middle">SV</text></g>
+          <g><circle class="seatc" cx="123" cy="330" r="30"/><text class="seatt" x="123" y="335" text-anchor="middle">GM</text></g>
+          <g><circle class="seatc" cx="69" cy="164" r="30"/><text class="seatt" x="69" y="169" text-anchor="middle">DG</text></g>
+        </svg>
+      </div>
       <div class="seats">
-        <article class="seat rv"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>NK</span></div><h3>Nithin</h3><div class="pillar">trust · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src"><i class="ph ph-books"></i>9 public sources</div></article>
-        <article class="seat rv d1"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>KS</span></div><h3>Kunal</h3><div class="pillar">consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src"><i class="ph ph-books"></i>10 public sources</div></article>
-        <article class="seat rv d2"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>SV</span></div><h3>Vembu</h3><div class="pillar">frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
-        <article class="seat rv d1"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>GM</span></div><h3>Girish</h3><div class="pillar">B2B SaaS · global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
-        <article class="seat rv d2"><div class="glare"></div><div class="mono-mark"><div class="sun"></div><span>DG</span></div><h3>Deepinder</h3><div class="pillar">habit · operations</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src"><i class="ph ph-books"></i>13 public sources</div></article>
+        <article class="seat rv"><div class="glare"></div><div class="sh"><span>SEAT 01</span><span class="ini">NK</span></div><h3>Nithin Kamath</h3><div class="pillar">Trust · regulation · capital</div><p class="ask">Will Indians trust you with their money without you burning cash to buy them?</p><div class="src"><i class="ph ph-books"></i>9 public sources</div></article>
+        <article class="seat rv d1"><div class="glare"></div><div class="sh"><span>SEAT 02</span><span class="ini">KS</span></div><h3>Kunal Shah</h3><div class="pillar">Consumer · India 1 vs Bharat</div><p class="ask">Is this a big enough leap over today's jugaad that nobody goes back?</p><div class="src"><i class="ph ph-books"></i>10 public sources</div></article>
+        <article class="seat rv d2"><div class="glare"></div><div class="sh"><span>SEAT 03</span><span class="ini">SV</span></div><h3>Sridhar Vembu</h3><div class="pillar">Frugal R&amp;D · Bharat</div><p class="ask">Can you build real depth cheaply, outside the metro bubble, without VC money?</p><div class="src"><i class="ph ph-books"></i>11 sources · business views</div></article>
+        <article class="seat rv d3"><div class="glare"></div><div class="sh"><span>SEAT 04</span><span class="ini">GM</span></div><h3>Girish Mathrubootham</h3><div class="pillar">B2B SaaS · India to global</div><p class="ask">Why sell this for ₹999 in India when the world will pay $500?</p><div class="src"><i class="ph ph-books"></i>11 public sources</div></article>
+        <article class="seat rv d4"><div class="glare"></div><div class="sh"><span>SEAT 05</span><span class="ini">DG</span></div><h3>Deepinder Goyal</h3><div class="pillar">Habit · operations · scale</div><p class="ask">Is this a daily habit, and what breaks at 10,000 orders a day?</p><div class="src"><i class="ph ph-books"></i>13 public sources</div></article>
       </div>
-      <p class="hint rv">Each question is that seat's lens, written by Baithak. Seat the whole table, tick only the ones you want, or ask one: <code>/baithak ask nithin …</code></p>
+      <div class="note rv"><strong>Simulations, not the people.</strong><span>Each question above is that seat's lens, written by Baithak. Not affiliated with or endorsed by the founders. No portraits, photos or voices. Ask one seat with <code style="background:rgba(255,255,255,.08);color:var(--yellow)">/baithak ask nithin …</code></span></div>
     </div>
   </section>
 
-  <section class="ch tight" id="debate">
+  <section class="ch" id="sample">
     <div class="wrap">
-      <h2 class="rv">Then they argue, <em>and change their minds.</em></h2>
-      <p class="lede rv d1">From a real run: a ₹49-entry fantasy cricket app for Tier-2 students. Flip between rounds.</p>
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">06</span>A real run · fantasy cricket</div>
+          <h2 class="rv d1">Then they argue, <mark>and change their minds.</mark></h2>
+        </div>
+        <p class="lede rv d2">A ₹49-entry fantasy cricket app for Tier-2 students. Flip between rounds and watch the scores move.</p>
+      </div>
       <div class="debate">
-        <div class="board rv d1">
+        <div class="card board rv d1">
+          <div class="tag">THE IDEA UNDER REVIEW</div>
+          <h3>Students pay ₹49 per contest and win cash.</h3>
           <div class="seg" role="tablist" aria-label="Round">
             <button role="tab" aria-selected="true" data-round="1">Opening</button>
             <button role="tab" aria-selected="false" data-round="2">After debate</button>
           </div>
-          <div class="row veto"><div class="lab">A · Paid contests<small>BLACK zone, vetoed</small></div><div class="flaps" data-r1="1.6" data-r2="1.3"></div></div>
-          <div class="row"><div class="lab">B · Free-to-play<small>GRAY zone</small></div><div class="flaps" data-r1="4.4" data-r2="4.1"></div></div>
-          <div class="row top"><div class="lab">C · Don't build yet<small>test first</small></div><div class="flaps" data-r1="5.1" data-r2="5.3"></div></div>
-          <p class="note">Weighted council score out of 10.</p>
+          <div class="row veto"><span class="let">A</span><div class="lab">Paid contests<small>BLACK zone, vetoed</small></div><div class="flaps" data-r1="1.6" data-r2="1.3"></div></div>
+          <div class="row"><span class="let">B</span><div class="lab">Free-to-play<small>GRAY zone, gates apply</small></div><div class="flaps" data-r1="4.4" data-r2="4.1"></div></div>
+          <div class="row top"><span class="let">C</span><div class="lab">Don't build yet<small>test first</small></div><div class="flaps" data-r1="5.1" data-r2="5.3"></div></div>
+          <p class="foot">Weighted council score out of 10</p>
         </div>
         <div class="quotes">
-          <div class="q rv"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
-          <div class="q rv d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers."</p></div>
-          <div class="q moved rv d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
-          <div class="q moved rv d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
-          <div class="q moved rv d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
+          <div class="card q rv"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>"Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK."</p></div>
+          <div class="card q rv d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>"Most tech founders are great at building dams and terrible at finding rivers."</p></div>
+          <div class="card q moved rv d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>"So I drop the slide. It changes the test, not the verdict."</p></div>
+          <div class="card q moved rv d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>"My Rs 3 lakh stage one put build money ahead of that proof. That is backwards."</p></div>
+          <div class="card q moved rv d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>"I have no good answer. A student does nothing on a no-match day."</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="ch tight" id="verdict">
+  <section class="ch paper" id="verdict">
     <div class="wrap">
-      <h2 class="rv">The verdict <em>lands.</em></h2>
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">07</span>The Chair's verdict</div>
+          <h2 class="rv d1">The verdict <mark>lands.</mark></h2>
+        </div>
+      </div>
       <div class="verdict">
-        <div class="paper rv">
+        <div class="sheet rv">
           <div class="stamp" aria-hidden="true">BLACK</div>
           <div class="hd"><img src="web-app-manifest-192x192.png" alt="" width="26" height="26">BAITHAK · VERDICT</div>
           <h3>Don't do it.</h3>
@@ -449,51 +714,87 @@
           <p style="margin:0"><a href="https://github.com/cipher-cmd/Baithak/tree/main/sessions/2026-11-10-example-fantasy-cricket">Read every round →</a></p>
         </div>
         <div class="gets">
-          <div class="get rv d1"><div class="ic"><i class="ph ph-prohibit"></i></div><div><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div></div>
-          <div class="get rv d2"><div class="ic"><i class="ph ph-flask"></i></div><div><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div></div>
-          <div class="get rv d3"><div class="ic"><i class="ph ph-door-open"></i></div><div><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div></div>
+          <div class="card get lift rv d1"><div class="ic"><i class="ph ph-prohibit"></i></div><div><h3>A BLACK idea never gets a GO</h3><p>However much the advisors like it. The law file wins.</p></div></div>
+          <div class="card get lift rv d2"><div class="ic"><i class="ph ph-flask"></i></div><div><h3>A test for this week</h3><p>Cheap, mostly no code, with the pass mark set before you start.</p></div></div>
+          <div class="card get lift rv d3"><div class="ic"><i class="ph ph-door-open"></i></div><div><h3>The point to walk away</h3><p>Kill criteria written down now, while you're still objective.</p></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="ch tight" id="install">
+  <section class="ch" id="evidence">
     <div class="wrap">
-      <h2 class="rv">Pull up <em>a chair.</em></h2>
-      <p class="lede rv d1">Runs inside <a href="https://claude.com/claude-code">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">08</span>Evidence, not theatre</div>
+          <h2 class="rv d1">Every claim has <mark>a trail.</mark></h2>
+        </div>
+        <p class="lede rv d2">Baithak shows what it knows, what it doesn't, and what still needs checking.</p>
+      </div>
+      <div class="ev" id="ev">
+        <article class="card ink rv"><div class="big" data-count="24">24</div><h3>Dated law files</h3><p>Each lists its sources, a last-verified date and what to watch for.</p></article>
+        <article class="card lift rv d1"><div class="big" data-count="1191">1,191</div><h3>Sourced quotes</h3><p>Verbatim lines across five brains, each tied to a source id.</p></article>
+        <article class="card lift rv d2"><div class="big" data-count="54">54</div><h3>Public sources</h3><p>Interviews, podcasts, talks and letters behind the five seats.</p></article>
+        <article class="card lift rv d3"><div class="big" data-count="0">0</div><h3>Quiet WHITEs</h3><p>Anything outside coverage returns UNMAPPED, never a quiet pass.</p></article>
+      </div>
+      <div class="trust">
+        <div class="rv"><b>Not legal or financial advice</b>GRAY and BLACK always end with "verify with a lawyer before you build".</div>
+        <div class="rv d1"><b>Sources have limits</b>Each law file records what is still unverified against official text.</div>
+        <div class="rv d2"><b>Open source · MIT</b>A fork of Roast Room, rebuilt for India.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch dark" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow rv"><span class="n">09</span>Get started</div>
+          <h2 class="rv d1">Pull up <mark>a chair.</mark></h2>
+        </div>
+        <p class="lede rv d2">Runs inside <a href="https://claude.com/claude-code" style="color:var(--yellow)">Claude Code</a>. Your Claude plan covers it. No API key, no signup.</p>
+      </div>
       <div class="install">
-        <div class="way main rv d1">
-          <div class="label"><i class="ph ph-star-four"></i>Recommended</div>
-          <h3>Claude Code plugin</h3>
-          <p>Inside Claude Code, two commands.</p>
+        <div class="way main rv">
+          <div class="lab"><i class="ph ph-star-four"></i>Recommended · plugin</div>
+          <h3>Two commands</h3>
+          <p>Inside Claude Code. The skill is then <code>/baithak:baithak</code>.</p>
           <div class="cmd"><span>/plugin marketplace add cipher-cmd/Baithak</span><button data-copy="/plugin marketplace add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
           <div class="cmd"><span>/plugin install baithak@baithak</span><button data-copy="/plugin install baithak@baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
-        <div class="way rv d2">
-          <div class="label"><i class="ph ph-package"></i>Any project</div>
-          <h3>Skills CLI</h3>
+        <div class="way rv d1">
+          <div class="lab"><i class="ph ph-package"></i>Any project · skills CLI</div>
+          <h3>One command</h3>
           <p>In your project folder, then start with <code>--quick</code>.</p>
           <div class="cmd"><span>npx skills add cipher-cmd/Baithak</span><button data-copy="npx skills add cipher-cmd/Baithak" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
           <div class="cmd"><span>/baithak --quick I want to build …</span><button data-copy="/baithak --quick " aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
         </div>
+        <div class="way rv d2">
+          <div class="lab"><i class="ph ph-git-branch"></i>Build on it · clone</div>
+          <h3>Make it yours</h3>
+          <p>Build new seats or edit law files.</p>
+          <div class="cmd"><span>git clone https://github.com/cipher-cmd/Baithak.git</span><button data-copy="git clone https://github.com/cipher-cmd/Baithak.git" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
+          <div class="cmd"><span>cd Baithak &amp;&amp; claude</span><button data-copy="cd Baithak && claude" aria-label="Copy command"><i class="ph ph-copy"></i></button></div>
+        </div>
       </div>
-      <div class="limits">
-        <div class="rv"><b>Not legal advice</b><span>The zone says what to check. GRAY and BLACK always end with "verify with a lawyer".</span></div>
-        <div class="rv d1"><b>Sources on every law</b><span>Each file is dated and lists what is still unverified.</span></div>
-        <div class="rv d2"><b>Simulations, labelled</b><span>Not endorsed by the people. No faces, no voices. Anyone can opt out.</span></div>
-        <div class="rv d3"><b>Free, MIT</b><span>A fork of Roast Room, rebuilt for India.</span></div>
+      <div class="trust">
+        <div class="rv"><b>Start small</b><code style="background:rgba(255,255,255,.08);color:var(--yellow)">--quick</code> seats four advisors for two rounds. A full five-seat council is fifteen runs.</div>
+        <div class="rv d1"><b>Choose the room</b>The recommended board, the seats you tick, one advisor, or everyone.</div>
+        <div class="rv d2"><b>Keep the record</b>Brief, checks, every round and the verdict are saved in <code style="background:rgba(255,255,255,.08);color:var(--yellow)">sessions/</code>.</div>
       </div>
     </div>
   </section>
 
   <section class="closer">
-    <div class="sun" aria-hidden="true"></div>
+    <div class="big-b" aria-hidden="true">B.</div>
     <div class="wrap">
-      <img class="logo-art rv" src="web-app-manifest-192x192.png" alt="" width="104" height="104">
-      <h2 class="rv d1">Your next idea deserves a <em>baithak.</em></h2>
+      <div>
+        <h2 class="rv">Your next idea deserves a <span class="serif">baithak.</span></h2>
+        <p class="rv d1">An idea, a pivot, a hard call. Bring it to the table and let it take the questions.</p>
+      </div>
       <div class="actions rv d2">
-        <a class="btn primary" href="#install"><i class="ph ph-terminal-window"></i>Install free</a>
-        <a class="btn ghost" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>Star on GitHub</a>
+        <a class="btn inv" href="#install"><i class="ph ph-terminal-window"></i>Run /baithak</a>
+        <a class="btn" href="https://github.com/cipher-cmd/Baithak"><i class="ph ph-github-logo"></i>Star on GitHub</a>
       </div>
     </div>
   </section>
@@ -501,8 +802,16 @@
 
 <footer>
   <div class="wrap">
-    <span>Baithak · MIT · Fork of <a href="https://github.com/nateherkai/roast-room">Roast Room</a> by nateherkai</span>
-    <span><a href="https://github.com/cipher-cmd/Baithak/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/cipher-cmd/Baithak/issues/new?template=remove-my-seat.md">Opt-out</a></span>
+    <div class="top">
+      <a class="brand" href="#top"><img src="web-app-manifest-192x192.png" alt="" width="30" height="30"><span>Baithak<span class="dot">.</span></span></a>
+      <nav aria-label="Footer">
+        <a href="#method">Method</a><a href="#council">Council</a><a href="#checks">India checks</a>
+        <a href="https://github.com/cipher-cmd/Baithak/blob/main/CONTRIBUTING.md">Contribute</a>
+        <a href="https://github.com/cipher-cmd/Baithak/issues/new?template=remove-my-seat.md">Opt-out</a>
+        <a href="https://github.com/cipher-cmd/Baithak">GitHub</a>
+      </nav>
+    </div>
+    <div class="legal"><span>Seats are simulations, not the people named. No affiliation or endorsement. Fork of <a href="https://github.com/nateherkai/roast-room">Roast Room</a> by nateherkai · MIT.</span><span>Not legal or financial advice.</span></div>
   </div>
 </footer>
 
@@ -510,11 +819,9 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  function once(el, fn, th) { new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: th || 0.4 }).observe(el); }
+  function once(el, fn, th) { if (!el) return; new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: th || 0.4 }).observe(el); }
 
-  var nav = document.getElementById('nav');
-  new IntersectionObserver(function (e) { nav.classList.toggle('solid', !e[0].isIntersecting); }, { rootMargin: '-80px 0px 0px 0px' }).observe(document.querySelector('.hero .actions'));
-
+  // reveal: one-shot keyframes, then .done hands transform back to hover effects
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (en) {
       if (!en.isIntersecting) return;
@@ -525,11 +832,67 @@
   }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
 
+  // nav: underline the chapter in view
+  var links = {};
+  document.querySelectorAll('.navlinks a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var spy = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { var a = links[en.target.id]; if (a) a.classList.toggle('cur', en.isIntersecting); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+
+  // hero: chairs fill, then the live checklist ticks
+  var chairs = document.querySelectorAll('#heroChairs .chair');
+  var steps = document.querySelectorAll('.hterm [data-step]');
+  var vd = document.querySelector('.hterm .vd');
+  function heroRun() {
+    if (reduce) { chairs.forEach(function (c) { c.classList.add('on'); }); steps.forEach(function (s) { s.classList.add('ok'); }); vd.classList.add('on'); return; }
+    chairs.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, 2600 + i * 260); });
+    var i = 0;
+    (function next() {
+      if (i > 0) { steps[i - 1].classList.remove('run'); steps[i - 1].classList.add('ok'); }
+      if (i >= steps.length) { vd.classList.add('on'); setTimeout(reset, 4200); return; }
+      steps[i].classList.add('run'); i++;
+      setTimeout(next, 900);
+    })();
+    function reset() { vd.classList.remove('on'); steps.forEach(function (s) { s.classList.remove('ok', 'run'); }); i = 0; setTimeout(function next2() { (function n() { if (i > 0) { steps[i - 1].classList.remove('run'); steps[i - 1].classList.add('ok'); } if (i >= steps.length) { vd.classList.add('on'); setTimeout(reset, 4200); return; } steps[i].classList.add('run'); i++; setTimeout(n, 900); })(); }, 700); }
+  }
+  setTimeout(heroRun, reduce ? 0 : 1900);
+
+  // counters
+  function count(el) {
+    var to = +el.dataset.count, fmt = function (n) { return n.toLocaleString('en-IN'); };
+    if (reduce || to === 0) { el.textContent = fmt(to); return; }
+    var t0 = null, dur = 1400;
+    el.textContent = '0';
+    requestAnimationFrame(function f(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(to * e));
+      if (p < 1) requestAnimationFrame(f);
+    });
+  }
+  ['stats', 'ev'].forEach(function (id) {
+    var box = document.getElementById(id);
+    once(box, function () { box.querySelectorAll('[data-count]').forEach(count); }, 0.3);
+  });
+
+  // method: dashed path draws across the steps
+  var stepsBox = document.getElementById('steps');
+  once(stepsBox, function () { stepsBox.classList.add('go'); }, 0.3);
+
+  // checks tick in turn
   var cells = document.querySelectorAll('.cell');
   once(document.getElementById('bento'), function () {
     cells.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, reduce ? 0 : 500 + i * 380); });
-  }, 0.25);
+  }, 0.2);
 
+  // council: seats take their chairs
+  var tt = document.getElementById('topTable');
+  once(tt, function () {
+    tt.querySelectorAll('g').forEach(function (g, i) { setTimeout(function () { g.classList.add('on'); }, reduce ? 0 : 500 + i * 320); });
+  }, 0.4);
+
+  // terminal replay of the real run
   var L = [
     ['t-s', '> '], ['t-w', '/baithak --quick A fantasy cricket app. Students pay ₹49 per contest and win cash. Tier-2 colleges. ₹10 lakh. Dream11 proved it.\n\n'],
     ['t-d', 'Chair   '], ['', 'type: consumer app + regulated sector\n'],
@@ -560,6 +923,7 @@
     })();
   });
 
+  // split-flap scoreboard
   var groups = document.querySelectorAll('.flaps');
   groups.forEach(function (g) {
     g.dataset.r1.split('').forEach(function (ch) {
@@ -583,6 +947,7 @@
   document.querySelectorAll('.seg button').forEach(function (b) { b.addEventListener('click', function () { setRound(b.dataset.round); }); });
   once(document.querySelector('.board'), function () { setTimeout(function () { setRound('2'); }, reduce ? 0 : 1800); }, 0.6);
 
+  // tilt + glare on desktop
   function tilt(el, max) {
     var tx = 0, ty = 0, x = 0, y = 0, raf = null;
     function loop() {
@@ -600,10 +965,10 @@
     el.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
   }
   if (!reduce && fine) {
-    tilt(document.querySelector('.poster .card'), 10);
     document.querySelectorAll('.seat').forEach(function (s) { tilt(s, 12); });
   }
 
+  // copy buttons
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
       var ic = b.querySelector('i');
