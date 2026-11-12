@@ -182,6 +182,7 @@
   @keyframes pulse { 50% { box-shadow: 0 0 0 3px rgba(255, 201, 60, 0.3); } }
   .hterm .vd { margin-top: 6px; color: var(--yellow); font-weight: 700; opacity: 0; transition: opacity 400ms ease; }
   .hterm .vd.on { opacity: 1; }
+  .hterm .cl { transition: color 300ms ease, opacity 400ms ease, transform 500ms var(--ease-out); }
 
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: clamp(40px, 6vh, 64px); border-block: 1px solid var(--line); background: #e1e2e2; }
   .stat { display: flex; align-items: center; gap: 14px; padding: 20px 18px; border-right: 1px solid var(--line); }
@@ -685,9 +686,6 @@
   .rings { display: block; width: 100%; height: auto; margin-top: 22px; }
   .rings text { font: 600 12px var(--mono); letter-spacing: 0.12em; fill: #3b3e42; text-anchor: middle; }
   .rings text:last-child { text-anchor: end; fill: var(--muted); }
-  .rings .rg { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0.4); opacity: 0; transition: transform 900ms var(--ease-out), opacity 500ms ease; }
-  .cell.on .rings .rg { transform: none; opacity: 1; }
-  .cell.on .rings .r2 { transition-delay: 150ms; } .cell.on .rings .r1 { transition-delay: 300ms; }
 
   /* types */
   .types { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -950,7 +948,7 @@
   .sheet.rv.done { transform: rotate(-1.2deg); }
   .sp.rv { opacity: 1; transform: none; filter: none; }
   .sp.rv.in { animation: none; }
-  .sp .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.08em 0.02em 0.12em; margin: -0.08em -0.02em -0.12em; }
+  .sp .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.18em 0.04em 0.14em; margin: -0.18em -0.04em -0.14em; }
   .sp .wi { display: inline-block; transform: translateY(108%) rotate(4deg); transform-origin: 0 100%; transition: transform 950ms var(--ease-out) calc(var(--i) * 55ms + 80ms); }
   .sp.in .wi { transform: none; }
   .sp.in mark { animation-delay: calc(var(--n, 4) * 55ms + 450ms); }
@@ -1021,9 +1019,121 @@
   .toast.on { transform: translate(-50%, 0); }
 
   /* micro-interactions */
-  .cell:hover .ic i, .get:hover .ic i { animation: wiggle 600ms var(--ease-out); }
-  @keyframes wiggle { 30% { transform: rotate(-14deg) scale(1.1); } 60% { transform: rotate(8deg); } }
-  .cell .ic i, .get .ic i { display: inline-block; }
+  .ic > i, .who > i, .lab > i, .num > i, .asks span > i, .tool-icon i, .cmd button i, .eyebrow .n { display: inline-block; }
+
+  /* ===== motion layer 3: choreography, pops, line-by-line draws =====
+     Every "starts hidden" state lives in the no-preference block, so reduced motion gets a complete still page. */
+  :root { --spring: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes shake { 20% { rotate: -12deg; } 40% { rotate: 10deg; } 60% { rotate: -6deg; } 80% { rotate: 3deg; } }
+  @keyframes jig { 0% { opacity: 0; transform: translateY(40px) rotate(-3deg); filter: blur(6px); } 55% { opacity: 1; transform: translateY(-6px) rotate(1.5deg); filter: none; } 78% { transform: translateY(2px) rotate(-0.6deg); } 100% { opacity: 1; transform: none; filter: none; } }
+  @keyframes zoomout { from { opacity: 0; transform: scale(1.12); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+  @keyframes skewin { from { opacity: 0; transform: translateX(-50px) skewX(8deg); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+  @keyframes typing { from { width: 0; } }
+  @keyframes caret { 50%, 100% { border-right-color: transparent; } }
+  @keyframes linein { from { transform: scaleX(0); } }
+  @keyframes gridin { to { opacity: 0.24; } }
+  @keyframes termup { to { transform: none; } }
+  .rv.zo { transform: scale(1.12); } .rv.zo.in { animation-name: zoomout; }
+  .rv.sk { transform: translateX(-50px) skewX(8deg); } .rv.sk.in { animation-name: skewin; }
+  .rv.jg { transform: translateY(40px) rotate(-3deg); } .rv.jg.in { animation-name: jig; animation-duration: 1000ms; }
+  .hero-note b { animation: ping 2.4s ease-out 3.4s infinite; }
+  .ty { display: inline-block; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* hero: card, dots and label, sun, then India Gate draws, the terminal rises and types, chairs fill */
+    .art .grid { opacity: 0; animation: gridin 900ms ease 450ms forwards; }
+    .art .label { opacity: 0; animation: rise 700ms var(--ease-out) 650ms forwards; }
+    .sundisc { animation-delay: 750ms; }
+    .d-a { --dd: 1100ms; } .d-b { --dd: 1500ms; } .d-c { --dd: 1850ms; } .d-d { --dd: 2200ms; }
+    .f-b { --fd: 2300ms; } .f-c { --fd: 2600ms; } .f-d { --fd: 2900ms; }
+    .hterm { transform: translateY(100%); animation: termup 900ms var(--ease-out) 1300ms forwards; }
+    .hterm .ty { overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 18ch; border-right: 2px solid var(--yellow); animation: typing 1100ms steps(18) 2100ms both, caret 700ms steps(1) 2100ms 5 forwards; }
+    .hterm .tm { opacity: 0; animation: rise 600ms var(--ease-out) 3200ms forwards; }
+    .hterm .cl:not(.run):not(.ok) { opacity: 0.32; transform: translateX(-6px); }
+    .eyebrow.rv:not(.in)::after { transform: scaleX(0); }
+    .eyebrow::after { transform-origin: left; }
+    .eyebrow.in::after, .hero .eyebrow::after { animation: linein 900ms var(--ease-io) 350ms both; }
+
+    /* hero stats: tiles rise in turn, numbers count, icons pop */
+    .stats .stat { opacity: 0; transform: translateY(16px); transition: opacity 500ms ease, transform 650ms var(--ease-out); }
+    .stats .ic { scale: 0; transition: scale 560ms var(--spring); }
+    .stats.on .stat { opacity: 1; transform: none; }
+    .stats.on .ic { scale: 1; }
+    .stats.on .stat:nth-child(1) { transition-delay: 900ms; } .stats.on .stat:nth-child(1) .ic { transition-delay: 1300ms; }
+    .stats.on .stat:nth-child(2) { transition-delay: 990ms; } .stats.on .stat:nth-child(2) .ic { transition-delay: 1390ms; }
+    .stats.on .stat:nth-child(3) { transition-delay: 1080ms; } .stats.on .stat:nth-child(3) .ic { transition-delay: 1480ms; }
+    .stats.on .stat:nth-child(4) { transition-delay: 1170ms; } .stats.on .stat:nth-child(4) .ic { transition-delay: 1570ms; }
+    .stats.on .stat:nth-child(5) { transition-delay: 1260ms; } .stats.on .stat:nth-child(5) .ic { transition-delay: 1660ms; }
+
+    /* marquee rows slide in from the side they travel to */
+    .tool-row { opacity: 0; transform: translateX(-48px); transition: opacity 700ms ease, transform 1000ms var(--ease-out); }
+    .tool-row[data-direction="right"] { transform: translateX(48px); }
+    .toolchain-marquee.seen .tool-row { opacity: 1; transform: none; }
+    .toolchain-marquee.seen .tool-row:nth-child(2) { transition-delay: 140ms; } .toolchain-marquee.seen .tool-row:nth-child(3) { transition-delay: 280ms; }
+
+    /* text lands first, then its icon pops */
+    .rv :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), .asks.rv span > i, .eyebrow.rv .n { scale: 0; opacity: 0; transition: scale 560ms var(--spring) var(--pd, 520ms), opacity 200ms ease var(--pd, 520ms); }
+    .rv.in :is(.ic, .no, .ini, .who > i, .lab > i, .num > i), .asks.rv.in span > i, .eyebrow.rv.in .n { scale: 1; opacity: 1; }
+    .eyebrow.rv { --pd: 120ms; }
+    .rv.d1 { --pd: 600ms; } .rv.d2 { --pd: 680ms; } .rv.d3 { --pd: 760ms; } .rv.d4 { --pd: 840ms; }
+    .asks span:nth-child(2) { --pd: 600ms; } .asks span:nth-child(3) { --pd: 680ms; } .asks span:nth-child(4) { --pd: 760ms; }
+    @media (max-width: 900px) { .seats .seat .ini { scale: 1; opacity: 1; } }
+
+    /* hover: the icon in whatever you point at gives a little shake */
+    .card:hover .ic > i, .card:hover .num > i, .step:hover .no, .seat:hover .ini, .stat:hover .ic, .q:hover .who > i, .way:hover .lab > i, .asks span:hover > i, .tool-badge:hover .tool-icon i, .cmd:hover button i, .get:hover .ic > i { animation: shake 620ms var(--ease-out); }
+    .q { transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), background-color 300ms ease; }
+    .q:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--ink); }
+    .cell:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+
+    /* who pays: inner ring draws, its label pops, then the next ring out */
+    .rings .rg { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; transition: stroke-dashoffset 650ms var(--ease-io), fill-opacity 450ms ease; }
+    .rings .r0 { opacity: 0; transition: opacity 500ms ease; }
+    .rings .rt { opacity: 0; transform: translateY(6px) scale(0.8); transform-box: fill-box; transform-origin: center; transition: opacity 300ms ease, transform 450ms var(--spring); }
+    .cell.on .rings .rg { stroke-dashoffset: 0; fill-opacity: 1; }
+    .cell.on .rings .r0, .cell.on .rings .rt { opacity: 1; transform: none; }
+    .cell.on .rings .r1 { transition-delay: 0ms, 350ms; } .cell.on .rings .t1 { transition-delay: 420ms; }
+    .cell.on .rings .r2 { transition-delay: 520ms, 870ms; } .cell.on .rings .t2 { transition-delay: 940ms; }
+    .cell.on .rings .r3 { transition-delay: 1040ms, 1390ms; } .cell.on .rings .t3 { transition-delay: 1460ms; }
+    .cell.on .rings .r0 { transition-delay: 1560ms; } .cell.on .rings .t4 { transition-delay: 1800ms; }
+    .cell .chips span { opacity: 0; transform: scale(0.6); transition: opacity 250ms ease, transform 450ms var(--spring); }
+    .cell.on .chips span { opacity: 1; transform: none; }
+    .cell.on .chips span:nth-child(1) { transition-delay: 420ms; } .cell.on .chips span:nth-child(2) { transition-delay: 940ms; }
+    .cell.on .chips span:nth-child(3) { transition-delay: 1460ms; } .cell.on .chips span:nth-child(4) { transition-delay: 1800ms; }
+
+    /* legal zones: a line runs down, each zone arrives as the line reaches it, then its badge stamps */
+    .zones { position: relative; padding-left: 20px; }
+    .zones::before { content: ""; position: absolute; left: 6px; top: 20px; bottom: 20px; width: 2px; border-radius: 2px; background: var(--ink); transform: scaleY(0); transform-origin: top; transition: transform 1350ms cubic-bezier(0.45, 0, 0.2, 1); }
+    .cell.on .zones::before { transform: scaleY(1); }
+    .zone { position: relative; }
+    .zone::before { content: ""; position: absolute; left: -19px; top: 50%; width: 10px; height: 10px; margin-top: -5px; box-sizing: border-box; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--paper); transition: background-color 250ms ease; }
+    .cell.on .zone::before { background: var(--yellow); }
+    .zone b { scale: 0; transition: scale 460ms var(--spring); }
+    .cell.on .zone b { scale: 1; }
+    .cell.on .zone:nth-child(1) b { transition-delay: 250ms; }
+    .cell.on .zone:nth-child(2), .cell.on .zone:nth-child(2)::before { transition-delay: 450ms; } .cell.on .zone:nth-child(2) b { transition-delay: 700ms; }
+    .cell.on .zone:nth-child(3), .cell.on .zone:nth-child(3)::before { transition-delay: 900ms; } .cell.on .zone:nth-child(3) b { transition-delay: 1150ms; }
+    .cell.on .zone:nth-child(4), .cell.on .zone:nth-child(4)::before { transition-delay: 1350ms; } .cell.on .zone:nth-child(4) b { transition-delay: 1600ms; }
+
+    /* council table: each chair pops into place */
+    .top-table .seat-pos { opacity: 0; scale: 0.4; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease, opacity 350ms ease, scale 650ms var(--spring); }
+    .top-table .seat-pos.on { opacity: 1; scale: 1; }
+
+    /* debate board: the three options arrive one by one */
+    .board .row { opacity: 0; transform: translateX(-14px); transition: opacity 400ms ease, transform 550ms var(--ease-out); }
+    .board.in .row { opacity: 1; transform: none; }
+    .board.in .row.veto { transition-delay: 450ms; } .board.in .row:not(.veto):not(.top) { transition-delay: 600ms; } .board.in .row.top { transition-delay: 750ms; }
+
+    /* trust notes: the rule above each one draws across */
+    .trust div { position: relative; border-top-color: transparent !important; }
+    .trust div::before { content: ""; position: absolute; left: 0; right: 0; top: -1.5px; height: 1.5px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-io) 150ms; }
+    .dark .trust div::before { background: #55595d; }
+    .trust div.in::before { transform: scaleX(1); }
+
+    /* install: the commands slide in after their card opens */
+    .way .cmd { opacity: 0; transform: translateY(10px); transition: opacity 400ms ease, transform 500ms var(--ease-out); }
+    .way.in .cmd { opacity: 1; transform: none; transition-delay: 700ms; }
+    .way.in .cmd + .cmd { transition-delay: 850ms; }
+  }
 
   @media (max-width: 1100px) {
     .seats { grid-template-columns: repeat(3, 1fr); }
@@ -1089,7 +1199,7 @@
     .room .frame { clip-path: none !important; }
     .room .caps p { opacity: 1 !important; }
     .stamp { opacity: 0.92; transform: rotate(-9deg); }
-    .zone, .rings .rg { opacity: 1; transform: none; }
+    .zone { opacity: 1; transform: none; }
     .steps::before { transform: none; }
     .tool-track { animation: none !important; flex-wrap: nowrap !important; }
   }
@@ -1359,7 +1469,7 @@
         <article class="card step lift rv fl"><div class="no">01</div><h3><i class="ph ph-magnifying-glass" style="margin-right:6px;vertical-align:-0.1em;color:var(--ink)"></i>The Chair checks India</h3><p>Who pays, what kind of business it is, where it gets stuck, what breaks at scale, and the legal zone.</p></article>
         <article class="card step lift rv ft d1"><div class="no">02</div><h3><i class="ph ph-users-three" style="margin-right:6px;vertical-align:-0.1em;color:var(--ink)"></i>You choose the council</h3><p>The recommended board, the seats you pick, one advisor alone, or all five.</p></article>
         <article class="card step lift rv d2"><div class="no">03</div><h3><i class="ph ph-chats-circle" style="margin-right:6px;vertical-align:-0.1em;color:var(--ink)"></i>They argue it out</h3><p>Opening views, a debate, revised positions. Every round is saved.</p></article>
-        <article class="card step hot rv fr d3"><div class="no">04</div><h3><i class="ph ph-seal-check" style="margin-right:6px;vertical-align:-0.1em;color:var(--ink)"></i>You get a decision</h3><p>A scored verdict, the strongest objection, a 7-day test under ₹5,000 and a point to walk away.</p></article>
+        <article class="card step hot rv jg d3"><div class="no">04</div><h3><i class="ph ph-seal-check" style="margin-right:6px;vertical-align:-0.1em;color:var(--ink)"></i>You get a decision</h3><p>A scored verdict, the strongest objection, a 7-day test under ₹5,000 and a point to walk away.</p></article>
       </div>
     </div>
   </section>
@@ -1376,12 +1486,12 @@
       <div class="bento" id="bento">
         <article class="card cell wide rv fl"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">01 / Customer</div><div class="ic"><i class="ph ph-users-three"></i></div><h3>Who actually pays?</h3><p>India 1, India 2, India 3 or India-to-Global. Mixing them is a failure on its own.</p><div class="chips"><span>India 1</span><span>India 2</span><span>India 3</span><span>Global</span></div>
           <svg class="rings" viewBox="0 0 520 170" aria-hidden="true">
-            <path pathLength="1" d="M60 170 A200 200 0 0 1 460 170" stroke="#b8bbbd" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
+            <path class="r0" pathLength="1" d="M60 170 A200 200 0 0 1 460 170" stroke="#b8bbbd" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
             <path class="rg r3" pathLength="1" d="M110 170 A150 150 0 0 1 410 170" fill="#eceeed" stroke="#1f2125" stroke-width="1.5"/>
             <path class="rg r2" pathLength="1" d="M170 170 A90 90 0 0 1 350 170" fill="#ffe7a6" stroke="#1f2125" stroke-width="1.5"/>
             <path class="rg r1" pathLength="1" d="M222 170 A38 38 0 0 1 298 170" fill="#ffc93c" stroke="#1f2125" stroke-width="1.5"/>
-            <text x="260" y="162" text-anchor="middle">INDIA 1</text><text x="260" y="112">INDIA 2</text><text x="260" y="50">INDIA 3</text>
-            <text x="516" y="22" text-anchor="end">GLOBAL →</text>
+            <text class="rt t1" x="260" y="162" text-anchor="middle">INDIA 1</text><text class="rt t2" x="260" y="112">INDIA 2</text><text class="rt t3" x="260" y="50">INDIA 3</text>
+            <text class="rt t4" x="516" y="22" text-anchor="end">GLOBAL →</text>
           </svg></article>
         <article class="card cell wide rv fr d1"><div class="tick"><i class="ph ph-check"></i></div><div class="kick">05 / Legal zone</div><div class="ic"><i class="ph ph-scales"></i></div><h3>WHITE, GRAY, BLACK or UNMAPPED</h3><p>Cited only from 24 dated, sourced law files.</p>
           <div class="zones"><div class="zone"><span>Known path, build</span><b class="z-w">WHITE</b></div><div class="zone"><span>Build with a compliance switch</span><b class="z-g">GRAY</b></div><div class="zone"><span>Vetoed, find the legal route</span><b class="z-k">BLACK</b></div><div class="zone"><span>Not covered, ask the regulator</span><b class="z-u">UNMAPPED</b></div></div></article>
@@ -1406,9 +1516,9 @@
         <article class="card type lift rv ft d1"><div class="num">TYPE 02<i class="ph ph-device-mobile"></i></div><h3>Consumer app and content</h3><p>Habit, retention, revenue per user.</p></article>
         <article class="card type lift rv ft d2"><div class="num">TYPE 03<i class="ph ph-storefront"></i></div><h3>Marketplace</h3><p>Liquidity, off-platform leakage, take rate.</p></article>
         <article class="card type lift rv ft d3"><div class="num">TYPE 04<i class="ph ph-package"></i></div><h3>Physical product and D2C</h3><p>Margins, channel stack, working capital, COD returns.</p></article>
-        <article class="card type lift rv"><div class="num">TYPE 05<i class="ph ph-factory"></i></div><h3>Manufacturing and hardware</h3><p>Capex, utilisation, import dependence, certification time.</p></article>
-        <article class="card type lift rv d1"><div class="num">TYPE 06<i class="ph ph-handshake"></i></div><h3>Service business</h3><p>Founder dependence, utilisation, productisation.</p></article>
-        <article class="card type lift rv d2"><div class="num">TYPE 07<i class="ph ph-map-pin"></i></div><h3>Local business</h3><p>Rent share, break-even orders, commissions.</p></article>
+        <article class="card type lift rv sk"><div class="num">TYPE 05<i class="ph ph-factory"></i></div><h3>Manufacturing and hardware</h3><p>Capex, utilisation, import dependence, certification time.</p></article>
+        <article class="card type lift rv sk d1"><div class="num">TYPE 06<i class="ph ph-handshake"></i></div><h3>Service business</h3><p>Founder dependence, utilisation, productisation.</p></article>
+        <article class="card type lift rv sk d2"><div class="num">TYPE 07<i class="ph ph-map-pin"></i></div><h3>Local business</h3><p>Rent share, break-even orders, commissions.</p></article>
         <article class="card type reg lift rv zm d3"><div class="num">TYPE 08<i class="ph ph-shield-check"></i></div><h3>Regulated sector</h3><p>Fintech, health, education, real estate, insurance. Stricter legal checks on top.</p></article>
       </div>
     </div>
@@ -1565,9 +1675,9 @@
         <div class="quotes">
           <div class="card q rv fr"><div class="who"><i class="ph ph-chat-circle"></i>Nithin seat · opening</div><p>“Dream11 proved the market, but it proved paid entry, which is exactly what the Chair marks BLACK.”</p></div>
           <div class="card q rv fr d1"><div class="who"><i class="ph ph-chat-circle"></i>Kunal seat · opening</div><p>“Most tech founders are great at building dams and terrible at finding rivers.”</p></div>
-          <div class="card q moved rv fr d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>“So I drop the slide. It changes the test, not the verdict.”</p></div>
-          <div class="card q moved rv fr d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>“My Rs 3 lakh stage one put build money ahead of that proof. That is backwards.”</p></div>
-          <div class="card q moved rv fr d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>“I have no good answer. A student does nothing on a no-match day.”</p></div>
+          <div class="card q moved rv jg d2"><div class="who"><i class="ph ph-arrows-clockwise"></i>Kunal seat · after the debate</div><p>“So I drop the slide. It changes the test, not the verdict.”</p></div>
+          <div class="card q moved rv jg d3"><div class="who"><i class="ph ph-arrows-clockwise"></i>Vembu seat · after the debate</div><p>“My Rs 3 lakh stage one put build money ahead of that proof. That is backwards.”</p></div>
+          <div class="card q moved rv jg d4"><div class="who"><i class="ph ph-arrows-clockwise"></i>Deepinder seat · after the debate</div><p>“I have no good answer. A student does nothing on a no-match day.”</p></div>
         </div>
       </div>
     </div>
@@ -1611,9 +1721,9 @@
       </div>
       <div class="ev" id="ev">
         <article class="card ink rv clip"><div class="big" data-count="24">24</div><h3>Dated law files</h3><p>Each lists its sources, a last-verified date and what to watch for.</p></article>
-        <article class="card lift rv zm d1"><div class="big" data-count="1191">1,191</div><h3>Sourced quotes</h3><p>Verbatim lines across five brains, each tied to a source id.</p></article>
+        <article class="card lift rv zo d1"><div class="big" data-count="1191">1,191</div><h3>Sourced quotes</h3><p>Verbatim lines across five brains, each tied to a source id.</p></article>
         <article class="card lift rv zm d2"><div class="big" data-count="54">54</div><h3>Public sources</h3><p>Interviews, podcasts, talks and letters behind the five seats.</p></article>
-        <article class="card lift rv zm d3"><div class="big" data-count="0">0</div><h3>Quiet WHITEs</h3><p>Anything outside coverage returns UNMAPPED, never a quiet pass.</p></article>
+        <article class="card lift rv zo d3"><div class="big" data-count="0">0</div><h3>Quiet WHITEs</h3><p>Anything outside coverage returns UNMAPPED, never a quiet pass.</p></article>
       </div>
       <div class="trust">
         <div class="rv fd"><b>Not legal or financial advice</b>GRAY and BLACK always end with "verify with a lawyer before you build".</div>
@@ -1836,16 +1946,21 @@
   }
 
   // reveal: one-shot keyframes, then .done hands transform back to hover effects
+  function reveal(el) {
+    el.addEventListener('animationend', function done(ev) { if (ev.target !== el) return; el.classList.add('done'); el.removeEventListener('animationend', done); });
+    el.classList.add('in');
+    if (el.classList.contains('eyebrow')) scramble(el);
+  }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (en) {
       if (!en.isIntersecting) return;
-      var el = en.target; io.unobserve(el);
-      el.addEventListener('animationend', function done(ev) { if (ev.target !== el) return; el.classList.add('done'); el.removeEventListener('animationend', done); });
-      el.classList.add('in');
-      if (el.classList.contains('eyebrow')) scramble(el);
+      io.unobserve(en.target);
+      // a fully clipped .clip card never intersects, so its parent is watched instead
+      if (en.target.classList.contains('rv')) reveal(en.target);
+      else en.target.querySelectorAll(':scope > .rv.clip').forEach(reveal);
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
-  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el.classList.contains('clip') ? el.parentNode : el); });
 
 
   // chapter selector: desktop rail + mobile chip share one "current chapter" state
@@ -1917,7 +2032,7 @@
   // marquee pause / play control toggle; tracks also sleep while off screen
   var marqueeToggle = document.getElementById('marqueeToggle');
   var marqueeEl = document.getElementById('toolchainMarquee');
-  if (marqueeEl) new IntersectionObserver(function (e) { marqueeEl.setAttribute('data-off', String(!e[0].isIntersecting)); }).observe(marqueeEl);
+  if (marqueeEl) new IntersectionObserver(function (e) { marqueeEl.setAttribute('data-off', String(!e[0].isIntersecting)); if (e[0].isIntersecting) marqueeEl.classList.add('seen'); }).observe(marqueeEl);
   if (marqueeToggle && marqueeEl) {
     marqueeToggle.addEventListener('click', function () {
       var isPaused = marqueeEl.getAttribute('data-paused') === 'true';
@@ -1961,7 +2076,7 @@
   var vd = document.querySelector('.hterm .vd');
   function heroRun() {
     if (reduce) { chairs.forEach(function (c) { c.classList.add('on'); }); steps.forEach(function (s) { s.classList.add('ok'); }); vd.classList.add('on'); return; }
-    chairs.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, 2600 + i * 260); });
+    chairs.forEach(function (c, i) { setTimeout(function () { c.classList.add('on'); }, 300 + i * 260); });
     var i = 0;
     (function next() {
       if (i > 0) { steps[i - 1].classList.remove('run'); steps[i - 1].classList.add('ok'); }
@@ -1971,7 +2086,7 @@
     })();
     function reset() { vd.classList.remove('on'); steps.forEach(function (s) { s.classList.remove('ok', 'run'); }); i = 0; setTimeout(function next2() { (function n() { if (i > 0) { steps[i - 1].classList.remove('run'); steps[i - 1].classList.add('ok'); } if (i >= steps.length) { vd.classList.add('on'); setTimeout(reset, 4200); return; } steps[i].classList.add('run'); i++; setTimeout(n, 900); })(); }, 700); }
   }
-  setTimeout(heroRun, reduce ? 0 : 1900);
+  setTimeout(heroRun, reduce ? 0 : 3300);
 
   // counters
   function count(el) {
@@ -1988,7 +2103,7 @@
   }
   ['stats', 'ev'].forEach(function (id) {
     var box = document.getElementById(id);
-    once(box, function () { box.querySelectorAll('[data-count]').forEach(count); }, 0.3);
+    once(box, function () { box.classList.add('on'); setTimeout(function () { box.querySelectorAll('[data-count]').forEach(count); }, id === 'stats' && !reduce ? 1000 : 0); }, 0.3);
   });
 
   // method: dashed path draws across the steps
