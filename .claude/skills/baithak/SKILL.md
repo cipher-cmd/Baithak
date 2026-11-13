@@ -118,7 +118,7 @@ Spawn every seat with the Round 3 prompt. Save to `round-3.md` with a `## Chair`
 ## Step 8: Verify, then verdict
 
 1. Run both checks (use `python3` if `python` is missing):
-   - `python <skill folder>/scripts/check_quotes.py <session folder>`: every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict and say so in the Chair notes.
+   - `python <skill folder>/scripts/check_quotes.py <session folder>`: every quote attributed to a source id must be in the speaking seat's brain, on a line with the cited id. It flags WRONG ID, WRONG SEAT and UNVERIFIED quotes and writes `quote-audit.md` in the session folder with each quote's source title, date, link and brain line. Fix or remove any flagged quote and say so in the Chair notes. Point the user to `quote-audit.md` in the final message.
    - `python <skill folder>/scripts/check_laws.py <session folder>`: every `[laws/...]` citation must exist and be verified within 6 months. Remove any citation it rejects, or mark it "may be stale".
    If Python is not installed, check by hand: search the brain folders for each quote's exact words, and confirm each cited law file exists.
 2. Compute the numbers from the last round's cards per `scoring.md`, apply the overrides, and write `verdict.md` from `report-template.md`.
