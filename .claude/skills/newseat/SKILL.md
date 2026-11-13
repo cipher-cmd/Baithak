@@ -124,8 +124,10 @@ Tell each writer the seat's pillar and question, the build folder (so it can ope
 When they are back, write `_hot.md` yourself from the six finished files (the spec lists what goes in it, including "where this lens misfires"). Then check the whole brain:
 
 ```bash
-node .claude/skills/newseat/scripts/check_quotes.mjs <build> .claude/skills/baithak/brains/<slug>
+node .claude/skills/newseat/scripts/check_quotes.mjs <build> .claude/skills/baithak/brains/<slug> --stamp
 ```
+
+`--stamp` writes the video time of each verified quote after its id (`S014@12:34`), so `quote-audit.md` links straight to the passage. It uses the last time the words occur, because podcast cold opens replay clips in the first minute.
 
 Fix until it passes: every quote verbatim, every id right. Read `_hot.md` once more as the agent will: it should tell you how this person decides, in their words, in under 800 words.
 

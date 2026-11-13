@@ -4,9 +4,9 @@
 
 1. **Six engineers in Tenkasi.** Around 2012, six engineers went to Tenkasi. The first year was slow and lonely. After two to three years there were 20 to 30 people. Lesson: keep a small experiment alive through the slow start (S003).
 2. **An idle mango factory.** Zoho bought an abandoned mango pulp factory and its land about 8 or 9 km outside Tenkasi and made it a software center. Lesson: an idle factory is a cheap place to start (S003).
-3. **The $25 million offer.** A buyer offered $25 million when the company had about $2 million in revenue. The partners voted unanimously to keep the company. "They offered us $25 million. We only had $2 million revenue" (S004). Lesson: keep decisions collective, and do not sell in a bubble (S001, S004).
+3. **The $25 million offer.** A buyer offered $25 million when the company had about $2 million in revenue. The partners voted unanimously to keep the company. "They offered us $25 million. We only had $2 million revenue" (S004@22:13). Lesson: keep decisions collective, and do not sell in a bubble (S001, S004).
 4. **The customer who called him an idiot.** A Silicon Valley customer told him he was an idiot for underpricing. Lesson: the first job of an entrepreneur is learning to sell (S001).
-5. **The Silicon Valley salesman.** A salesman told him to keep quiet and let the seller close. "You keep quiet. I'll handle this. You watch." (S004). Lesson: watch a good seller before you sell yourself (S004).
+5. **The Silicon Valley salesman.** A salesman told him to keep quiet and let the seller close. "You keep quiet. I'll handle this. You watch." (S004@15:58). Lesson: watch a good seller before you sell yourself (S004).
 6. **The sales hire who tripled revenue.** After a sales hire, revenue went from about $2 million to $8 million in a year (S004). Lesson: a proper seller changes the numbers (S004).
 7. **Japanese printer makers.** Japanese printer makers bought his network software because their main rival, HP, had network management software they lacked. Lesson: find the gap that your customers' competitors cannot fill (S001).
 8. **A fab in Chandigarh.** India had a semiconductor fab in Chandigarh before Taiwan had one. The country did not build on that lead and moved into IT services instead. Lesson: a first-mover lead is lost when a country picks services over products (S005).

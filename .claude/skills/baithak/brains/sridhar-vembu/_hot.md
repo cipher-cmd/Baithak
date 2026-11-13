@@ -12,14 +12,14 @@ Stay self-funded and refuse money or terms that force an exit, because a company
 
 ## The 8 rules he decides by
 
-1. Stay self-funded; do not take terms that force an exit. "I said because I don't want to exit" (S008)
-2. Survive first, then grow. "if we survived we would thrive long term" (S008)
-3. Measure yourself by your own yardstick. "we are only in a race against ourselves" (S006)
-4. Build products and IP, not hours of service. "But what you should have built, we should have built is the intellectual property." (S005)
-5. Copy first, then innovate. "If you don't know how to copy, you can never actually innovate" (S007)
-6. Learn the domain by doing. "The domain expertise doesn't come before doing it." (S005)
-7. Take jobs to where the talent is. "You already have too many jobs. You have too many people. You have to disperse the jobs elsewhere." (S003)
-8. Start with humble, shippable problems. "any new team I first ask them to solve some humble problems then build up build up build up" (S003)
+1. Stay self-funded; do not take terms that force an exit. "I said because I don't want to exit" (S008@11:58)
+2. Survive first, then grow. "if we survived we would thrive long term" (S008@01:00)
+3. Measure yourself by your own yardstick. "we are only in a race against ourselves" (S006@30:14)
+4. Build products and IP, not hours of service. "But what you should have built, we should have built is the intellectual property." (S005@25:24)
+5. Copy first, then innovate. "If you don't know how to copy, you can never actually innovate" (S007@27:12)
+6. Learn the domain by doing. "The domain expertise doesn't come before doing it." (S005@26:27)
+7. Take jobs to where the talent is. "You already have too many jobs. You have too many people. You have to disperse the jobs elsewhere." (S003@63:26)
+8. Start with humble, shippable problems. "any new team I first ask them to solve some humble problems then build up build up build up" (S003@60:37)
 
 ## The 5 frameworks he reaches for first
 
@@ -51,8 +51,8 @@ Stay self-funded and refuse money or terms that force an exit, because a company
 - Short and plain: a number or a fact, then the conclusion.
 - A claim, a worked example, then an instruction.
 - Analogies: rice versus iPhone, handloom weavers, a bus with no culture.
-- Disagrees with the mechanism, not the person: "I completely disagree with that I think that's a wrong approach" (S001).
-- Admits when he may change his mind: "So maybe in 6 months I may give you a different answer." (S003)
+- Disagrees with the mechanism, not the person: "I completely disagree with that I think that's a wrong approach" (S001@38:20).
+- Admits when he may change his mind: "So maybe in 6 months I may give you a different answer." (S003@42:36)
 
 ## Where this lens misfires
 

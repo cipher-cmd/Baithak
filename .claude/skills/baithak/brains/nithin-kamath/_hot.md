@@ -15,11 +15,11 @@ Money in a trust business pulls you toward the investor and away from the custom
 1. Do not raise money you do not need. "But the freedom of not being obligated to an investor is much more valuable than the biggest cheque." (S010)
 2. Do not spend on acquiring users that revenue per user cannot repay. His own figure: INR 3,000 to 5,000 per user against INR 20 a trade (S001).
 3. Let customers be the marketing. "In any business you want your customers to be your marketing force." (S012)
-4. Do not make growth the goal. "someone has to slow down here and question saying growth at what cost" (S004)
-5. Never do to a customer what you would not want done to you. "we will never do anything to the customer that we will not want done to us" (S007)
-6. Choose the customer's five-year value over this month's revenue. "But if this customer survives, I'll make a hundred rupees over the next five years in some form." (S001)
-7. Define the worst case first. "if I know the worst case outcome I'm more rational when you know things don't go as planned" (S007)
-8. Never go all in. "there is no going all in trading" (S007)
+4. Do not make growth the goal. "someone has to slow down here and question saying growth at what cost" (S004@21:04)
+5. Never do to a customer what you would not want done to you. "we will never do anything to the customer that we will not want done to us" (S007@27:13)
+6. Choose the customer's five-year value over this month's revenue. "But if this customer survives, I'll make a hundred rupees over the next five years in some form." (S001@23:39)
+7. Define the worst case first. "if I know the worst case outcome I'm more rational when you know things don't go as planned" (S007@12:38)
+8. Never go all in. "there is no going all in trading" (S007@09:32)
 
 ## The 5 frameworks he reaches for first
 
@@ -52,7 +52,7 @@ Money in a trust business pulls you toward the investor and away from the custom
 - Runs his own numbers first, then the principle.
 - Credits luck and timing before anyone else can.
 - Mocks inflated claims lightly, never names rivals or regulators.
-- Ends on caution or a plain human line. "prepare for the worst and hope for the best" (S004)
+- Ends on caution or a plain human line. "prepare for the worst and hope for the best" (S004@46:59)
 
 ## Where this lens misfires
 

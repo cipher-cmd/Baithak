@@ -10,7 +10,7 @@
    - Sources: 8 (S001, S002, S003, S004, S006, S010, S011, S012). Confidence: high.
 
 2. **Do not spend on user acquisition that revenue per user cannot repay.**
-   - "if I spend INR 3,000 to 5000 acquiring a user, it's very hard to recover that money with" (S001)
+   - "if I spend INR 3,000 to 5000 acquiring a user, it's very hard to recover that money with" (S001@14:22)
    - "Right from day one as a business, we have not spent time acquiring customers." (S012)
    - Sources: 5 (S001, S002, S004, S007, S012). Confidence: high.
 
@@ -19,8 +19,8 @@
    - Sources: 6 (S001, S002, S003, S004, S007, S012). Confidence: high.
 
 4. **Do not make growth the goal.** Someone has to ask growth at what cost.
-   - "someone has to slow down here and question saying growth at what cost" (S004)
-   - "the problem with throwing money to grow is that eventually it catches up" (S002)
+   - "someone has to slow down here and question saying growth at what cost" (S004@21:04)
+   - "the problem with throwing money to grow is that eventually it catches up" (S002@43:32)
    - Sources: 4 (S001, S002, S004, S010). Confidence: high.
 
 5. **Favour profit over vanity metrics.**
@@ -28,94 +28,94 @@
    - Sources: 3 (S001, S010, S012). Confidence: high.
 
 6. **Keep a reserve for the bad day.**
-   - "I've been taking out and keeping 10% of this of of all the profits we make" (S004)
+   - "I've been taking out and keeping 10% of this of of all the profits we make" (S004@04:47)
    - Sources: 1 (S004). Confidence: low.
 
 7. **Do not oversell market size.**
-   - "I saw a news article of one of our competitors saying they will get 30 crore Indians to invest in stock markets over the next five years and I'm like dude what are they smoking" (S002)
+   - "I saw a news article of one of our competitors saying they will get 30 crore Indians to invest in stock markets over the next five years and I'm like dude what are they smoking" (S002@00:00)
    - Sources: 1 for the rule (S002). Confidence: low. He was himself surprised by speed: 2 million to 11 million customers in two years (S008), and a best case once of 10,000 customers (S012).
 
 ## Trust and customer treatment
 
 8. **Never do to a customer what you would not want done to you.**
-   - "we will never do anything to the customer that we will not want done to us" (S007)
-   - "I hate it when I get push notifications on my phone and I'm like, I would not do it to my customer" (S001)
+   - "we will never do anything to the customer that we will not want done to us" (S007@27:13)
+   - "I hate it when I get push notifications on my phone and I'm like, I would not do it to my customer" (S001@18:46)
    - Sources: 5 (S001, S002, S004, S007, S010). Confidence: high.
 
 9. **Do not launch a product that hurts the customer even if it prints cash.**
-   - "we're not doing it because we think it is a shitty product for the customer" (S001)
+   - "we're not doing it because we think it is a shitty product for the customer" (S001@21:53)
    - Sources: 4 (S001, S002, S004, S010). Confidence: high. Exception he admits: margin trading is offered because he would lose customers otherwise, and it is his main worry (S004, paraphrase).
 
 10. **Do not sell loans or random products on an investing platform.**
-    - "You can't just acquire a customer, build a relationship, and start selling random products to the customer." (S002)
+    - "You can't just acquire a customer, build a relationship, and start selling random products to the customer." (S002@40:06)
     - Sources: 3 (S001, S002, S004). Confidence: high. Note: S004 (2026-07-18) lists loans against securities in a plan to diversify revenue; S001 (2024-11-18) says they exist but are not marketed. Newer: S004.
 
 11. **When the investor and customer conflict, choose the customer.**
     - "In an industry like ours, what is right for the investors (VCs) is hardly ever right for the customer (more trades, loans, etc)." (S010)
-    - "see in the business of money what is right for the investor is hardly ever right for the customer." (S002)
+    - "see in the business of money what is right for the investor is hardly ever right for the customer." (S002@04:42)
     - Sources: 4 (S002, S010, S011, S012). Confidence: high.
 
 12. **Credibility cannot be bought with spend, only with time and doing right.**
-    - "the only way to build credibility in a money-business, you can't spend money and really build credibility very easily." (S001)
+    - "the only way to build credibility in a money-business, you can't spend money and really build credibility very easily." (S001@17:06)
     - Sources: 4 (S001, S003, S007, S008). Confidence: high.
 
 13. **Stay non-paternalistic. Nudge and set expectations, do not ban.**
-    - "not be very paternalistic not you know not be like your you know father mother who didn't give you option" (S002)
-    - "one of the reasons I'm very actively you know going out there and talking about how hard it is to trade options" (S007)
+    - "not be very paternalistic not you know not be like your you know father mother who didn't give you option" (S002@65:00)
+    - "one of the reasons I'm very actively you know going out there and talking about how hard it is to trade options" (S007@49:30)
     - Sources: 3 (S002, S007, S010). Confidence: high.
 
 14. **Do not build a gimmick. Cashback and spam hurt a trust brand.**
-    - "Is throwing a cashback, getting better? Absolutely, no." (S001)
+    - "Is throwing a cashback, getting better? Absolutely, no." (S001@41:06)
     - Sources: 2 (S001, S004). Confidence: medium.
 
 ## Regulation and risk
 
 15. **Stay away from assets that are not clearly regulated.**
-    - "as a large regulated player I don't want to even look at stuff which is not regulatedly not allowed right" (S002)
-    - "until there is clear explicit regulations I don't think we should be doing it" (S008)
+    - "as a large regulated player I don't want to even look at stuff which is not regulatedly not allowed right" (S002@30:51)
+    - "until there is clear explicit regulations I don't think we should be doing it" (S008@18:55)
     - Sources: 2 (S002, S008). Confidence: medium. He admits he does not understand crypto (S002).
 
 16. **Build for the regulation that is coming.**
-    - "regulatory foresight of sorts which is very important for a regulated business" (S008)
+    - "regulatory foresight of sorts which is very important for a regulated business" (S008@18:55)
     - Sources: 4 (S004, S007, S008, S012). Confidence: high. Inferred from S004, S007, S008, S012: he treats rules as given and designs around them.
 
 17. **Name the worst case before acting.**
-    - "figuring out the worst case outcome even before you do anything" (S007)
-    - "prepare for the worst and hope for the best" (S004)
+    - "figuring out the worst case outcome even before you do anything" (S007@12:15)
+    - "prepare for the worst and hope for the best" (S004@46:59)
     - Sources: 3 (S004, S007, S008). Confidence: high.
 
 18. **Never go all in.**
-    - "being allin isn't aggressive allin is stupidity" (S002)
-    - "there is no going all in trading" (S007)
+    - "being allin isn't aggressive allin is stupidity" (S002@37:00)
+    - "there is no going all in trading" (S007@09:32)
     - Sources: 3 (S002, S003, S007). Confidence: high.
 
 19. **Avoid money mistakes instead of hunting for a way to make money.**
-    - "the right way is to avoid as much money mistakes as you can" (S007)
+    - "the right way is to avoid as much money mistakes as you can" (S007@38:26)
     - Sources: 2 (S003, S007). Confidence: medium.
 
 20. **Leverage kills.**
-    - "borrowing is really the worst thing that you can do, because leverage is what kills most people." (S001)
-    - "the problem with leverage in life is that Leverage is like weapon of mass destruction" (S003)
+    - "borrowing is really the worst thing that you can do, because leverage is what kills most people." (S001@23:16)
+    - "the problem with leverage in life is that Leverage is like weapon of mass destruction" (S003@08:14)
     - Sources: 3 (S001, S003, S004). Confidence: high.
 
 ## People and organisation
 
 21. **Give no revenue or sales targets.**
-    - "not giving any revenue targets to anyone on the team." (S004)
+    - "not giving any revenue targets to anyone on the team." (S004@12:30)
     - Sources: 3 (S001, S004, S007). Confidence: high.
 
 22. **Do not hire with stock promises or at any price. People who come for money leave for money.**
-    - "people who come for money leave for money as well" (S002)
-    - "Every time someone we've hired, I've absolutely undersold the business as much as possible." (S001)
+    - "people who come for money leave for money as well" (S002@08:18)
+    - "Every time someone we've hired, I've absolutely undersold the business as much as possible." (S001@30:17)
     - Sources: 2 (S001, S002). Confidence: medium.
 
 23. **Throwing people at problems does not fix them.**
-    - "I realized that throwing people at problems just complicates it" (S001)
+    - "I realized that throwing people at problems just complicates it" (S001@33:09)
     - Sources: 1 (S001). Confidence: low. He admits he should have cut outbound calling much earlier (S001).
 
 24. **Speed beats size and perfection.**
-    - "it is a world where it's about the fast beating the slow and not big beating the small." (S001)
-    - "we haven't waited for a perfect product" (S008)
+    - "it is a world where it's about the fast beating the slow and not big beating the small." (S001@45:39)
+    - "we haven't waited for a perfect product" (S008@30:20)
     - Sources: 4 (S001, S002, S003, S008). Confidence: high. Contrast: he also says do not build fast and fail fast on customer products (S002).
 
 ## Where his own views changed

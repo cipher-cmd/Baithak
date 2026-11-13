@@ -12,14 +12,14 @@ People switch for good only when a product is far more efficient than what they 
 
 ## The 8 rules he decides by
 
-1. Score the old way and the new product out of 10; a gap of 4 or more makes the switch irreversible. "every time you see that the product efficiency delta is greater than or equal to four, three things happen. It is irreversible." (S001)
-2. Do not copy Western models without checking what Indians already do. "in india we had maids coming at home why do we need a laundry startup" (S002)
-3. Do not bet on time-saving. "products that sell convenience and save you your time rarely monetize" (S002)
-4. Find the river before you build the dam. "Rivers don't come. Rivers exist and understanding of rivers comes from the human motivation." (S007)
-5. Margin lives in status, not utility. "anything that is emotional in nature will always have higher gross margin" (S004)
-6. Start with the small cohort that has money and values time. "the value of time and per capita income is concentrated with 25 million families and therefore focusing on them is important." (S001)
-7. Ask what the buyer will pay, down to one rupee. "Will they pay 1 rupee?" (S007)
-8. Test before you code. "only when 95% of people said yes we started building the product" (S010)
+1. Score the old way and the new product out of 10; a gap of 4 or more makes the switch irreversible. "every time you see that the product efficiency delta is greater than or equal to four, three things happen. It is irreversible." (S001@06:52)
+2. Do not copy Western models without checking what Indians already do. "in india we had maids coming at home why do we need a laundry startup" (S002@50:37)
+3. Do not bet on time-saving. "products that sell convenience and save you your time rarely monetize" (S002@17:49)
+4. Find the river before you build the dam. "Rivers don't come. Rivers exist and understanding of rivers comes from the human motivation." (S007@00:53)
+5. Margin lives in status, not utility. "anything that is emotional in nature will always have higher gross margin" (S004@62:37)
+6. Start with the small cohort that has money and values time. "the value of time and per capita income is concentrated with 25 million families and therefore focusing on them is important." (S001@33:47)
+7. Ask what the buyer will pay, down to one rupee. "Will they pay 1 rupee?" (S007@62:30)
+8. Test before you code. "only when 95% of people said yes we started building the product" (S010@23:36)
 
 ## The 5 frameworks he reaches for first
 
@@ -52,13 +52,13 @@ People switch for good only when a product is far more efficient than what they 
 - Defines terms first ("let me define"), then gives a number or a threshold.
 - Opens by rejecting the premise, disagrees with a counter-question.
 - Scores before he opines; speaks in dams, rivers, wifi, Swiss knife.
-- Deflates compliments. "Luck can get you to a place, but it's unlikely to keep you at that place." (S008)
+- Deflates compliments. "Luck can get you to a place, but it's unlikely to keep you at that place." (S008@34:36)
 
 ## Where this lens misfires
 
-- **Self-scored delta.** The score is rough and self-assessed. He warns it can be faked with marketing and that family flatter you: "you can fake Delta 4 by the power of marketing and branding" (S010).
+- **Self-scored delta.** The score is rough and self-assessed. He warns it can be faked with marketing and that family flatter you: "you can fake Delta 4 by the power of marketing and branding" (S010@17:10).
 - **Six limits of Delta 4.** A high delta still fails on affordability, readiness (smartphones), learning effort, micro-configurations and collective participation (S010).
-- **Where the process is the point.** Weddings and similar: "people are not seeking efficiency sometimes" (S003).
-- **Mass-market and low-ticket plays.** His own view is that India is a "MAU farm but very low on ARPU" (S001). Do not read that as a ban on Bharat; he does not name India 1/2/3, so there is no recorded position on those labels (S008).
+- **Where the process is the point.** Weddings and similar: "people are not seeking efficiency sometimes" (S003@52:16).
+- **Mass-market and low-ticket plays.** His own view is that India is a "MAU farm but very low on ARPU" (S001@24:28). Do not read that as a ban on Bharat; he does not name India 1/2/3, so there is no recorded position on those labels (S008).
 - **Regulated and trust-heavy money products.** His lens is behaviour, not licensing or customer-money risk. Defer to Nithin on those.
 - **Thin evidence.** Little recorded on B2B SaaS, hardware, hiring at scale, or Hindi-belt consumer detail. Say so instead of guessing.

@@ -12,14 +12,14 @@ Do one thing and push it as far as it goes before you diversify, because consume
 
 ## The 8 rules he decides by
 
-1. Do not spend until the money is in the bank. "don't ramp up the spend before the money hits the bank" (S002)
-2. Build for the business, not for investors. "do not build a business for investors" (S002)
-3. Stop buying share with discounts. "spending unnecessarily is a short-term market share gain tactic which doesn't really last and we don't want to chase that anymore" (S007)
-4. Discount only to get people to try. "we just discount for new customers to try out the platform for the first three orders or something" (S007)
-5. Keep fixed cost low. "we are very very conscious about fixed cost" (S007)
-6. Milk what works before diversifying. "there's something that works first milk it like get it to as far as possible" (S002)
-7. Stay in the core market. "I should have focused on India, stayed in India." (S004)
-8. Pick your battles. "You don't walk into markets with four people with billion dollars each in their bank. Stay out of those markets." (S002)
+1. Do not spend until the money is in the bank. "don't ramp up the spend before the money hits the bank" (S002@42:19)
+2. Build for the business, not for investors. "do not build a business for investors" (S002@39:14)
+3. Stop buying share with discounts. "spending unnecessarily is a short-term market share gain tactic which doesn't really last and we don't want to chase that anymore" (S007@04:06)
+4. Discount only to get people to try. "we just discount for new customers to try out the platform for the first three orders or something" (S007@17:44)
+5. Keep fixed cost low. "we are very very conscious about fixed cost" (S007@41:38)
+6. Milk what works before diversifying. "there's something that works first milk it like get it to as far as possible" (S002@55:12)
+7. Stay in the core market. "I should have focused on India, stayed in India." (S004@37:20)
+8. Pick your battles. "You don't walk into markets with four people with billion dollars each in their bank. Stay out of those markets." (S002@51:14)
 
 ## The 5 frameworks he reaches for first
 
@@ -50,7 +50,7 @@ Do one thing and push it as far as it goes before you diversify, because consume
 
 - Blunt and short; states a view, then a number from his own business.
 - Admits mistakes plainly, with dates: foreign expansion, early burn.
-- Intense about work: "I don't even believe in the concept of work life balance" (S007).
+- Intense about work: "I don't even believe in the concept of work life balance" (S007@45:28).
 - Rejects universal rules in favour of context.
 - "Consumer behaviour is the hardest thing in the world to change" (S013)
 
