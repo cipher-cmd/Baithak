@@ -14,7 +14,8 @@ under other headings are checked against every brain. Each quote gets a status:
   WRONG SEAT  real quote of a different seat
   UNVERIFIED  in no brain: invented, remove it from the verdict
 Writes <session>/quote-audit.md with the source title, date, link and brain line for each
-quote, so a person can check context by opening the source. Exit code 1 on any flag.
+quote, so a person can check context by opening the source. YouTube links jump to the
+quote's time when the brain line carries one (S014@12:34, written by newseat check_quotes.mjs --stamp). Exit code 1 on any flag.
 Self-test: check_quotes.py --selftest
 """
 import re
@@ -48,6 +49,7 @@ def selftest():
 
 
 ID = re.compile(r"S\d{3}")
+STAMP = re.compile(r"(S\d{3})@(\d+:\d\d(?::\d\d)?)")  # video time written by newseat check_quotes.mjs --stamp
 QUOTE = re.compile(r"[\"“]([^\"“”\n]{20,400})[\"”][^\n\"]{0,40}?[\(\[](S\d{3})")
 
 
@@ -58,7 +60,7 @@ def load_brains(root=BRAINS):
         lines, sources = [], {}
         for f in sorted(d.glob("*.md")):
             for i, raw in enumerate(f.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
-                lines.append((f.name, i, norm(raw), set(ID.findall(raw))))
+                lines.append((f.name, i, norm(raw), set(ID.findall(raw)), dict(STAMP.findall(raw))))
                 if f.name == "sources.md" and raw.startswith("- S"):
                     parts = [x.strip() for x in raw[2:].split("|")]
                     if len(parts) >= 4:
@@ -111,6 +113,11 @@ def selftest_audit(tmp):
     assert classify(norm("build depth in the village not the metro"), "S001", "a-seat", b)[0] == "WRONG SEAT"
     assert classify(norm("we always cold call every single customer"), "S001", None, b)[0] == "UNVERIFIED"
     assert classify(q, "S001", None, b)[0] == "PASS"
+    assert at_time("https://www.youtube.com/watch?v=abc", "1:02:03") == "https://www.youtube.com/watch?v=abc&t=3723s"
+    assert at_time("https://youtu.be/abc", "04:42") == "https://youtu.be/abc?t=282s"
+    assert at_time("https://x.test/article", "04:42") == "https://x.test/article"
+    (d / "voice.md").write_text('- "we never raise money we do not need at all" (S001@04:42, 2024)\n', encoding="utf-8")
+    assert load_brains(tmp / "brains")["a-seat"]["lines"][-1][4] == {"S001": "04:42"}
 
 
 def main():
@@ -153,6 +160,16 @@ def main():
     sys.exit(1 if bad else 0)
 
 
+def at_time(url, stamp):
+    """Link a YouTube URL to the quote's moment; other URLs and missing stamps stay as they are."""
+    if not stamp or not re.search(r"youtube\.com/watch|youtu\.be/", url):
+        return url
+    secs = 0
+    for part in stamp.split(":"):
+        secs = secs * 60 + int(part)
+    return f"{url}{'&' if '?' in url else '?'}t={secs}s"
+
+
 def write_audit(session, rows, brains):
     out = ["# Quote audit", "",
            "Each quote attributed to a source id, checked against the speaking seat's brain.",
@@ -168,7 +185,9 @@ def write_audit(session, rows, brains):
         out.append(f"- **Status:** {status}")
         src = brains.get(slug, {}).get("sources", {}).get(cited) if status in ("PASS", "WRONG ID") else None
         if src:
-            out.append(f"- **Source:** {cited}, {src[0]} ({src[2]}) {src[1]}")
+            stamp = next((l[4].get(cited) for l in brains[slug]["lines"] if (l[0], l[1]) == (bfile, bline)), None)
+            when = f" at {stamp}" if stamp else ""
+            out.append(f"- **Source:** {cited}, {src[0]} ({src[2]}){when} {at_time(src[1], stamp)}")
         else:
             out.append(f"- **Cited id:** {cited}")
         if bfile:

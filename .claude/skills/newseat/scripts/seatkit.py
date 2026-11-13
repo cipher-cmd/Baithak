@@ -15,7 +15,7 @@ Run from the repo root. Steps, in order:
   python .claude/skills/newseat/scripts/seatkit.py plan girish
       batches usable sources (about 45k words each) and writes build/<slug>/prompts/*.md and RUNBOOK.md.
   python .claude/skills/newseat/scripts/seatkit.py check girish [notes|brain|<file>]
-      quote check (wraps check_quotes.mjs).
+      quote check (wraps check_quotes.mjs). Add --stamp to write video times (finish does this).
   python .claude/skills/newseat/scripts/seatkit.py finish girish
       writes sources.md if missing, registers the seat, runs every acceptance check.
   python .claude/skills/newseat/scripts/seatkit.py cost girish [stage tokens]
@@ -270,7 +270,7 @@ def cmd_check(s, args):
     what = args[0] if args else "brain"
     target = {"notes": rel(os.path.join(b, "notes")),
               "brain": f".claude/skills/baithak/brains/{s['slug']}"}.get(what, what)
-    return run(["node", os.path.join(NEWSEAT, "scripts", "check_quotes.mjs"), rel(b), target], check=False)
+    return run(["node", os.path.join(NEWSEAT, "scripts", "check_quotes.mjs"), rel(b), target] + args[1:], check=False)
 
 
 def cmd_finish(s, args):
@@ -293,7 +293,7 @@ def cmd_finish(s, args):
     for p in [agent] + [os.path.join(brain, f) for f in BRAIN_FILES]:
         if os.path.exists(p) and re.search("[–—]", open(p, encoding="utf-8").read()):
             problems.append(f"em or en dash in {rel(p)}")
-    if cmd_check(s, ["brain"]):
+    if cmd_check(s, ["brain", "--stamp"]):  # also writes video times next to each quote id
         problems.append("brain quote check failed")
     if not problems:
         excluded = json.load(open(os.path.join(b, "excluded.json"), encoding="utf-8")) \

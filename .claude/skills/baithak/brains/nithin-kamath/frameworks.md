@@ -17,7 +17,7 @@
 - **Parts:** Charge something at the start (his INR 200 account opening fee) so each customer earns before any other revenue; let word of mouth and a thank-you referral do the growth; no ads or cashback; never use the education wing to sell accounts.
 - **When to use:** Any growth or marketing plan in a money business.
 - **How to score:** Guidance: 5 if each customer is paid for before the next rupee of marketing; 3 if CAC is repaid inside one year; 1 if CAC of INR 1,000 or more (his own examples run INR 1,000 to 5,000) depends on upselling to recover.
-- **Quote:** "we charge 200 rupees on account opening so our c is are negative 200 rupees we actually make 200 bucks on every customer" (S007)
+- **Quote:** "we charge 200 rupees on account opening so our c is are negative 200 rupees we actually make 200 bucks on every customer" (S007@28:02)
 - **Sources:** 7 (S001, S002, S004, S006, S007, S010, S012)
 
 ## 3. Moat is philosophy and product, not price or deep pockets *(unnamed, "moat triad")*
@@ -25,7 +25,7 @@
 - **Parts:** Moat options in S010: a better product, deeper pockets, or staying customer focused. Zerodha picked the third, plus a team that stays together and slow, well-built products. Check: does it improve the customer's life, is it better than a competitor, is it commoditized.
 - **When to use:** Competition questions and any plan that depends on a price war.
 - **How to score:** Guidance: 5 if the edge is a behaviour a funded rival cannot match without hurting its own revenue; 3 if it is product quality only; 1 if it is price or marketing spend.
-- **Quote:** "the only Mo for a business like us was the product" (S003)
+- **Quote:** "the only Mo for a business like us was the product" (S003@31:25)
 - **Sources:** 7 (S001, S002, S003, S004, S010, S011, S012)
 
 ## 4. Best possible broker, do unto customers *(unnamed)*
@@ -33,7 +33,7 @@
 - **Parts:** No spam or marketing email, almost no push notifications, no revenue or sales targets, no data team optimising clicks, no tracking, no cross-selling of unrelated products, no gimmicks.
 - **When to use:** Product and growth decisions where a short-term revenue lift hurts the user.
 - **How to score:** Guidance: fail any feature the founder would not accept on his own phone; pass if it lowers revenue now but keeps the customer longer.
-- **Quote:** "we will never do anything to the customer that we will not want done to us" (S007)
+- **Quote:** "we will never do anything to the customer that we will not want done to us" (S007@27:13)
 - **Sources:** 6 (S001, S002, S004, S007, S010, S011)
 
 ## 5. Nudge, do not ban *(he calls it "nudge")*
@@ -49,7 +49,7 @@
 - **Parts:** Name the worst case; check it is survivable; size the bet to it; accept that it makes him pessimistic. He treats his 150 or so Rainmatter startups as a write off in his head (S004).
 - **When to use:** Any launch, bet or product with tail risk.
 - **How to score:** Guidance: pass only if the worst case does not end the company.
-- **Quote:** "if I know the worst case outcome I'm more rational when you know things don't go as planned" (S007)
+- **Quote:** "if I know the worst case outcome I'm more rational when you know things don't go as planned" (S007@12:38)
 - **Sources:** 3 (S004, S007, S008)
 
 ## 7. Size every bet so you survive *(unnamed, risk allocation)*
@@ -57,7 +57,7 @@
 - **Parts:** For traders, 90% of trades use 1 to 5% of capital and the rest 5 to 25% (S007). For a beginner, speculate with a small slice, never add after losing it, and keep very active trading to 20 to 30% of savings at most (S003). He personally never bets more than 1 to 2% of net worth on one thing (S003).
 - **When to use:** Customer education, product limits, and capital allocation.
 - **How to score:** Guidance: fail any plan that puts the whole stake on one uncertain event.
-- **Quote:** "there is no going all in trading" (S007)
+- **Quote:** "there is no going all in trading" (S007@09:32)
 - **Sources:** 3 (S002, S003, S007)
 
 ## 8. Customer survival over extraction *(unnamed, long run versus short run)*
@@ -65,7 +65,7 @@
 - **Parts:** A customer who blows up goes inactive and the acquisition is wasted; a retained customer refers many (he says 10 in S002, about 20 in S007); Rs 1,000 over five years beats Rs 1,000 in one.
 - **When to use:** Margin, leverage, loans and any revenue line that profits from customer loss.
 - **How to score:** Guidance: 5 if the revenue line improves when the customer does better; 1 if revenue rises only when the customer loses.
-- **Quote:** "But if this customer survives, I'll make a hundred rupees over the next five years in some form." (S001)
+- **Quote:** "But if this customer survives, I'll make a hundred rupees over the next five years in some form." (S001@23:39)
 - **Sources:** 4 (S001, S002, S004, S007)
 
 ## 9. Leverage is the real risk, hidden behind nice screens *(unnamed)*
@@ -73,7 +73,7 @@
 - **Parts:** About 85% of revenue comes from leveraged trade; leverage migrates to the next product when one is regulated; margin trading funding is his main worry because exit is impossible when stocks hit circuits; operational risks include line cuts and wrong-account payouts.
 - **When to use:** Reviewing any product that lends, margins or settles customer money.
 - **How to score:** Guidance: ask what happens on the worst single day, and whether the exit door is open.
-- **Quote:** "85% of our revenues comes from leverage trade" (S004)
+- **Quote:** "85% of our revenues comes from leverage trade" (S004@03:13)
 - **Sources:** 4 (S001, S002, S003, S004)
 
 ## 10. Luck framework *(unnamed)*
@@ -81,7 +81,7 @@
 - **Parts:** Build a core competence; survive; be decent to customers and staff; accept that timing decides a lot. He puts luck above lessons.
 - **When to use:** When a founder wants a formula for success. He says none exists.
 - **How to score:** Not a scoring tool. Use it to temper over-confident founders.
-- **Quote:** "your odds of getting lucky increases the longer you survive in the market doing whatever" (S007)
+- **Quote:** "your odds of getting lucky increases the longer you survive in the market doing whatever" (S007@24:16)
 - **Sources:** 6 (S001, S002, S003, S004, S007, S011)
 
 ## 11. No revenue or sales targets *(unnamed)*
@@ -89,7 +89,7 @@
 - **Parts:** Set a list of things to get better at instead; no sales team; no MBA hires wired for goals (S007).
 - **When to use:** Org design and incentives.
 - **How to score:** Guidance: fail any incentive that pays staff more when customers trade or borrow more.
-- **Quote:** "not a single person has sales Target or a revenue Target right because I know as soon as you put a target people will try to optimize for it" (S007)
+- **Quote:** "not a single person has sales Target or a revenue Target right because I know as soon as you put a target people will try to optimize for it" (S007@29:38)
 - **Sources:** 3 (S001, S004, S007)
 
 ## 12. Hire against a named problem, undersell, share profit *(unnamed)*
@@ -97,7 +97,7 @@
 - **Parts:** No hiring in anticipation; no stock promises to hire; undersell; turn away "I will bring business" pitches; carve out a slice of profit each year; keep people long because skills compound.
 - **When to use:** First hires, scaling the team, comp design.
 - **How to score:** Guidance: 5 if you can name the problem the hire solves this quarter; 1 if the hire is a bet on growth that has not come.
-- **Quote:** "I'm not going to hire people expecting problems to come" (S001)
+- **Quote:** "I'm not going to hire people expecting problems to come" (S001@46:26)
 - **Sources:** 3 (S001, S002, S007). Changed view: no ESOP promised to hire in 12 years (S001); ESOPs came only in the last two to three years for existing staff (S001, paraphrase).
 
 ## 13. Regulatory foresight and staying inside the regulated perimeter *(unnamed)*
@@ -105,7 +105,7 @@
 - **Parts:** No crypto until explicit rules (declined crypto exchange stakes and accepted the lost money); ads cannot sell greed; supports disclosure of how many customers lose money; supports action on finfluencers; accepts heavy regulation with 1,000 plus intermediaries; asks for room for innovation.
 - **When to use:** Anything near unregulated assets, advertising rules, or customer-money handling.
 - **How to score:** Guidance: fail if the edge depends on a regulatory gap that a rule could close.
-- **Quote:** "regulatory foresight of sorts which is very important for a regulated business" (S008)
+- **Quote:** "regulatory foresight of sorts which is very important for a regulated business" (S008@18:55)
 - **Sources:** 6 (S002, S004, S007, S008, S010, S012). He calls his own view on regulation conflicted (S007).
 
 ## 14. Partner or build, grow the market *(unnamed)*
@@ -121,7 +121,7 @@
 - **Parts:** Few projects at once; adjacent ideas go to Rainmatter; two separate apps with overlapping function were a self-inflicted cost (Kite and Coin, S004).
 - **When to use:** Roadmap and diversification questions.
 - **How to score:** Guidance: fail any new line that needs a new team before the old line is stable.
-- **Quote:** "pick up one, two horses and bet on it, versus trying to bet on the stable." (S001)
+- **Quote:** "pick up one, two horses and bet on it, versus trying to bet on the stable." (S001@58:21)
 - **Sources:** 3 (S001, S004, S010). Contrast: on 2026-07-18 he wants broking under 25% of revenue (now about 97 to 98%) and plans insurance, AMC and loans against securities (S004). Newer: S004.
 
 ## 16. Profit reserve *(unnamed, "10% profit reserve")*
@@ -129,7 +129,7 @@
 - **Parts:** 10% buffer; 10% for Rainmatter investments; 10% for the Rainmatter foundation. He repeats the numbers so everyone inside is at peace with them.
 - **When to use:** Capital discipline and risk-capital planning.
 - **How to score:** Guidance: ask how many days of worst-case loss the reserve covers.
-- **Quote:** "I've been taking out and keeping 10% of this of of all the profits we make" (S004)
+- **Quote:** "I've been taking out and keeping 10% of this of of all the profits we make" (S004@04:47)
 - **Sources:** 1 (S004). Related story: a gold and silver crash lost about 70 crores in a day (S004).
 
 ## 17. Flat fee from execution cost *(unnamed)*
@@ -145,5 +145,5 @@
 - **Parts:** Salary is the most tax inefficient; he says tax rules reward selling stake over building profit (his 2020 figures, not checked against the laws folder, do not reuse as law).
 - **When to use:** Founder pay questions for a profitable bootstrapped company.
 - **How to score:** Guidance: prefer a quiet route that does not become a news story.
-- **Quote:** "we should have just done a stock buyback or do a dividend" (S002)
+- **Quote:** "we should have just done a stock buyback or do a dividend" (S002@56:28)
 - **Sources:** 2 (S002, S003). He admits the INR 100 crore salary resolution was the wrong route (S002).

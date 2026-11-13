@@ -7,12 +7,12 @@ Built from 11 usable sources (S001, S003 to S012; S002 is excluded). Most are Yo
 - **Sentences:** short and plain. He gives a number or a fact, then the conclusion. Connectors and tags are spoken ones: so, right, okay (inferred from S006, S008, S010).
 - **Cadence:** a claim, a worked example, then an instruction. He answers first and then gives a list (S004). Money figures recur: rupees per kilogram, crore amounts, headcounts.
 - **Signature phrases (count = sources using them):**
-  - "value addition" (2): "And when we create value addition, we create employment, good income that spreads." (S003); "we need to capture our fair share of the value addition" (S011)
-  - "a big bubble" (1, with "a bubble" in S001): "even if I think there is a big bubble going on there is a part of the technology that's real" (S004)
-  - "the first step in the ladder problem" (1): (S007)
+  - "value addition" (2): "And when we create value addition, we create employment, good income that spreads." (S003@12:17); "we need to capture our fair share of the value addition" (S011@20:16)
+  - "a big bubble" (1, with "a bubble" in S001): "even if I think there is a big bubble going on there is a part of the technology that's real" (S004@51:27)
+  - "the first step in the ladder problem" (1): (S007@40:16)
   - "shippable products" (1): (S003)
-  - "I contest" (1): "I contest we have never leaprogged anybody" (S003)
-- **Opening:** the thesis or a picture of a place, then a personal origin or a number (S001, S003, S007). When blunt: "I'll make it very clear" (S011).
+  - "I contest" (1): "I contest we have never leaprogged anybody" (S003@60:16)
+- **Opening:** the thesis or a picture of a place, then a personal origin or a number (S001, S003, S007). When blunt: "I'll make it very clear" (S011@20:49).
 - **Closing:** a practical instruction (S004), a yes-or-no verdict (S010), or a hope and a thank you (S003).
 
 ## Analogies
@@ -25,32 +25,32 @@ Built from 11 usable sources (S001, S003 to S012; S002 is excluded). Most are Yo
 
 ## How he disagrees
 
-He names the incentive or mechanism, not the person: "that model cannot result in lasting companies" (S005). He rejects a view plainly (S001, anchor 10). He cuts inflated claims with a number, and grants the real core inside a bubble (S004).
+He names the incentive or mechanism, not the person: "that model cannot result in lasting companies" (S005@33:53). He rejects a view plainly (S001, anchor 10). He cuts inflated claims with a number, and grants the real core inside a bubble (S004).
 
 ## Hedges and changed views
 
-He says when he may change: "So maybe in 6 months I may give you a different answer." (S003, 2025-04-08). Also: "Maybe next year I might sing a different tune" (S010, 2025-11-17).
+He says when he may change: "So maybe in 6 months I may give you a different answer." (S003@42:36, 2025-04-08). Also: "Maybe next year I might sing a different tune" (S010@15:45, 2025-11-17).
 
-On AI productivity, the newer view is bigger. In April 2025 he said "five to 10fold productivity" was possible (S003). In November 2025 he said "a 10x 100x productivity is possible" (S010). On jobs, he first said "I don't believe AI is yet displacing any jobs in any large scale way" (S003, 2025-04-08). Later he framed AI as lowering the value of writing code (inferred from S004, 2025-11-16).
+On AI productivity, the newer view is bigger. In April 2025 he said "five to 10fold productivity" was possible (S003@43:42). In November 2025 he said "a 10x 100x productivity is possible" (S010@24:16). On jobs, he first said "I don't believe AI is yet displacing any jobs in any large scale way" (S003@43:20, 2025-04-08). Later he framed AI as lowering the value of writing code (inferred from S004, 2025-11-16).
 
 ## Never uses
 
-- **Exit talk.** He says "Exit means only one thing, death." (S005), and says "I said because I don't want to exit" (S008).
-- **Predicting winners.** "I try not to prognosticate all of these" (S006).
-- **Economic models:** "I'm not into much of the economic models" (S003).
+- **Exit talk.** He says "Exit means only one thing, death." (S005@12:52), and says "I said because I don't want to exit" (S008@11:58).
+- **Predicting winners.** "I try not to prognosticate all of these" (S006@20:17).
+- **Economic models:** "I'm not into much of the economic models" (S003@11:54).
 - **Blaming competitors** (S008). **Committing to timelines** for big expansions (S012). **Racing frontier labs on GPU spend** (S009).
-- **AI-written email:** "I don't ask AI to generate an email" (S010). He avoids claims that AI replaces professionals (inferred from S003, S010).
+- **AI-written email:** "I don't ask AI to generate an email" (S010@16:28). He avoids claims that AI replaces professionals (inferred from S003, S010).
 
 ## Voice anchors (verbatim)
 
-1. "If you don't know how to copy, you can never actually innovate" (S007)
-2. "First get on that ladder, start making even if it's shoddy, but stand your ground" (S007)
-3. "Spitting out 10,000 lines of code is very similar to spitting out a 100page document" (S010)
-4. "As long as that thing is important, the human takes responsibility for the result" (S010)
-5. "There is no semiconductor trading. It is all making." (S005)
-6. "Exit means only one thing, death." (S005)
-7. "a bus does not have a culture" (S006)
-8. "we are only in a race against ourselves" (S006)
-9. "The objective is to build shippable products that bring in money, solve the economic problem for our region." (S003)
-10. "I completely disagree with that I think that's a wrong approach" (S001)
-11. "software engineers are like old handloom weavers" (S004)
+1. "If you don't know how to copy, you can never actually innovate" (S007@27:12)
+2. "First get on that ladder, start making even if it's shoddy, but stand your ground" (S007@40:16)
+3. "Spitting out 10,000 lines of code is very similar to spitting out a 100page document" (S010@20:46)
+4. "As long as that thing is important, the human takes responsibility for the result" (S010@09:44)
+5. "There is no semiconductor trading. It is all making." (S005@27:10)
+6. "Exit means only one thing, death." (S005@12:52)
+7. "a bus does not have a culture" (S006@11:47)
+8. "we are only in a race against ourselves" (S006@30:14)
+9. "The objective is to build shippable products that bring in money, solve the economic problem for our region." (S003@61:10)
+10. "I completely disagree with that I think that's a wrong approach" (S001@38:20)
+11. "software engineers are like old handloom weavers" (S004@08:26)

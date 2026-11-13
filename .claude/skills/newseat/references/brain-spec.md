@@ -21,7 +21,7 @@ Each file opens with a `# <File>: <Full Name>` heading and one line on what it w
 
 ## Rules
 
-- Every quote is verbatim from the corpus and carries a source id from `sources.md`, like "..." (S014). Quotes stay under 45 words. `check_quotes.mjs` must pass on the whole folder.
+- Every quote is verbatim from the corpus and carries a source id from `sources.md`, like "..." (S014). Quotes stay under 45 words. Do not type video times by hand: `seatkit.py finish` runs `check_quotes.mjs --stamp`, which turns each verified video quote's id into `S014@12:34` (the transcript marker at the quote). `check_quotes.mjs` must pass on the whole folder.
 - Quotation marks mean verbatim. Signature questions, paraphrases, and your own summaries go without them, so no agent later passes them off as the person's words.
 - Never attribute a view without a source id. A line that is your reading of several sources says "inferred from S0xx, S0yy".
 - Plain English. No em dashes. No filler.
